@@ -607,31 +607,6 @@
     .album-card { padding: 40px 0 36px; }
   }
 
-  .archive-divider {
-    display: flex; align-items: center; gap: 20px;
-    padding: 48px 40px 0;
-    opacity: 0.5;
-  }
-  .archive-divider::before, .archive-divider::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
-  .archive-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px; letter-spacing: 0.35em;
-    color: var(--ink-dim); text-transform: uppercase;
-  }
-  .archive-note {
-    padding: 12px 40px 0;
-    font-size: 11px; color: var(--ink-dim);
-    opacity: 0.5; font-style: italic; line-height: 1.7;
-    max-width: 600px;
-  }
-  .archive-albums .album-card {
-    opacity: 0.45;
-  }
-  .archive-albums .album-card:hover {
-    opacity: 0.7;
-  }
 </style>
 </head>
 <body>
@@ -830,45 +805,6 @@
 
   </main>
 
-  <div class="archive-divider">
-    <span class="archive-label">Archive</span>
-  </div>
-  <div class="archive-note">The following work is preserved for the historical record. It preceded the active catalogue and has been superseded by a later version.</div>
-  <main class="albums archive-albums">
-    <a class="album-card" href="https://unhurriedclock.netlify.app" target="_blank" rel="noopener">
-      <div class="album-spine">
-        <div class="spine-row">
-          <span class="spine-key">Catalogue №</span>
-          <span class="spine-val cat">A-001</span>
-        </div>
-        <div class="spine-row">
-          <span class="spine-key">Year</span>
-          <span class="spine-val">MMXXVI · 2026</span>
-        </div>
-        <div class="spine-row">
-          <span class="spine-key">Pieces</span>
-          <span class="spine-val">Six</span>
-        </div>
-        <div class="spine-row">
-          <span class="spine-key">Form</span>
-          <span class="spine-val">Nylon-String · Version A</span>
-        </div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">途中<span class="sep">·</span><span class="alt">Version A</span></h2>
-        <div class="album-en">Túzhōng · First Draft</div>
-        <p class="album-desc">The original version of the journey album — six pieces for nylon-string guitar. The road before it was named. Preserved as the first telling.</p>
-        <div class="album-foot">
-          <div class="album-tags">
-            <span>First Draft</span><span class="dot"></span>
-            <span>Solo Guitar</span><span class="dot"></span>
-            <span>Archive</span>
-          </div>
-          <span class="listen"><span class="arrow"></span>Listen</span>
-        </div>
-      </div>
-    </a>
-  </main>
 
   <section class="about">
     <div class="about-grid">
