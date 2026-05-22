@@ -90,8 +90,8 @@
   <div class="main">
     <div class="now-playing">
       <div class="np-number" id="npNum">TRACK 01</div>
-      <div class="np-zh" id="npZh">茶未凉</div>
-      <div class="np-en" id="npEn">Before the Tea Cools</div>
+      <div class="np-zh" id="npZh">四壁</div>
+      <div class="np-en" id="npEn">Between These Four Walls</div>
       <div class="np-story" id="npStory"></div>
     </div>
     <div class="controls">
@@ -112,18 +112,18 @@
 <audio id="audio"></audio>
 <script>
 const tracks = [
-  { num:"01", zh:"茶未凉", en:"Before the Tea Cools", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T01_%E8%8C%B6%E6%9C%AA%E5%87%89_Before_the_Tea_Cools.mp3",
-    story:"Morning. The tea is still hot — just barely. No one has drunk it yet. The room is quiet with the specific quiet of early hours: unhurried, without expectation. The day has not begun. C major. The softest piece on the album." },
-  { num:"02", zh:"四壁", en:"Between These Four Walls", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T02_%E5%9B%9B%E5%A3%81_Between_These_Four_Walls.mp3",
+  { num:"01", zh:"四壁", en:"Between These Four Walls", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T02_%E5%9B%9B%E5%A3%81_Between_These_Four_Walls.mp3",
     story:"The room itself. Four walls, a ceiling, a floor — and inside them, the particular quality of being indoors: not confined, just bounded. The room as a whole world. A minor, slightly more weight than the opening. The guitar establishes that this space is complete." },
-  { num:"03", zh:"阳光落地", en:"Sun on the Floorboards", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T03_%E9%98%B3%E5%85%89%E8%90%BD%E5%9C%B0_Sun_on_the_Floorboards.mp3",
+  { num:"02", zh:"阳光落地", en:"Sun on the Floorboards", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T03_%E9%98%B3%E5%85%89%E8%90%BD%E5%9C%B0_Sun_on_the_Floorboards.mp3",
     story:"Noon. Light falls directly onto the floor in a stripe that crosses from window to wall. The brightest piece on the album. G major. Something almost active in the light — not energetic, just present. The guitar is fuller here: noon has its own weight." },
-  { num:"04", zh:"三点钟的重量", en:"The Weight of Three O'Clock", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T04_%E4%B8%89%E7%82%B9%E9%92%9F%E7%9A%84%E9%87%8D%E9%87%8F_The_Weight_of_Three_OClock.mp3",
+  { num:"03", zh:"三点钟的重量", en:"The Weight of Three O'Clock", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T04_%E4%B8%89%E7%82%B9%E9%92%9F%E7%9A%84%E9%87%8D%E9%87%8F_The_Weight_of_Three_OClock.mp3",
     story:"Three o'clock — the hour of greatest stillness. Energy at its lowest. The light has moved past the floor. The room is quiet in a different way now — not morning quiet, which is fresh, but afternoon quiet, which has settled. The heaviest piece on the album." },
-  { num:"05", zh:"四点的对话", en:"Conversations at Four", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T05_%E5%9B%9B%E7%82%B9%E7%9A%84%E5%AF%B9%E8%AF%9D_Conversations_at_Four.mp3",
+  { num:"04", zh:"四点的对话", en:"Conversations at Four", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T05_%E5%9B%9B%E7%82%B9%E7%9A%84%E5%AF%B9%E8%AF%9D_Conversations_at_Four.mp3",
     story:"Something stirs. A thought, or the memory of a voice, or simply the guitar playing to itself. It is not quite a conversation — there is only one guitar — but the phrase shapes suggest call and withdrawal, something offered and something held back." },
-  { num:"06", zh:"最后的光", en:"Last Light On the Floor", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T06_%E6%9C%80%E5%90%8E%E7%9A%84%E5%85%89_Last_Light_On_The_Floor.mp3",
-    story:"Evening. The light returns to the floor one last time, lower now, longer-angled, orange at the edges. Then it goes. The guitar does not chase it. The album closes without ceremony, because ordinary days do not end with ceremony. They simply end." }
+  { num:"05", zh:"最后的光", en:"Last Light On the Floor", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T06_%E6%9C%80%E5%90%8E%E7%9A%84%E5%85%89_Last_Light_On_The_Floor.mp3",
+    story:"Evening. The light returns to the floor one last time, lower now, longer-angled, orange at the edges. Then it goes. The guitar does not chase it. The album closes without ceremony, because ordinary days do not end with ceremony. They simply end." },
+  { num:"06", zh:"茶未凉", en:"Before the Tea Cools", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T01_%E8%8C%B6%E6%9C%AA%E5%87%89_Before_the_Tea_Cools.mp3",
+    story:"Morning. The tea is still hot — just barely. No one has drunk it yet. The room is quiet with the specific quiet of early hours: unhurried, without expectation. The day has not begun. C major. The softest piece on the album." }
 ];
 let current=0; const audio=document.getElementById('audio');
 function fmt(s){if(isNaN(s))return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
