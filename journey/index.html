@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>途中 — Still on the Way</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f7f3eb;
+    color: #1a1208;
+    font-family: 'Georgia', 'STSong', serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .header {
+    padding: 24px 40px 18px;
+    border-bottom: 1px solid #ddd6c8;
+    flex-shrink: 0;
+    background: #f7f3eb;
+  }
+  .album-title { font-size: 26px; font-weight: normal; letter-spacing: 0.12em; color: #1a1208; }
+  .album-subtitle { font-size: 12px; color: #a09080; margin-top: 5px; letter-spacing: 0.1em; }
+
+  .body { display: flex; flex: 1; overflow: hidden; }
+
+  .sidebar {
+    width: 230px;
+    border-right: 1px solid #ddd6c8;
+    overflow-y: auto;
+    flex-shrink: 0;
+    padding: 12px 0;
+  }
+  .track-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background 0.2s;
+  }
+  .track-item:hover { background: #ede8de; }
+  .track-item.active { border-left-color: #b89040; background: #ede8de; }
+  .track-num { font-size: 9px; color: #b0a090; letter-spacing: 0.12em; margin-bottom: 2px; }
+  .track-zh { font-size: 15px; color: #1a1208; letter-spacing: 0.05em; }
+  .track-en { font-size: 10px; color: #a09080; margin-top: 1px; }
+  .track-item.active .track-zh { color: #8a6820; }
+  .track-item.active .track-en { color: #b08a40; }
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 40px 50px 30px;
+    background: #f7f3eb;
+  }
+  .now-playing { flex: 1; overflow-y: auto; }
+  .np-number { font-size: 10px; color: #b0a090; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 14px; }
+  .np-zh { font-size: 50px; font-weight: normal; color: #1a1208; letter-spacing: 0.08em; line-height: 1; margin-bottom: 10px; }
+  .np-en { font-size: 16px; color: #a09080; letter-spacing: 0.1em; margin-bottom: 34px; }
+  .np-story { font-size: 14px; line-height: 1.9; color: #6a5a48; max-width: 540px; transition: opacity 0.4s ease; }
+
+  .controls { flex-shrink: 0; padding-top: 26px; border-top: 1px solid #ddd6c8; }
+  .progress-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .time { font-size: 10px; color: #b0a090; width: 38px; flex-shrink: 0; letter-spacing: 0.05em; }
+  .time.right { text-align: right; }
+  .progress-bar { flex: 1; height: 2px; background: #ddd6c8; border-radius: 2px; cursor: pointer; }
+  .progress-fill { height: 100%; background: #b89040; border-radius: 2px; width: 0%; transition: width 0.5s linear; pointer-events: none; }
+  .buttons { display: flex; align-items: center; gap: 26px; }
+  .btn { background: none; border: none; color: #a09080; cursor: pointer; font-size: 12px; letter-spacing: 0.1em; padding: 5px 0; transition: color 0.2s; }
+  .btn:hover { color: #8a6820; }
+  .btn-play { font-size: 14px; color: #1a1208; border: 1px solid #c8b890; border-radius: 50%; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .btn-play:hover { border-color: #8a6820; color: #8a6820; }
+  .status-dot { width: 5px; height: 5px; border-radius: 50%; background: #b89040; opacity: 0; transition: opacity 0.3s; margin-left: auto; }
+  .status-dot.playing { opacity: 1; }
+  .footer { text-align: center; font-size: 9px; color: #2a2820; letter-spacing: 0.1em; padding: 10px 0 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="album-title">途中 &nbsp;·&nbsp; Still on the Way</div>
+  <div class="album-subtitle">Lee Jin &nbsp;&nbsp;·&nbsp;&nbsp; 2026 &nbsp;&nbsp;·&nbsp;&nbsp; Version B</div>
+</div>
+<div class="body">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main">
+    <div class="now-playing">
+      <div class="np-number" id="npNum">TRACK 01</div>
+      <div class="np-zh" id="npZh">出发前</div>
+      <div class="np-en" id="npEn">Before Departure</div>
+      <div class="np-story" id="npStory"></div>
+    </div>
+    <div class="controls">
+      <div class="progress-wrap">
+        <span class="time" id="timeElapsed">0:00</span>
+        <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="time right" id="timeTotal">0:00</span>
+        <div class="status-dot" id="statusDot"></div>
+      </div>
+      <div class="buttons">
+        <button class="btn" onclick="prevTrack()">&#9664;&#9664; PREV</button>
+        <button class="btn btn-play" id="btnPlay" onclick="togglePlay()">&#9654;</button>
+        <button class="btn" onclick="nextTrack()">NEXT &#9654;&#9654;</button>
+      </div>
+    </div>
+  </div>
+</div>
+<audio id="audio"></audio>
+<script>
+const tracks = [
+  { num:"01", zh:"出发前", en:"Before Departure", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/%E5%87%BA%E5%8F%91%E5%89%8D%20%E2%80%94%20Before%20Departure.mp3",
+    story:"Before leaving, the room holds its breath. Two guitars — one steady, one carrying an arched melody that rises gently toward the 5th degree and returns home. D Major. What is unspoken before setting out. The journey has not yet begun, and in that not-yet, everything is still possible." },
+  { num:"02", zh:"候车", en:"Waiting", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/%E5%80%99%E8%BD%A6%20%E2%80%94%20Waiting.mp3",
+    story:"A circular phrase that returns to its starting point without arriving anywhere. No harmonic resolution — each phrase ends suspended, open. Time passes; nothing changes. The specific quality of waiting: not passive, not impatient. Simply present, inside the passing." },
+  { num:"03", zh:"陌生的街道", en:"Unfamiliar Streets", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/%E9%99%8C%E7%94%9F%E7%9A%84%E8%A1%97%E9%81%93%20%E2%80%94%20Unfamiliar%20Streets.mp3",
+    story:"Solo guitar. Moving through territory without a map. Heavy rubato — the tempo breathes with each phrase, slowing at the held note, resuming forward. The most active piece on the album. Not lost — just unfamiliar, which is different. The street doesn't know you yet." },
+  { num:"04", zh:"萍水相逢", en:"Strangers, Just Hi", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/%E8%90%8D%E6%B0%B4%E7%9B%B8%E9%80%A2%20%E2%80%94%20Strangers%2C%20Just%20Hi.mp3",
+    story:"Two guitars, each playing its own sparse line. Then once, midway: Guitar B briefly echoes Guitar A's phrase. One bar. Unrepeated. After that, both resume as before, without acknowledgment. This is what strangers are: a brief rhyme between separate melodies." },
+  { num:"05", zh:"暮色", en:"Dusk", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/%E6%9A%AE%E8%89%B2%20%E2%80%94%20Dusk.mp3",
+    story:"A melody that descends slowly from the first phrase to the last — begins in the upper register and settles downward, phrase by phrase, without return. A natural minor. Nearly static harmony. The descent is the arc. The day does not end with ceremony. It simply ends." },
+  { num:"06", zh:"到家", en:"Arriving Home", file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/%E5%88%B0%E5%AE%B6%20%E2%80%94%20Arriving%20Home.mp3",
+    story:"D Major — the same key as 出发前. The home phrase, recognized. A section: the threshold crossed, the room known. B section: quieter, more space, the settling after movement. Return to A: the melody again, familiar and complete. The journey closes not with arrival but with recognition." }
+];
+let current=0; const audio=document.getElementById('audio');
+function fmt(s){if(isNaN(s))return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
+function buildSidebar(){const sb=document.getElementById('sidebar');tracks.forEach((t,i)=>{const el=document.createElement('div');el.className='track-item'+(i===0?' active':'');el.id='ti'+i;el.innerHTML=`<div class="track-num">TRACK ${t.num}</div><div class="track-zh">${t.zh}</div><div class="track-en">${t.en}</div>`;el.onclick=()=>loadTrack(i,true);sb.appendChild(el);});}
+function loadTrack(idx,play){document.getElementById('ti'+current).classList.remove('active');current=idx;document.getElementById('ti'+current).classList.add('active');const t=tracks[current];document.getElementById('npNum').textContent='TRACK '+t.num;document.getElementById('npZh').textContent=t.zh;document.getElementById('npEn').textContent=t.en;const s=document.getElementById('npStory');s.style.opacity=0;setTimeout(()=>{s.textContent=t.story;s.style.opacity=1;},200);audio.src=t.file;if(play)audio.play();updateBtn();}
+function togglePlay(){audio.paused?audio.play():audio.pause();updateBtn();}
+function updateBtn(){document.getElementById('btnPlay').innerHTML=audio.paused?'&#9654;':'&#9646;&#9646;';document.getElementById('statusDot').className='status-dot'+(audio.paused?'':' playing');}
+function prevTrack(){if(audio.currentTime>3){audio.currentTime=0;return;}loadTrack((current-1+tracks.length)%tracks.length,!audio.paused);}
+function nextTrack(){loadTrack((current+1)%tracks.length,!audio.paused);}
+audio.addEventListener('timeupdate',()=>{if(!audio.duration)return;document.getElementById('progressFill').style.width=(audio.currentTime/audio.duration*100)+'%';document.getElementById('timeElapsed').textContent=fmt(audio.currentTime);document.getElementById('timeTotal').textContent=fmt(audio.duration);});
+audio.addEventListener('ended',()=>{if(current<tracks.length-1)loadTrack(current+1,true);else updateBtn();});
+audio.addEventListener('play',updateBtn);audio.addEventListener('pause',updateBtn);
+document.getElementById('progressBar').addEventListener('click',e=>{if(!audio.duration)return;const r=e.currentTarget.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;});
+buildSidebar();loadTrack(0,false);
+</script>
+  <div class="footer">&copy; 2026 Gem Lee &nbsp;&middot;&nbsp; nongming66@gmail.com &nbsp;&middot;&nbsp; All rights reserved</div>
+</body>
+</html>
