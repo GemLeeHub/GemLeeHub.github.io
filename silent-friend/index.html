@@ -86,6 +86,63 @@
   .footer { text-align: center; font-size: 9px; color: #c8a84a; letter-spacing: 0.1em; padding: 7px 20px 10px; flex-shrink: 0; line-height: 2; position: relative; z-index: 1; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
   .footer a { color: #c8a84a; text-decoration: none; }
   .mantra { font-size: 11px; color: #ffd060; letter-spacing: 0.32em; font-style: italic; margin-top: 3px; text-shadow: 0 1px 10px rgba(0,0,0,0.9); }
+
+  /* ── MOBILE (portrait) ──────────────────────────────── */
+  @media (max-width: 768px) {
+    body { height: auto; min-height: 100dvh; overflow: auto; }
+
+    .bg-image { background-position: center center; background-attachment: scroll; }
+
+    .header { padding: 16px 20px 12px; }
+    .album-title { font-size: 20px; letter-spacing: 0.08em; }
+    .album-subtitle { font-size: 10px; }
+
+    /* Sidebar becomes horizontal scroll strip at top */
+    .body { flex-direction: column; }
+    .sidebar {
+      width: 100%;
+      height: auto;
+      border-right: none;
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 6px 0 6px;
+      flex-shrink: 0;
+      -webkit-overflow-scrolling: touch;
+    }
+    .track-item {
+      flex-shrink: 0;
+      padding: 8px 16px;
+      border-left: none;
+      border-bottom: 2px solid transparent;
+    }
+    .track-item.active {
+      border-left: none;
+      border-bottom-color: #ffd060;
+      background: none;
+    }
+    .track-num { font-size: 8px; margin-bottom: 2px; }
+    .track-zh { font-size: 12px; white-space: nowrap; }
+    .track-en { display: none; }
+
+    /* Main content full width */
+    .main { padding: 24px 20px 16px; }
+    .np-number { margin-bottom: 8px; }
+    .np-zh { font-size: 30px; margin-bottom: 6px; }
+    .np-en { font-size: 10px; margin-bottom: 18px; letter-spacing: 0.18em; }
+    .np-story { font-size: 13px; line-height: 1.9; max-width: 100%; }
+
+    /* Controls */
+    .controls { padding-top: 16px; }
+    .progress-wrap { margin-bottom: 12px; }
+    .buttons { gap: 16px; }
+    .btn-play { width: 44px; height: 44px; }
+
+    /* Footer */
+    .footer { font-size: 8px; padding: 8px 16px 12px; }
+    .mantra { font-size: 10px; }
+  }
 </style>
 </head>
 <body>
