@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>镜 — The Mirror</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0b0d12;
+    color: #ccc4b0;
+    font-family: 'Georgia', 'STSong', serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .header {
+    padding: 24px 40px 18px;
+    border-bottom: 1px solid #1c1e28;
+    flex-shrink: 0;
+  }
+  .album-title { font-size: 26px; font-weight: normal; letter-spacing: 0.15em; color: #f0e8d0; }
+  .album-subtitle { font-size: 11px; color: #4a4438; margin-top: 6px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .body { display: flex; flex: 1; overflow: hidden; }
+  .sidebar {
+    width: 240px;
+    border-right: 1px solid #1c1e28;
+    overflow-y: auto;
+    flex-shrink: 0;
+    padding: 12px 0;
+  }
+  .track-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background 0.2s;
+  }
+  .track-item:hover { background: #141620; }
+  .track-item.active { border-left-color: #c89840; background: #111318; }
+  .track-num { font-size: 9px; color: #3a3830; letter-spacing: 0.14em; margin-bottom: 3px; }
+  .track-zh { font-size: 15px; color: #ccc4b0; letter-spacing: 0.05em; }
+  .track-en { font-size: 10px; color: #3a3830; margin-top: 2px; }
+  .track-item.active .track-zh { color: #c89840; }
+  .track-item.active .track-en { color: #8a7040; }
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 40px 50px 30px;
+  }
+  .now-playing { flex: 1; overflow-y: auto; }
+  .np-number { font-size: 10px; color: #3a3830; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 14px; }
+  .np-zh { font-size: 46px; font-weight: normal; color: #f0e8d0; letter-spacing: 0.08em; line-height: 1; margin-bottom: 10px; }
+  .np-en { font-size: 15px; color: #6a5e40; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .np-arc { font-size: 11px; color: #c89840; letter-spacing: 0.08em; margin-bottom: 28px; font-style: italic; }
+  .np-params { font-size: 10px; color: #3a3830; letter-spacing: 0.08em; margin-bottom: 24px; }
+  .np-story { font-size: 14px; line-height: 1.95; color: #a09880; max-width: 540px; }
+  .np-lyric { margin-top: 22px; padding-top: 18px; border-top: 1px solid #1c1e28; }
+  .np-lyric-label { font-size: 9px; color: #3a3830; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+  .np-lyric-en { font-size: 13px; color: #807868; line-height: 1.8; font-style: italic; }
+  .np-lyric-zh { font-size: 12px; color: #4a4438; line-height: 1.8; margin-top: 8px; }
+  .controls { flex-shrink: 0; padding-top: 24px; border-top: 1px solid #1c1e28; }
+  .progress-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .time { font-size: 10px; color: #3a3830; width: 38px; flex-shrink: 0; }
+  .time.right { text-align: right; }
+  .progress-bar { flex: 1; height: 2px; background: #1c1e28; border-radius: 2px; cursor: pointer; }
+  .progress-fill { height: 100%; background: #c89840; border-radius: 2px; width: 0%; transition: width 0.5s linear; pointer-events: none; }
+  .buttons { display: flex; align-items: center; gap: 26px; }
+  .btn { background: none; border: none; color: #3a3830; cursor: pointer; font-size: 11px; letter-spacing: 0.12em; padding: 5px 0; transition: color 0.2s; font-family: inherit; }
+  .btn:hover { color: #c89840; }
+  .btn-play { font-size: 13px; color: #ccc4b0; border: 1px solid #2a2c38; border-radius: 50%; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .btn-play:hover { border-color: #c89840; color: #c89840; }
+  .status-dot { width: 5px; height: 5px; border-radius: 50%; background: #c89840; opacity: 0; transition: opacity 0.3s; margin-left: auto; }
+  .status-dot.playing { opacity: 1; }
+  .footer { text-align: center; font-size: 9px; color: #2a2820; letter-spacing: 0.1em; padding: 10px 0 14px; flex-shrink: 0; }
+  @media (max-width: 768px) {
+    body { height: auto; min-height: 100dvh; overflow: auto; }
+    .header { padding: 16px 20px 12px; }
+    .album-title { font-size: 20px; letter-spacing: 0.08em; }
+    .album-subtitle { font-size: 10px; }
+    .body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; border-right: none; display: flex; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: 6px 0 6px; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
+    .track-item { flex-shrink: 0; padding: 8px 16px; border-left: none; border-bottom: 2px solid transparent; }
+    .track-item.active { border-left: none; border-bottom-color: currentColor; background: none; }
+    .track-num { font-size: 8px; margin-bottom: 2px; }
+    .track-zh { font-size: 12px; white-space: nowrap; }
+    .track-en { display: none; }
+    .main { padding: 24px 20px 16px; }
+    .np-number { margin-bottom: 8px; }
+    .np-zh { font-size: 30px; margin-bottom: 6px; }
+    .np-en { font-size: 10px; margin-bottom: 18px; letter-spacing: 0.18em; }
+    .np-story { font-size: 13px; line-height: 1.9; max-width: 100%; }
+    .controls { padding-top: 16px; }
+    .progress-wrap { margin-bottom: 12px; }
+    .buttons { gap: 16px; }
+    .btn-play { width: 44px; height: 44px; }
+    .footer { font-size: 8px; padding: 8px 16px 12px; }
+    .mantra { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="album-title">镜 &nbsp;&middot;&nbsp; The Mirror</div>
+  <div class="album-subtitle">Gem Lee &nbsp;&middot;&nbsp; Heart Sutra &amp; &#346;&#363;ra&#7747;gama S&#363;tra</div>
+</div>
+
+<div class="body">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main">
+    <div class="now-playing" id="nowPlaying"></div>
+    <div class="controls">
+      <div class="progress-wrap">
+        <span class="time" id="timeElapsed">0:00</span>
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="time right" id="timeTotal">0:00</span>
+      </div>
+      <div class="buttons">
+        <button class="btn" onclick="prevTrack()">&#9668; PREV</button>
+        <button class="btn btn-play" id="playBtn" onclick="togglePlay()">&#9654;</button>
+        <button class="btn" onclick="nextTrack()">NEXT &#9658;</button>
+        <div class="status-dot" id="statusDot"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+var tracks = [
+  {
+    num: '01',
+    zh: '借形',
+    en: 'The Tenant Stays',
+    arc: '惊觉 — The first recognition',
+    params: 'G Major \xb7 BPM 74 \xb7 4/4 \xb7 Narrative Folk',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T01_%E4%BD%8F%E5%AE%A2%E7%95%99%E4%BA%86%E4%B8%8B%E6%9D%A5_The_Tenant_Stays.mp3',
+    story: 'The album opens at sixty-two. Skin like a dried creek bed, the frame starting to buckle. A question is asked of the teacher: is there anything here that the years have not caught? Not despair, but honest confrontation with impermanence. The cello enters like a long exhale at the chorus. The body is heavy, but the asking is already the beginning of freedom.',
+    lyric_en: 'Past sixty now, the mirror\'s got a bitter tongue\nFace like a creek bed when the winter\'s done\nSkin\'s a loose map of where the sun has been\nFeeling the frame start to buckle and give in\n\nTold the teacher: I\'m scared of the rust and the rot\nIs there anything here that the years haven\'t caught?',
+    lyric_zh: '年过60，镜子里的面容开始变得尖酸刻薄\n这张脸就像冬季干涵后的溪床\n皮肤是一张松坦的地图，标记着阳光曾照耀过的地方\n我能感到这具身躯的框架开始弯曲、塌降\n\n我告诉导师：我害怕身体的锈蚀与腐烂\n究竟有没有什么东西，是岁月无法夺走的？'
+  },
+  {
+    num: '02',
+    zh: '渡灯',
+    en: 'Lantern on the River Bank',
+    arc: '指引 — Wisdom as guide',
+    params: 'G Major \xb7 BPM 104 \xb7 4/4 \xb7 Upbeat Bluegrass Folk',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T02_%E6%B2%B3%E5%B2%B8%E8%BE%B9%E7%9A%84%E7%81%AF%E7%AC%BC_Lantern_on_the_River_Bank.mp3',
+    story: 'The album\'s most outward piece. Bluegrass strumming, warm vocal harmonies, a rhythm that lifts. The Heart Sutra\'s teaching enters directly: see the five heaps hollow — 照见五蕊皆空. Prajna is the lantern. Ego and sorrow are left on the bank. The crossing is not frightening because the lantern is real.',
+    lyric_en: 'They say this body\'s just a shifting of the dust\nA floating set of particles in which we blindly trust\nLike a script from the Matrix, it\'s a beautiful lie\nWatching the world just drift on by\n\nSee the five heaps hollow, feel the heart go light\nGoing across the river in the middle of the night\nPrajna\'s the lantern, the wisdom and the guide\nLeaving all the ego and the sorrow on the side',
+    lyric_zh: '他们说这具身体不过是尘埃的迁徙\n只是我们盲目信任的一群漂浮微粒\n就像黑客帝国里的剧本，是一场美丽的谎言\n\n照见五蕊皆空，顿觉心中轻松\n在午夜时分，乘船渡向彼岸\n般若是灯笼，是智慧，是向导\n将所有的自我与哀伤抛在岸边'
+  },
+  {
+    num: '03',
+    zh: '叩问',
+    en: 'The Unchanging Eye',
+    arc: '寻找 — The fierce questioning',
+    params: 'E min → G Major \xb7 BPM 92 \xb7 4/4 \xb7 Rap / Spoken Word Folk',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T03_%E9%82%A3%E5%8F%AA%E4%B8%8D%E5%8F%98%E7%9A%84%E7%9C%BC%E7%9D%9B_The_Unchanging_Eye.mp3',
+    story: 'A rupture in the album\'s sound world: modern groove bass, percussive energy, rap-inflected delivery. Hair receding like the tide, wrinkles in the concrete of the face, muscles turning to ghosts. King Pasenadi of Kosala — Passanati — came before the Buddha to speak of his own aging body and ask what does not die. The song invokes that encounter. The music crashes and stills. The answer is not given in words.',
+    lyric_en: 'Look at the king in the mirror, 62 when it\'s deep\nHair receding like the tide while the city never sleeps\nWrinkles etched in the concrete of my face\nMuscles turning into ghosts, slipping out the human race\n\nPassanati — see the skin fading out, no lie\nAsk the Buddha is there anything that doesn\'t die',
+    lyric_zh: '看着镜中那个自以为是国王的人，在六十二岁深沉的暮年里\n头发像退潮一样减少，而城市却永不入眠\n皱纹刻进了我面庞的混凝土里\n肌肉化作鬼魂，悄悄溜出人类的竞赛\n\n波斯匿王，照见皮肤终将退色，绝无虚言\n追问佛陀：究竟有没有什么东西，是永不消亡的？'
+  },
+  {
+    num: '04',
+    zh: '主人翁',
+    en: 'The Watcher in the Hall',
+    arc: '证悟 — The recognition of the unchanging',
+    params: 'C Major \xb7 BPM 68 \xb7 4/4 \xb7 Spiritual Hymn / Choral',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T04_%E5%A4%A7%E5%A0%82%E9%87%8C%E7%9A%84%E8%A7%82%E5%AF%9F%E8%80%85_The_Watcher_in_the_Hall.mp3',
+    story: 'The album\'s first breath of genuine stillness. Organ-like pad, cello, distant flute, large hall reverb. The metaphor crystallizes: the skin is borrowed wood, the house a rented frame. But the one standing in the hall has never changed shape at all — not since childhood, not ever. The song does not argue this. It simply holds the space for the listener to notice.',
+    lyric_en: 'My house is just a rented frame\nThat\'s forgotten its olden name\nYou\'ve changed from youth to 62\nBut has the watcher changed in you?\n\nThe skin is but the rented wood\nThat we repair as best we could\nBut the one who stands within the hall\nHas never changed its shape at all',
+    lyric_zh: '我的肉身，不过是一个租来的框架\n早已遗忘了它最古老的名字\n你已经从青春年少变成了六十二岁\n但，你心中那个观察者改变过吗？\n\n皮肤不过是租来的木料\n我们只能尽力去修补\n但那个常驻在大堂中央的覚知\n却永远不曾改变过容颜'
+  },
+  {
+    num: '05',
+    zh: '空谷',
+    en: 'Mirror in the Holler',
+    arc: '般若 — Form and emptiness as one',
+    params: 'A Major \xb7 BPM 82 \xb7 4/4 \xb7 Indie Folk / Twin Guitar',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T05_%E7%A9%BA%E8%B0%B7%E4%B9%8B%E9%95%9C_Mirror_in_the_Holler.mp3',
+    story: 'Twin guitar picking, crystalline and light, wide reverb. A holler is an Appalachian valley — enclosed, still, echoing back whatever enters it. Color (form) is not different from the empty air — 色不异空. The mirror catches light and lets it go. No walls, just a long sky beginning to show. The Heart Sutra\'s most difficult teaching delivered in the most transparent music on the album.',
+    lyric_en: 'Color ain\'t different from the empty air\nJust a reflection in a pool that\'s clear\nLike a mirror in the holler\nCatching the light and letting it go\nNo walls to follow, just a long sky beginning to show',
+    lyric_zh: '色与空并无二致\n不过是清澈池塘中的倒影\n就像空谷里的一面镜子\n捕捉着光芒，又任由它离去\n没有墙壁的阻隔，只有无尽的苍穹开始显现'
+  },
+  {
+    num: '06',
+    zh: '无住',
+    en: 'Uncluttered Night',
+    arc: '实践 — Practicing non-attachment',
+    params: 'E Major \xb7 BPM 118 \xb7 4/4 \xb7 Soft Rock / R&B Folk',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T06_%E6%B8%85%E7%A9%BA%E4%B9%8B%E5%A4%9C_Uncluttered_Night.mp3',
+    story: 'The album\'s most driven track — electric bass, swing guitar, a groove that moves. Letting go is not quiet. It has a pulse. No self, no sorrow, nothing to lose. We are clouds under an unchanging sun. The upbeat energy is intentional: non-attachment is not renunciation — it is lightness. The night is uncluttered because there is nothing left to hold onto, and that is the good news.',
+    lyric_en: 'If this is love, it\'s gotta be free\nNo heavy chains we gotta wear\nSo let it be empty, babe\nNo attachment, no pain\nWe\'re just clouds in the sky, drifting while the sun stays the same\n\nNo self, no sorrow, nothing to lose',
+    lyric_zh: '如果这是爱，它必须是自由的\n我们不需要佩戴沉重的锁链\n所以，让它空无一物吧\n没有执着，便没有痛苦\n我们只是天空的浮云，在不变的太阳下漂流\n\n无我，无忧，便无所失去'
+  },
+  {
+    num: '07',
+    zh: '潮音',
+    en: 'Saltwater Prayer',
+    arc: '净化 — Purification before the last shore',
+    params: 'E♭ Major \xb7 BPM 70 \xb7 6/8 \xb7 Ambient Choral / Hymn',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T07_%E6%B5%B7%E4%B9%8B%E7%A5%B7_Saltwater_Prayer.mp3',
+    story: 'Ocean waves as the natural rhythmic bed. Wet reverb, wordless vocal chant, strings building slowly. Salt water: tears, ocean, baptism, dissolution. Before the final crossing, the accumulated weight of six songs is washed away. This is the album\'s most spacious track — wide, humid, unhurried. It does not speak. It cleanses.',
+    lyric_en: '[ Wordless ]\n\nOcean and voice, rising and subsiding.\nThe tide does not ask permission to return.\nNeither do you.',
+    lyric_zh: '【无字咏叹】\n\n海浪与人声，升起，消落。\n潮水归来不需要请求允许。\n你也不需要。'
+  },
+  {
+    num: '08',
+    zh: '揭谛',
+    en: 'Where Only Silence Knows',
+    arc: '终章 — Arrival',
+    params: 'C Major \xb7 BPM 68 \xb7 4/4 \xb7 Anthem / Spiritual Hymn',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T08_%E5%94%AF%E6%9C%89%E6%B2%89%E9%BB%98%E7%9F%A5%E6%99%93_Where_Only_Silence_Knows.mp3',
+    story: 'The finale. Warm guitar introduction gives way to full ensemble: male and female voices in grand chorus. A pine boat heads toward where the current grows. The shore fades to gray. Then, in the final section, the Heart Sutra\'s closing mantra enters the folk arrangement in full. The self dissolves into the singing. The silence that follows is not emptiness — it is completion.',
+    lyric_en: 'Leave that heavy bag behind\nThe roots that tangled up your mind\nJust let the shoreline fade to gray\nThere\'s a little boat made out of pine\nIt\'s heading out where the current grows\nTo a place that only the silence knows\n\nGate Gate, we\'re crossing the shore\nParagate, won\'t be lonely no more\nParasamgate, Bodhi Svaha',
+    lyric_zh: '扔下那沉重的包裱吧\n剪断那些缠绕你心灵的凡根\n任由身后的海岸线消逝在灰色里\n这有一只松木做成的小船\n正在驶向激流涌动的地方\n驶向那个揭谛的地方\n\n揭踫揭踫，波罗揭踫，波罗僧揭踫，菩提萨婆诃'
+  }
+];
+
+var current = 0;
+var audio = document.getElementById('audio');
+
+function fmt(s) {
+  if (isNaN(s) || !isFinite(s)) return '0:00';
+  var m = Math.floor(s / 60);
+  var sec = Math.floor(s % 60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+function buildSidebar() {
+  var sb = document.getElementById('sidebar');
+  var html = '';
+  for (var i = 0; i < tracks.length; i++) {
+    var t = tracks[i];
+    html += '<div class="track-item' + (i === current ? ' active' : '') + '" onclick="loadTrack(' + i + ', true)">';
+    html += '<div class="track-num">TRACK ' + t.num + '</div>';
+    html += '<div class="track-zh">' + t.zh + '</div>';
+    html += '<div class="track-en">' + t.en + '</div>';
+    html += '</div>';
+  }
+  sb.innerHTML = html;
+}
+
+function buildNowPlaying() {
+  var t = tracks[current];
+  var lyricHtml = '';
+  if (t.lyric_en) {
+    lyricHtml = '<div class="np-lyric">' +
+      '<div class="np-lyric-label">Selected Lyrics</div>' +
+      '<div class="np-lyric-en">' + t.lyric_en.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="np-lyric-zh">' + t.lyric_zh.replace(/\n/g, '<br>') + '</div>' +
+      '</div>';
+  }
+  document.getElementById('nowPlaying').innerHTML =
+    '<div class="np-number">TRACK ' + t.num + ' / 08</div>' +
+    '<div class="np-zh">' + t.zh + '</div>' +
+    '<div class="np-en">' + t.en + '</div>' +
+    '<div class="np-arc">' + t.arc + '</div>' +
+    '<div class="np-params">' + t.params + '</div>' +
+    '<div class="np-story">' + t.story + lyricHtml + '</div>';
+}
+
+function loadTrack(index, autoplay) {
+  current = index;
+  audio.src = tracks[current].file;
+  buildSidebar();
+  buildNowPlaying();
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('timeElapsed').textContent = '0:00';
+  document.getElementById('timeTotal').textContent = '0:00';
+  if (autoplay) {
+    audio.play().catch(function(){});
+  }
+}
+
+function togglePlay() {
+  if (audio.paused) {
+    if (!audio.src) audio.src = tracks[current].file;
+    audio.play().catch(function(){});
+  } else {
+    audio.pause();
+  }
+}
+
+function updateBtn() {
+  document.getElementById('playBtn').innerHTML = audio.paused ? '&#9654;' : '&#9646;&#9646;';
+  document.getElementById('statusDot').className = 'status-dot' + (audio.paused ? '' : ' playing');
+}
+
+function prevTrack() { loadTrack((current - 1 + tracks.length) % tracks.length, !audio.paused); }
+function nextTrack() { loadTrack((current + 1) % tracks.length, !audio.paused); }
+
+audio.addEventListener('play', updateBtn);
+audio.addEventListener('pause', updateBtn);
+audio.addEventListener('ended', function() { loadTrack((current + 1) % tracks.length, true); });
+audio.addEventListener('timeupdate', function() {
+  if (!audio.duration) return;
+  document.getElementById('progressFill').style.width = ((audio.currentTime / audio.duration) * 100) + '%';
+  document.getElementById('timeElapsed').textContent = fmt(audio.currentTime);
+});
+audio.addEventListener('loadedmetadata', function() {
+  document.getElementById('timeTotal').textContent = fmt(audio.duration);
+});
+document.getElementById('progressBar').addEventListener('click', function(e) {
+  var rect = this.getBoundingClientRect();
+  if (audio.duration) audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+});
+
+buildSidebar();
+buildNowPlaying();
+</script>
+  <div class="footer">&copy; 2026 Gem Lee &nbsp;&middot;&nbsp; nongming66@gmail.com &nbsp;&middot;&nbsp; All rights reserved</div>
+</body>
+</html>
