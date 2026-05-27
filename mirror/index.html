@@ -75,6 +75,30 @@
   .status-dot { width: 5px; height: 5px; border-radius: 50%; background: #c89840; opacity: 0; transition: opacity 0.3s; margin-left: auto; }
   .status-dot.playing { opacity: 1; }
   .footer { text-align: center; font-size: 9px; color: #2a2820; letter-spacing: 0.1em; padding: 10px 0 14px; flex-shrink: 0; }
+  @media (max-width: 768px) {
+    body { height: auto; min-height: 100dvh; overflow: auto; }
+    .header { padding: 16px 20px 12px; }
+    .album-title { font-size: 20px; letter-spacing: 0.08em; }
+    .album-subtitle { font-size: 10px; }
+    .body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; border-right: none; display: flex; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: 6px 0 6px; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
+    .track-item { flex-shrink: 0; padding: 8px 16px; border-left: none; border-bottom: 2px solid transparent; }
+    .track-item.active { border-left: none; border-bottom-color: currentColor; background: none; }
+    .track-num { font-size: 8px; margin-bottom: 2px; }
+    .track-zh { font-size: 12px; white-space: nowrap; }
+    .track-en { display: none; }
+    .main { padding: 24px 20px 16px; }
+    .np-number { margin-bottom: 8px; }
+    .np-zh { font-size: 30px; margin-bottom: 6px; }
+    .np-en { font-size: 10px; margin-bottom: 18px; letter-spacing: 0.18em; }
+    .np-story { font-size: 13px; line-height: 1.9; max-width: 100%; }
+    .controls { padding-top: 16px; }
+    .progress-wrap { margin-bottom: 12px; }
+    .buttons { gap: 16px; }
+    .btn-play { width: 44px; height: 44px; }
+    .footer { font-size: 8px; padding: 8px 16px 12px; }
+    .mantra { font-size: 10px; }
+  }
 </style>
 </head>
 <body>
