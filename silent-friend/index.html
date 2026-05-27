@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silent Friend — Gem Lee</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicAlbum",
+  "name": "Silent Friend",
+  "byArtist": { "@type": "MusicGroup", "name": "Gem Lee" },
+  "genre": "Ambient Cinematic, Neoclassical, Nylon Guitar",
+  "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "copyrightYear": "2026",
+  "copyrightHolder": { "@type": "Person", "name": "Gem Lee", "email": "nongming66@gmail.com" },
+  "description": "Six pieces for nylon-string guitar and voice. Inspired by Ildikó Enyedi's 2025 film Silent Friend."
+}
+</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #080608;
+    color: #d4c098;
+    font-family: 'Georgia', 'STSong', serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Subtle warm film grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.75  0 0 0 0 0.56  0 0 0 0 0.24  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* Warm amber vignette — echoes the ginkgo-leaf wallpaper */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(180,130,40,0.04) 0%, transparent 65%),
+                radial-gradient(ellipse at 20% 70%, rgba(140,100,30,0.03) 0%, transparent 55%);
+  }
+
+  .header {
+    padding: 22px 40px 16px;
+    border-bottom: 1px solid #16120a;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .album-title {
+    font-size: 24px;
+    font-weight: normal;
+    letter-spacing: 0.18em;
+    color: #e0cc98;
+    font-style: italic;
+  }
+  .album-subtitle {
+    font-size: 11px;
+    color: #4a3c20;
+    margin-top: 5px;
+    letter-spacing: 0.14em;
+  }
+
+  .body { display: flex; flex: 1; overflow: hidden; position: relative; z-index: 1; }
+
+  .sidebar {
+    width: 240px;
+    border-right: 1px solid #16120a;
+    overflow-y: auto;
+    flex-shrink: 0;
+    padding: 14px 0;
+  }
+  .track-item {
+    padding: 11px 22px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background 0.2s;
+  }
+  .track-item:hover { background: #100e08; }
+  .track-item.active { border-left-color: #b8903c; background: #0e0c06; }
+  .track-num { font-size: 9px; letter-spacing: 0.24em; color: #2a2010; margin-bottom: 3px; }
+  .track-name { font-size: 13px; color: #c4b488; margin-bottom: 2px; font-style: italic; }
+  .track-sub { font-size: 10px; color: #3a2e18; letter-spacing: 0.08em; }
+  .track-item.active .track-num { color: #6a5020; }
+  .track-item.active .track-name { color: #e0cc98; }
+  .track-item.active .track-sub { color: #b8903c; }
+
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  .now-playing {
+    flex: 1;
+    padding: 48px 52px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .np-number { font-size: 10px; letter-spacing: 0.38em; color: #2a2010; margin-bottom: 12px; }
+  .np-title {
+    font-size: 38px;
+    font-weight: normal;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    color: #e0cc98;
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  .np-sub { font-size: 11px; letter-spacing: 0.26em; color: #b8903c; text-transform: uppercase; margin-bottom: 30px; }
+  .np-story {
+    font-size: 14px;
+    line-height: 2;
+    color: #5a4a2c;
+    max-width: 500px;
+    transition: opacity 0.4s ease;
+    font-style: italic;
+  }
+
+  .controls {
+    padding: 18px 52px 22px;
+    border-top: 1px solid #16120a;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .progress-bar { flex: 1; height: 1px; background: #1e1810; cursor: pointer; position: relative; }
+  .progress-fill { height: 100%; background: #b8903c; width: 0%; transition: width 0.25s linear; }
+  .time { font-size: 10px; letter-spacing: 0.14em; color: #2a2010; }
+  .buttons { display: flex; align-items: center; gap: 16px; }
+  .btn {
+    background: none; border: 1px solid #1e1810; color: #4a3820;
+    padding: 6px 18px; font-size: 10px; letter-spacing: 0.28em;
+    cursor: pointer; font-family: inherit; transition: all 0.2s;
+  }
+  .btn:hover { border-color: #4a3820; color: #b8903c; }
+  .btn-play { border-color: #3a2e18; color: #b8903c; padding: 8px 28px; font-size: 16px; }
+  .btn-play:hover { border-color: #b8903c; color: #e0cc98; }
+  .status-dot { width: 4px; height: 4px; border-radius: 50%; background: #b8903c; opacity: 0; transition: opacity 0.3s; margin-left: auto; }
+  .status-dot.playing { opacity: 1; }
+
+  .footer {
+    text-align: center;
+    font-size: 9px;
+    color: #2a2010;
+    letter-spacing: 0.1em;
+    padding: 7px 20px 10px;
+    border-top: 1px solid #16120a;
+    flex-shrink: 0;
+    line-height: 2;
+    position: relative;
+    z-index: 1;
+  }
+  .footer a { color: #2a2010; text-decoration: none; }
+  .mantra {
+    font-size: 10px;
+    color: #3a2e18;
+    letter-spacing: 0.22em;
+    font-style: italic;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="album-title">Silent Friend</div>
+  <div class="album-subtitle">Gem Lee &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Inspired by Ildikó Enyedi's film (2025)</div>
+</div>
+<div class="body">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main">
+    <div class="now-playing">
+      <div class="np-number" id="npNum">TRACK 01</div>
+      <div class="np-title" id="npTitle">Arrival</div>
+      <div class="np-sub" id="npSub">Instrumental</div>
+      <div class="np-story" id="npStory"></div>
+    </div>
+    <div class="controls">
+      <div class="progress-wrap">
+        <span class="time" id="timeElapsed">0:00</span>
+        <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="time" id="timeTotal">0:00</span>
+        <div class="status-dot" id="statusDot"></div>
+      </div>
+      <div class="buttons">
+        <button class="btn" onclick="prevTrack()">&#9664;&#9664; PREV</button>
+        <button class="btn btn-play" id="btnPlay" onclick="togglePlay()">&#9654;</button>
+        <button class="btn" onclick="nextTrack()">NEXT &#9654;&#9654;</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  &copy; 2026 Gem Lee &nbsp;&middot;&nbsp; <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a> &nbsp;&middot;&nbsp; Non-commercial use free with attribution &nbsp;&middot;&nbsp; Commercial use: <a href="mailto:nongming66@gmail.com">nongming66@gmail.com</a> &nbsp;&middot;&nbsp; Fees donated to Dharma Drum Mountain Seattle (法鼓山西雅图分会)
+  <div class="mantra">万古长空，一朝风月</div>
+</div>
+<audio id="audio"></audio>
+<script>
+const tracks = [
+  { num:"01", title:"Arrival", sub:"Instrumental · F♯ minor",
+    file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/Under_Bedrock.mp3",
+    story:"Before any voice. Before any story. A single plucked note, then silence, then another. Underneath it, barely felt: a frequency that has been here for 200 million years. This is the ginkgo before it knew any human name for it." },
+  { num:"02", title:"First Contact", sub:"1908 · Grete",
+    file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/Mapa_mudo.mp3",
+    story:"After the interrogation, Grete walks from the university hall to the garden. She has been told what she is allowed to know. The tree has not been told. A voice that is not performing — only confiding. Bone-dry: 1908, no warmth yet." },
+  { num:"03", title:"Memory Surface", sub:"1972 · Hannes",
+    file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/Luz_de_a%CC%81mbar.mp3",
+    story:"The kymograph needle scratches. The geranium reacts before he moves. Hannes is very still — trying not to disturb something he cannot name. A Chamberlin tape texture underneath the guitar — amber and slow, like a home movie no one watches anymore." },
+  { num:"04", title:"The Weight", sub:"2020 · Tony",
+    file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/El_Barro_Sabe.mp3",
+    story:"After the bierhall. Drunk, alone under the tree. His body gives what his mind was still explaining. C♯ minor — the darkest key — and the longest silences. The language reverses here: English first, then Spanish. At the album's lowest point, the body speaks last." },
+  { num:"05", title:"Release", sub:"The Pollen",
+    file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/Papel_Ahumado.mp3",
+    story:"Alice sends golden male ginkgo pollen from Paris. Tony releases it into the wind outside the garden. He will never know if it arrives. One note changed from the darkness of all five tracks before it. The upright bass enters for the first time. The air is moving." },
+  { num:"06", title:"Departure", sub:"Instrumental · F♯ minor",
+    file:"https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/After_the_Final_Pluck.mp3",
+    story:"After all three humans have left. The guitar grows quieter note by note — not slower, just quieter — until the last note is barely a touch. The Chamberlin holds one moment longer. Then tape hiss. Then nothing. The tree does not miss anyone." },
+];
+
+let current=0; const audio=document.getElementById('audio');
+function fmt(s){if(isNaN(s))return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
+function buildSidebar(){const sb=document.getElementById('sidebar');tracks.forEach((t,i)=>{const el=document.createElement('div');el.className='track-item'+(i===0?' active':'');el.id='ti'+i;el.innerHTML=`<div class="track-num">TRACK ${t.num}</div><div class="track-name">${t.title}</div><div class="track-sub">${t.sub}</div>`;el.onclick=()=>loadTrack(i,true);sb.appendChild(el);});}
+function loadTrack(idx,play){document.getElementById('ti'+current).classList.remove('active');current=idx;document.getElementById('ti'+current).classList.add('active');const t=tracks[current];document.getElementById('npNum').textContent='TRACK '+t.num;document.getElementById('npTitle').textContent=t.title;document.getElementById('npSub').textContent=t.sub;const s=document.getElementById('npStory');s.style.opacity=0;setTimeout(()=>{s.textContent=t.story;s.style.opacity=1;},200);audio.src=t.file;if(play)audio.play();updateBtn();}
+function togglePlay(){audio.paused?audio.play():audio.pause();updateBtn();}
+function updateBtn(){document.getElementById('btnPlay').innerHTML=audio.paused?'&#9654;':'&#9646;&#9646;';document.getElementById('statusDot').className='status-dot'+(audio.paused?'':' playing');}
+function prevTrack(){if(audio.currentTime>3){audio.currentTime=0;return;}loadTrack((current-1+tracks.length)%tracks.length,!audio.paused);}
+function nextTrack(){loadTrack((current+1)%tracks.length,!audio.paused);}
+audio.addEventListener('timeupdate',()=>{if(!audio.duration)return;document.getElementById('progressFill').style.width=(audio.currentTime/audio.duration*100)+'%';document.getElementById('timeElapsed').textContent=fmt(audio.currentTime);document.getElementById('timeTotal').textContent=fmt(audio.duration);});
+audio.addEventListener('ended',()=>{if(current<tracks.length-1)loadTrack(current+1,true);else updateBtn();});
+audio.addEventListener('play',updateBtn);audio.addEventListener('pause',updateBtn);
+document.getElementById('progressBar').addEventListener('click',e=>{if(!audio.duration)return;const r=e.currentTarget.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;});
+buildSidebar();loadTrack(0,false);
+</script>
+</body>
+</html>
