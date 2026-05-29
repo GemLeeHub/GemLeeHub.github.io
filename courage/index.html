@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>勇气 — Courage — Gem Lee</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicAlbum",
+  "name": "勇气 — Courage",
+  "byArtist": { "@type": "MusicGroup", "name": "Gem Lee" },
+  "genre": "Instrumental / Ambient Folk",
+  "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "copyrightYear": "2026",
+  "copyrightHolder": { "@type": "Person", "name": "Gem Lee", "email": "nongming66@gmail.com" },
+  "description": "Concept, direction and prompts by Gem Lee. Audio synthesized via AI (Gemini Lyria). Inspired by Akira Kurosawa's Seven Samurai (1954)."
+}
+</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1526;
+    color: #c4d0e8;
+    font-family: 'Georgia', 'STSong', serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bg-image {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image: url('./cover.png');
+    background-size: cover;
+    background-position: center center;
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: rgba(13, 21, 38, 0.55);
+    pointer-events: none;
+  }
+
+  .back-link {
+    position: fixed; top: 18px; right: 22px; z-index: 10;
+    font-size: 9px; letter-spacing: 0.22em;
+    color: #c87820; text-decoration: none; text-transform: uppercase;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: #ffffff; }
+
+  .header { padding: 22px 40px 18px; flex-shrink: 0; position: relative; z-index: 1; }
+  .album-title { font-size: 26px; font-weight: normal; letter-spacing: 0.12em; color: #ffffff; text-shadow: 0 1px 12px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.7); }
+  .album-subtitle { font-size: 12px; color: #c87820; margin-top: 5px; letter-spacing: 0.1em; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
+  .album-statement { font-size: 11px; color: #a0aec0; margin-top: 10px; line-height: 1.9; max-width: 600px; font-style: italic; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
+
+  .body { display: flex; flex: 1; overflow: hidden; position: relative; z-index: 1; }
+
+  .sidebar { width: 230px; overflow-y: auto; flex-shrink: 0; padding: 12px 0; }
+  .track-item { padding: 10px 20px; cursor: pointer; transition: opacity 0.2s; }
+  .track-item:hover { opacity: 0.7; }
+  .track-num { font-size: 9px; letter-spacing: 0.2em; color: #c87820; margin-bottom: 3px; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .track-zh { font-size: 13px; color: #ffffff; margin-bottom: 2px; text-shadow: 0 1px 8px rgba(0,0,0,0.95); }
+  .track-en { font-size: 10px; color: #c87820; letter-spacing: 0.06em; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .track-item.active .track-zh { color: #e8d8b8; }
+  .track-item.active .track-en { color: #d4a870; }
+
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 36px 52px 28px; }
+  .now-playing { flex: 1; overflow-y: auto; }
+  .np-number { font-size: 10px; letter-spacing: 0.35em; color: #c87820; margin-bottom: 12px; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
+  .np-zh { font-size: 46px; font-weight: normal; letter-spacing: 0.08em; color: #ffffff; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 0 60px rgba(0,0,0,0.5); }
+  .np-en { font-size: 12px; letter-spacing: 0.28em; color: #d4a870; text-transform: uppercase; margin-bottom: 28px; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
+  .np-story { font-size: 14px; line-height: 2.1; color: #c4d0e8; max-width: 500px; transition: opacity 0.4s ease; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
+
+  .controls { flex-shrink: 0; padding-top: 22px; position: relative; z-index: 1; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .time { font-size: 10px; letter-spacing: 0.12em; color: #c87820; width: 36px; flex-shrink: 0; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .time.right { text-align: right; }
+  .progress-bar { flex: 1; height: 1px; background: rgba(200,120,32,0.3); cursor: pointer; }
+  .progress-fill { height: 100%; background: #c87820; width: 0%; transition: width 0.25s linear; }
+  .buttons { display: flex; align-items: center; gap: 20px; }
+  .btn { background: none; border: none; color: #c87820; cursor: pointer; font-size: 11px; letter-spacing: 0.18em; padding: 4px 0; transition: color 0.2s; font-family: inherit; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .btn:hover { color: #ffffff; }
+  .btn-play { font-size: 14px; color: #ffffff; border: 1px solid rgba(200,120,32,0.5); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .btn-play:hover { border-color: #c87820; color: #c87820; }
+  .status-dot { width: 5px; height: 5px; border-radius: 50%; background: #c87820; box-shadow: 0 0 6px 2px rgba(200,120,32,0.5); opacity: 0; transition: opacity 0.3s; margin-left: auto; }
+  .status-dot.playing { opacity: 1; }
+
+  .footer { text-align: center; font-size: 9px; color: #c87820; letter-spacing: 0.1em; padding: 7px 20px 10px; flex-shrink: 0; line-height: 2; position: relative; z-index: 1; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .footer a { color: #c87820; text-decoration: none; }
+
+  @media (max-width: 768px) {
+    body { height: auto; min-height: 100dvh; overflow: auto; }
+    .header { padding: 16px 20px 12px; }
+    .album-title { font-size: 20px; }
+    .album-subtitle { font-size: 10px; }
+    .album-statement { font-size: 10px; }
+    .body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; display: flex; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: 6px 0; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
+    .track-item { flex-shrink: 0; padding: 8px 16px; }
+    .track-en { display: none; }
+    .main { padding: 24px 20px 16px; }
+    .np-zh { font-size: 30px; }
+    .np-en { font-size: 10px; margin-bottom: 18px; }
+    .np-story { font-size: 13px; max-width: 100%; }
+    .footer { font-size: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="/">◂ ALL ALBUMS</a>
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
+
+<div class="header">
+  <div class="album-title">勇气 &nbsp;·&nbsp; Courage</div>
+  <div class="album-subtitle">Gem Lee &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Inspired by Akira Kurosawa's <em>Seven Samurai</em> (1954)</div>
+  <div class="album-statement">Four kinds of courage. Survival. Transformation. Mastery. Freedom. None of which serves itself. One valley. The earth before all of them, and after.<br><br>For Akira Kurosawa, who opened, without warning, a door I did not know I was looking for.</div>
+</div>
+
+<div class="body">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main">
+    <div class="now-playing">
+      <div class="np-number" id="npNum">TRACK 01</div>
+      <div class="np-zh"     id="npZh">村耕</div>
+      <div class="np-en"     id="npEn">Steps Through the Deep Soil</div>
+      <div class="np-story"  id="npStory"></div>
+    </div>
+    <div class="controls">
+      <div class="progress-wrap">
+        <span class="time"         id="timeElapsed">0:00</span>
+        <div  class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="time right"   id="timeTotal">0:00</span>
+        <div  class="status-dot"   id="statusDot"></div>
+      </div>
+      <div class="buttons">
+        <button class="btn"          onclick="prevTrack()">&#9664;&#9664; PREV</button>
+        <button class="btn btn-play" id="btnPlay" onclick="togglePlay()">&#9654;</button>
+        <button class="btn"          onclick="nextTrack()">NEXT &#9654;&#9654;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  &copy; 2026 Gem Lee &nbsp;&middot;&nbsp;
+  <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>
+  &nbsp;&middot;&nbsp; Non-commercial use free with attribution
+  &nbsp;&middot;&nbsp; Commercial use: <a href="mailto:nongming66@gmail.com">nongming66@gmail.com</a>
+  &nbsp;&middot;&nbsp; Fees donated to Dharma Drum Mountain (法鼓山)
+  <div style="margin-top:4px; font-size:11px; letter-spacing:0.28em; font-style:italic; color:#d4a870; text-shadow:0 1px 8px rgba(0,0,0,0.9);">万古长空，一朝风月</div>
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+const tracks = [
+  {
+    num: '01', zh: '村耕', en: 'Steps Through the Deep Soil',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T1-Steps_Through_the_Deep_Soil.mp3',
+    story: 'Before the story begins. A field already at work in the hours before the first arrival. The land does not wait — it has never needed to. What moves through here carries something old, something that presses from below without announcing itself.'
+  },
+  {
+    num: '02', zh: '农民', en: 'The Heavy Furrow',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T2-The_Heavy_Furrow.mp3',
+    story: 'Not a character. A force. The oldest one in the room — older than courage, older than fear, older than the war that will come and the war that will pass. A three-note cycle that has been turning since before anyone was counting. It does not stop. It will not stop. That is its entire meaning.'
+  },
+  {
+    num: '03', zh: '勘兵卫', en: 'Through the Empty Gate',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T3-Through_the_Empty_Gate.mp3',
+    story: 'Someone who chose long ago and then stopped choosing, because the choosing was complete. What remains has no name — only weight. A warmth that took everything to earn. A single voice, moving slowly, that has no need to arrive anywhere because it has already been everywhere it was required to go.'
+  },
+  {
+    num: '04', zh: '菊千代', en: 'The Unsteady Stance',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T4-The_Unsteady_Stance.mp3',
+    story: 'Neither here nor there. The rhythm arrives wrong — slightly off, like someone finding their footing in a world that was built for someone else. Underneath the volatility, something that does not move. A note held constant beneath the chaos. This is not a clown. This is a person carrying the weight of two worlds, belonging fully to neither, and going forward anyway.'
+  },
+  {
+    num: '05', zh: '久藏', en: 'The Unanswered Note',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T5-The_Unanswered_Note.mp3',
+    story: 'The fewest notes. The longest silences. A swordsman who no longer needs to prove anything — not because he has given up, but because the proof was finished long ago. What remains after that is very quiet. And very precise.'
+  },
+  {
+    num: '06', zh: '土地', en: 'Across the Ridge at Dawn',
+    file: 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T6-Across_the_Ridge_at_Dawn.mp3',
+    story: 'The same valley. The same ground. The same scale, the same pace — but heard from the other side of something that cannot be named. What was pressing from below is gone. What was narrow is now open. The earth has not changed. Everything else has.'
+  }
+];
+
+let current = 0;
+const audio = document.getElementById('audio');
+
+function fmt(s) {
+  if (isNaN(s)) return '0:00';
+  return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+}
+function buildSidebar() {
+  const sb = document.getElementById('sidebar');
+  tracks.forEach((t, i) => {
+    const el = document.createElement('div');
+    el.className = 'track-item' + (i === 0 ? ' active' : '');
+    el.id = 'ti' + i;
+    el.innerHTML = `<div class="track-num">TRACK ${t.num}</div><div class="track-zh">${t.zh}</div><div class="track-en">${t.en}</div>`;
+    el.onclick = () => loadTrack(i, true);
+    sb.appendChild(el);
+  });
+}
+function loadTrack(idx, play) {
+  document.getElementById('ti' + current).classList.remove('active');
+  current = idx;
+  document.getElementById('ti' + current).classList.add('active');
+  const t = tracks[current];
+  document.getElementById('npNum').textContent = 'TRACK ' + t.num;
+  document.getElementById('npZh').textContent  = t.zh;
+  document.getElementById('npEn').textContent  = t.en;
+  const s = document.getElementById('npStory');
+  s.style.opacity = 0;
+  setTimeout(() => { s.textContent = t.story; s.style.opacity = 1; }, 200);
+  audio.src = t.file;
+  if (play) audio.play();
+  updateBtn();
+}
+function togglePlay() { audio.paused ? audio.play() : audio.pause(); }
+function updateBtn() {
+  document.getElementById('btnPlay').innerHTML = audio.paused ? '&#9654;' : '&#9646;&#9646;';
+  document.getElementById('statusDot').className = 'status-dot' + (audio.paused ? '' : ' playing');
+}
+function prevTrack() {
+  if (audio.currentTime > 3) { audio.currentTime = 0; return; }
+  loadTrack((current - 1 + tracks.length) % tracks.length, !audio.paused);
+}
+function nextTrack() { loadTrack((current + 1) % tracks.length, !audio.paused); }
+audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
+  document.getElementById('progressFill').style.width = (audio.currentTime / audio.duration * 100) + '%';
+  document.getElementById('timeElapsed').textContent = fmt(audio.currentTime);
+  document.getElementById('timeTotal').textContent   = fmt(audio.duration);
+});
+audio.addEventListener('ended', () => { if (current < tracks.length - 1) loadTrack(current + 1, true); else updateBtn(); });
+audio.addEventListener('play',  updateBtn);
+audio.addEventListener('pause', updateBtn);
+document.getElementById('progressBar').addEventListener('click', e => {
+  if (!audio.duration) return;
+  const r = e.currentTarget.getBoundingClientRect();
+  audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+});
+buildSidebar();
+loadTrack(0, false);
+</script>
+</body>
+</html>
