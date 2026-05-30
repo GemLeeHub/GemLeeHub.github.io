@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Working Music I — 无痕 · Traceless — Gem Lee</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicAlbum",
+  "name": "Working Music I — 无痕 · Traceless",
+  "byArtist": { "@type": "MusicGroup", "name": "Gem Lee" },
+  "genre": "Instrumental / Cognitive Focus",
+  "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "copyrightYear": "2026",
+  "copyrightHolder": { "@type": "Person", "name": "Gem Lee", "email": "nongming66@gmail.com" },
+  "description": "Concept, direction and prompts by Gem Lee. Audio synthesized via AI (Gemini Lyria). Fifteen-track cognitive focus music for deep work sessions."
+}
+</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #120d08;
+    color: #c4d0e8;
+    font-family: 'Georgia', 'STSong', serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bg-image {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image: url('./cover.png');
+    background-size: cover;
+    background-position: center center;
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: rgba(12, 8, 4, 0.52);
+    pointer-events: none;
+  }
+
+  .back-link {
+    position: fixed; top: 18px; right: 22px; z-index: 10;
+    font-size: 9px; letter-spacing: 0.22em;
+    color: #c8843a; text-decoration: none; text-transform: uppercase;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: #ffffff; }
+
+  .header { padding: 22px 40px 18px; flex-shrink: 0; position: relative; z-index: 1; }
+  .album-title { font-size: 26px; font-weight: normal; letter-spacing: 0.12em; color: #ffffff; text-shadow: 0 1px 12px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.7); }
+  .album-subtitle { font-size: 12px; color: #c8843a; margin-top: 5px; letter-spacing: 0.1em; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
+  .album-statement { font-size: 11px; color: #a0aec0; margin-top: 10px; line-height: 1.9; max-width: 600px; font-style: italic; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
+
+  .body { display: flex; flex: 1; overflow: hidden; position: relative; z-index: 1; }
+
+  .sidebar { width: 230px; overflow-y: auto; flex-shrink: 0; padding: 12px 0; }
+  .track-item { padding: 8px 20px; cursor: pointer; transition: opacity 0.2s; }
+  .track-item:hover { opacity: 0.7; }
+  .track-num { font-size: 9px; letter-spacing: 0.2em; color: #c8843a; margin-bottom: 3px; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .track-zh { font-size: 13px; color: #ffffff; margin-bottom: 2px; text-shadow: 0 1px 8px rgba(0,0,0,0.95); }
+  .track-en { font-size: 10px; color: #c8843a; letter-spacing: 0.06em; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .track-item.active .track-zh { color: #e8d8b8; }
+  .track-item.active .track-en { color: #d4a870; }
+
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 36px 52px 28px; }
+  .now-playing { flex: 1; overflow-y: auto; }
+  .np-number { font-size: 10px; letter-spacing: 0.35em; color: #c8843a; margin-bottom: 12px; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
+  .np-zh { font-size: 46px; font-weight: normal; letter-spacing: 0.08em; color: #ffffff; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 0 60px rgba(0,0,0,0.5); }
+  .np-en { font-size: 12px; letter-spacing: 0.28em; color: #d4a870; text-transform: uppercase; margin-bottom: 28px; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
+  .np-story { font-size: 14px; line-height: 2.1; color: #c4d0e8; max-width: 500px; transition: opacity 0.4s ease; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
+
+  .controls { flex-shrink: 0; padding-top: 22px; position: relative; z-index: 1; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .time { font-size: 10px; letter-spacing: 0.12em; color: #c8843a; width: 36px; flex-shrink: 0; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .time.right { text-align: right; }
+  .progress-bar { flex: 1; height: 1px; background: rgba(200,132,58,0.3); cursor: pointer; }
+  .progress-fill { height: 100%; background: #c8843a; width: 0%; transition: width 0.25s linear; }
+  .buttons { display: flex; align-items: center; gap: 20px; }
+  .btn { background: none; border: none; color: #c8843a; cursor: pointer; font-size: 11px; letter-spacing: 0.18em; padding: 4px 0; transition: color 0.2s; font-family: inherit; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .btn:hover { color: #ffffff; }
+  .btn-play { font-size: 14px; color: #ffffff; border: 1px solid rgba(200,132,58,0.5); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .btn-play:hover { border-color: #c8843a; color: #c8843a; }
+  .status-dot { width: 5px; height: 5px; border-radius: 50%; background: #c8843a; box-shadow: 0 0 6px 2px rgba(200,132,58,0.5); opacity: 0; transition: opacity 0.3s; margin-left: auto; }
+  .status-dot.playing { opacity: 1; }
+
+  .footer { text-align: center; font-size: 9px; color: #c8843a; letter-spacing: 0.1em; padding: 7px 20px 10px; flex-shrink: 0; line-height: 2; position: relative; z-index: 1; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .footer a { color: #c8843a; text-decoration: none; }
+
+  @media (max-width: 768px) {
+    body { height: auto; min-height: 100dvh; overflow: auto; }
+    .header { padding: 16px 20px 12px; }
+    .album-title { font-size: 20px; }
+    .album-subtitle { font-size: 10px; }
+    .body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; display: flex; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: 6px 0; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
+    .track-item { flex-shrink: 0; padding: 8px 16px; }
+    .track-en { display: none; }
+    .main { padding: 24px 20px 16px; }
+    .np-zh { font-size: 30px; }
+    .np-en { font-size: 10px; margin-bottom: 18px; }
+    .np-story { font-size: 13px; max-width: 100%; }
+    .footer { font-size: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="/">◂ ALL ALBUMS</a>
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
+
+<div class="header">
+  <div class="album-title">Working Music I</div>
+  <div class="album-subtitle">无痕 &nbsp;·&nbsp; Traceless &nbsp;·&nbsp; Gem Lee &nbsp;·&nbsp; 2026</div>
+  <div class="album-statement">This is music for the hours between tasks — not the minutes, the hours. A room with enough light to work. Something in the background, present without announcing itself.</div>
+</div>
+
+<div class="body">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main">
+    <div class="now-playing">
+      <div class="np-number" id="npNum">TRACK 01</div>
+      <div class="np-zh"     id="npZh">落</div>
+      <div class="np-en"     id="npEn">The Unlatched Window</div>
+      <div class="np-story"  id="npStory"></div>
+    </div>
+    <div class="controls">
+      <div class="progress-wrap">
+        <span class="time"         id="timeElapsed">0:00</span>
+        <div  class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="time right"   id="timeTotal">0:00</span>
+        <div  class="status-dot"   id="statusDot"></div>
+      </div>
+      <div class="buttons">
+        <button class="btn"          onclick="prevTrack()">&#9664;&#9664; PREV</button>
+        <button class="btn btn-play" id="btnPlay" onclick="togglePlay()">&#9654;</button>
+        <button class="btn"          onclick="nextTrack()">NEXT &#9654;&#9654;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  &copy; 2026 Gem Lee &nbsp;&middot;&nbsp;
+  <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>
+  &nbsp;&middot;&nbsp; Non-commercial use free with attribution
+  &nbsp;&middot;&nbsp; Commercial use: <a href="mailto:nongming66@gmail.com">nongming66@gmail.com</a>
+  &nbsp;&middot;&nbsp; Fees donated to Dharma Drum Mountain (法鼓山)
+  <div style="margin-top:4px; font-size:11px; letter-spacing:0.28em; font-style:italic; color:#d4a870; text-shadow:0 1px 8px rgba(0,0,0,0.9);">万古长空，一朝风月</div>
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+const BASE = 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/';
+const tracks = [
+  { num:'01', zh:'落', en:'The Unlatched Window',      file: BASE+'T1-The_Unlatched_Window.mp3',          story:'Something between arriving and settling. The window is open — not thrown open, just unlatched. A note placed carefully on a surface, then a long pause. This is the beginning of the room.' },
+  { num:'02', zh:'放', en:'Low Light in the Room',      file: BASE+'T2-Low_Light_in_the_Room.mp3',          story:'The light is lower here. Something sets down. Not a weight being lifted — a weight being placed, deliberately, in a corner of the room where it will not interfere. The piano carries this alone, mostly.' },
+  { num:'03', zh:'入', en:'Morning at the Window',      file: BASE+'T3-Morning_at_the_Window.mp3',          story:'Morning through glass, the kind with condensation. A single thread of guitar, high and clear. No hurry. This is not an entrance. It is already inside.' },
+  { num:'04', zh:'起', en:'Coffee and Pale Light',      file: BASE+'T4-Coffee_and_Pale_Light.mp3',          story:'The work begins. Pale winter light through a north-facing window. A cup on the table. Neither warmth nor cold — a temperature that asks nothing of you. The room is ready.' },
+  { num:'05', zh:'流', en:'Stillness by the Window',    file: BASE+'T5-Stillness_by_the_Window.mp3',        story:'Flow is not movement. It is the state in which movement stops being effort. A four-note phrase returns every twenty seconds, unhurried, the way a good thought returns without forcing it.' },
+  { num:'06', zh:'深', en:'Cedar and Rain',             file: BASE+'T6-Cedar_and_Rain.mp3',                 story:'Something outside. The cedar in the rain — the particular smell of wet wood, of a tree that has been standing in the same place for a long time. The guitar moves alone through this. It knows the tree.' },
+  { num:'07', zh:'无', en:'Copper Light on Cedar',      file: BASE+'T7-Copper_Light_on_Cedar.mp3',          story:'Almost nothing. Single notes thirty seconds apart. The music does not fill the room — it marks its edges. What remains between the notes is not absence. It is where the work happens.' },
+  { num:'08', zh:'忘', en:"The Room's Long Shadow",     file: BASE+"T8-The_Room_s_Long_Shadow.mp3",         story:'The shadow that falls at midday. To forget the self is not to lose it — it is to set it down long enough to do the work. This is the heaviest track. It is not asking you to feel it. It is asking you to let it pass.' },
+  { num:'09', zh:'在', en:'Damp Cedar Air',             file: BASE+'T9-Damp_Cedar_Air.mp3',                 story:'Here. Just here. The air outside after rain, the bark of the tree. The guitar appears once, twice — then the tape hiss holds everything. To be present is not a feeling. It is the absence of the need to be anywhere else.' },
+  { num:'10', zh:'清', en:'Low Light, Soft Wood',       file: BASE+'T10-Low_Light_Soft_Wood.mp3',           story:"A slight opening. The fourth note of the scale tilts upward — not reaching, just a small brightness, like a window's edge catching the late afternoon. The wood is soft. The light is enough." },
+  { num:'11', zh:'照', en:'Low Light at the Window',    file: BASE+'T11-Low_Light_at_the_Window.mp3',       story:'The rain on glass. A reflection. Something seen clearly not because the light is bright but because the eye has adjusted. The piano returns to the window. It has been here before.' },
+  { num:'12', zh:'持', en:'Before the Fog Lifts',       file: BASE+'T12-Before_the_Fog_Lifts.mp3',          story:'The last long stretch. The fog has not lifted yet — but the quality of the air has changed. Something is about to shift. This track holds the moment just before, because that moment is worth holding.' },
+  { num:'13', zh:'远', en:'A Room Facing West',         file: BASE+'T13-A_Room_Facing_West.mp3',            story:'The afternoon light is moving. A west-facing room in the last hour of work — the shadows are longer, the light more angled, the quality of everything slightly warmer and slightly further away. The cool-down has begun.' },
+  { num:'14', zh:'出', en:'Cedar and Felt',             file: BASE+'T14-Cedar_and_Felt.mp3',                story:"The materials of the instruments themselves. Cedar for the guitar's resonance. Felt for the piano's muted hammer. This is what the whole album was made of, named at the end — the way you notice what a room is built from only when you are about to leave it." },
+  { num:'15', zh:'余', en:'Sunlight on the Floorboards',file: BASE+'T15-%20Sunlight_on_the_Floorboards.mp3',story:'The last thing. A patch of late sunlight landing on wooden floorboards. The tape hiss fades to complete silence — the only track that ends this way. The session is finished. The room is quiet. Something was here, and now it has gone, leaving no trace.' }
+];
+
+let current = 0;
+const audio = document.getElementById('audio');
+function fmt(s) { if(isNaN(s))return'0:00'; return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
+function buildSidebar() {
+  const sb = document.getElementById('sidebar');
+  tracks.forEach((t,i) => {
+    const el = document.createElement('div');
+    el.className='track-item'+(i===0?' active':''); el.id='ti'+i;
+    el.innerHTML=`<div class="track-num">TRACK ${t.num}</div><div class="track-zh">${t.zh}</div><div class="track-en">${t.en}</div>`;
+    el.onclick=()=>loadTrack(i,true); sb.appendChild(el);
+  });
+}
+function loadTrack(idx,play) {
+  document.getElementById('ti'+current).classList.remove('active');
+  current=idx; document.getElementById('ti'+current).classList.add('active');
+  const t=tracks[current];
+  document.getElementById('npNum').textContent='TRACK '+t.num;
+  document.getElementById('npZh').textContent=t.zh;
+  document.getElementById('npEn').textContent=t.en;
+  const s=document.getElementById('npStory'); s.style.opacity=0;
+  setTimeout(()=>{ s.textContent=t.story; s.style.opacity=1; },200);
+  audio.src=t.file; if(play)audio.play(); updateBtn();
+}
+function togglePlay(){ audio.paused?audio.play():audio.pause(); }
+function updateBtn(){
+  document.getElementById('btnPlay').innerHTML=audio.paused?'&#9654;':'&#9646;&#9646;';
+  document.getElementById('statusDot').className='status-dot'+(audio.paused?'':' playing');
+}
+function prevTrack(){ if(audio.currentTime>3){audio.currentTime=0;return;} loadTrack((current-1+tracks.length)%tracks.length,!audio.paused); }
+function nextTrack(){ loadTrack((current+1)%tracks.length,!audio.paused); }
+audio.addEventListener('timeupdate',()=>{ if(!audio.duration)return; document.getElementById('progressFill').style.width=(audio.currentTime/audio.duration*100)+'%'; document.getElementById('timeElapsed').textContent=fmt(audio.currentTime); document.getElementById('timeTotal').textContent=fmt(audio.duration); });
+audio.addEventListener('ended',()=>{ if(current<tracks.length-1)loadTrack(current+1,true); else updateBtn(); });
+audio.addEventListener('play',updateBtn); audio.addEventListener('pause',updateBtn);
+document.getElementById('progressBar').addEventListener('click',e=>{ if(!audio.duration)return; const r=e.currentTarget.getBoundingClientRect(); audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration; });
+buildSidebar(); loadTrack(0,false);
+</script>
+</body>
+</html>
