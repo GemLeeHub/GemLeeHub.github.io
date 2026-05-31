@@ -148,6 +148,7 @@
         <button class="btn"          onclick="prevTrack()">&#9664;&#9664; PREV</button>
         <button class="btn btn-play" id="btnPlay" onclick="togglePlay()">&#9654;</button>
         <button class="btn"          onclick="nextTrack()">NEXT &#9654;&#9654;</button>
+        <button class="btn"          id="btnLoop" onclick="toggleLoop()" style="margin-left:12px; opacity:0.4;">&#8635; LOOP</button>
       </div>
     </div>
   </div>
@@ -185,6 +186,7 @@ const tracks = [
 ];
 
 let current = 0;
+let loopAll = false;
 const audio = document.getElementById('audio');
 function fmt(s) { if(isNaN(s))return'0:00'; return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
 function buildSidebar() {
@@ -215,7 +217,16 @@ function updateBtn(){
 function prevTrack(){ if(audio.currentTime>3){audio.currentTime=0;return;} loadTrack((current-1+tracks.length)%tracks.length,!audio.paused); }
 function nextTrack(){ loadTrack((current+1)%tracks.length,!audio.paused); }
 audio.addEventListener('timeupdate',()=>{ if(!audio.duration)return; document.getElementById('progressFill').style.width=(audio.currentTime/audio.duration*100)+'%'; document.getElementById('timeElapsed').textContent=fmt(audio.currentTime); document.getElementById('timeTotal').textContent=fmt(audio.duration); });
-audio.addEventListener('ended',()=>{ if(current<tracks.length-1)loadTrack(current+1,true); else updateBtn(); });
+audio.addEventListener('ended',()=>{
+  if(current<tracks.length-1) loadTrack(current+1,true);
+  else if(loopAll) loadTrack(0,true);
+  else updateBtn();
+});
+function toggleLoop(){
+  loopAll=!loopAll;
+  document.getElementById('btnLoop').style.opacity=loopAll?'1':'0.4';
+  document.getElementById('btnLoop').style.color=loopAll?'#ffffff':'#c8843a';
+}
 audio.addEventListener('play',updateBtn); audio.addEventListener('pause',updateBtn);
 document.getElementById('progressBar').addEventListener('click',e=>{ if(!audio.duration)return; const r=e.currentTarget.getBoundingClientRect(); audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration; });
 buildSidebar(); loadTrack(0,false);
