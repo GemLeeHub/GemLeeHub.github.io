@@ -134,7 +134,7 @@
 <div class="bg-overlay"></div>
 <div class="header">
   <div class="album-title">时间的缝隙 &nbsp;·&nbsp; The Gaps in Time</div>
-  <div class="album-subtitle">Gem Lee &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Cool Jazz</div>
+  <div class="album-subtitle">Gem Lee &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Cool Jazz · Mixture</div>
 </div>
 <div class="body">
   <div class="sidebar" id="sidebar"></div>
@@ -166,28 +166,28 @@ const BASE = 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/';
 const tracks = [
   { num:"01", zh:"午后无事", en:"Tuesday Afternoon Ease",
     file:BASE+"Tuesday_Afternoon_Ease.mp3",
-    story:"The afternoon hasn't asked anything of you yet. Guitar, brushes, bass — three voices finding their footing without hurry. The texture is loose, the tempo easy. The first track on any jazz album worth listening to sounds like this: nothing being proven, nothing being demonstrated. Just time, open." },
+    story:"The afternoon hasn't asked anything of you yet. The texture is loose, the tempo easy. The first track on any jazz album worth listening to sounds like this: nothing being proven, nothing being demonstrated. Just time, open." },
   { num:"02", zh:"影子长了", en:"Tuesday at Three",
     file:BASE+"Tuesday_at_Three.mp3",
-    story:"Three o'clock. You did not notice when the shadow crossed the table, but now it's on the wall. Something about the light has changed — not dramatically, just shifted. The piano carries the line; the brushes agree without comment. Another Tuesday like all the others — and somehow not." },
+    story:"Three o'clock. You did not notice when the shadow crossed the table, but now it's on the wall. Something about the light has changed — not dramatically, just shifted. Another Tuesday like all the others — and somehow not." },
   { num:"03", zh:"多坐一站", en:"The Quiet Passenger",
     file:BASE+"The_Quiet_Passenger.mp3",
     story:"The tram empties stop by stop. At some point you are the only one left. The city passes outside — neon signs not yet lit, the sky between afternoon and evening. The piece moves with the quality of transit: not arriving anywhere, not leaving anywhere. Just passing through, attentive." },
   { num:"04", zh:"入夜", en:"The Quiet Hour",
     file:BASE+"TRACK-001_VC_Sax_The_Quiet_Hour.mp3",
-    story:"Eight o'clock. The saxophone arrives alone, breath audible at the start of each phrase. The city has changed shift — whoever is out at this hour is here by choice. The melody does not resolve quickly. It stays in the air a little longer than expected. This hour belongs to no one in particular." },
+    story:"Eight o'clock. The city has changed shift — whoever is out at this hour is here by choice. The melody does not resolve quickly. It stays in the air a little longer than expected. This hour belongs to no one in particular." },
   { num:"05", zh:"霓虹", en:"Mechanical Grace",
     file:BASE+"TRACK-001_VC_Trumpet_Mechanical_Grace.mp3",
-    story:"The trumpet enters with a mute — a smaller, colder sound. The bass is dry and precise underneath, each note arriving without softness. Glass towers at night: every floor lit differently, no one visible. The melody is calm the way a very good tailor is calm — no wasted movement. The city knows it looks good at this hour." },
+    story:"Glass towers at night: every floor lit differently, no one visible. The melody is calm the way a very good tailor is calm — no wasted movement. The city knows it looks good at this hour." },
   { num:"06", zh:"不急", en:"A Slow Exchange",
     file:BASE+"A_Slow_Exchange.mp3",
     story:"Two voices. One speaks; the other waits, then responds — not immediately. The silence between phrases is not emptiness; it is the most useful part. A conversation at a very slow tempo, each participant choosing words carefully. By the end, nothing has been settled. That was not the point." },
   { num:"07", zh:"那个角落", en:"Midnight at the Corner Booth",
     file:BASE+"Midnight_at_the_Corner_Booth.mp3",
-    story:"The booth at the back of the bar. The piano has a heavier hand here, bluesy at the root. Someone has ordered a second whiskey and is in no hurry. The bass swings with the ease of long practice. This is where the night slows down into itself — not ending, just deepening. The best hour." },
+    story:"The booth at the back of the bar. The mood is heavier here, bluesy at the root. Someone has ordered a second whiskey and is in no hurry. This is where the night slows down into itself — not ending, just deepening. The best hour." },
   { num:"08", zh:"散了", en:"Conversations After Midnight",
     file:BASE+"Conversations_After_Midnight.mp3",
-    story:"The last track. Piano alone, or nearly alone. Each chord placed carefully, allowed to ring. No hurry in either direction. The city has mostly gone quiet. The bar will close soon. None of this requires comment. The music fades, and the silence after it feels like the same thing." }
+    story:"The last track. Each note placed carefully, allowed to ring. No hurry in either direction. The city has mostly gone quiet. The bar will close soon. None of this requires comment. The music fades, and the silence after it feels like the same thing." }
 ];
 let current=0; const audio=document.getElementById('audio');
 function fmt(s){if(isNaN(s))return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
