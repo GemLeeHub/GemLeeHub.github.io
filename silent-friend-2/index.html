@@ -14,7 +14,7 @@
   "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
   "copyrightYear": "2026",
   "copyrightHolder": { "@type": "Person", "name": "Gem Lee", "email": "nongming66@gmail.com" },
-  "description": "Concept, lyrics, prompts and arrangement by Gem Lee. Audio synthesized via AI (Gemini Lyria). Inspired by Ildikó Enyedi's film Silent Friend (2025)."
+  "description": "Eight character portraits for nylon-string guitar and voice. Inspired by Ildikó Enyedi's film Silent Friend (2025). The first album followed the tree. This one follows the people."
 }
 </script>
 <style>
@@ -63,6 +63,7 @@
   .header { padding: 22px 40px 18px; flex-shrink: 0; position: relative; z-index: 1; }
   .album-title { font-size: 26px; font-weight: normal; letter-spacing: 0.12em; color: #ffffff; text-shadow: 0 1px 12px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.7); }
   .album-subtitle { font-size: 12px; color: #c89030; margin-top: 5px; letter-spacing: 0.1em; text-shadow: 0 1px 8px rgba(0,0,0,0.95); }
+  .album-intro { font-size: 12px; color: rgba(232, 216, 180, 0.72); margin-top: 10px; line-height: 1.75; max-width: 560px; text-shadow: 0 1px 8px rgba(0,0,0,0.95); }
 
   /* ── BODY ───────────────────────────────────────────────── */
   .body { display: flex; flex: 1; overflow: hidden; position: relative; z-index: 1; }
@@ -125,6 +126,7 @@
     .header { padding: 16px 20px 12px; }
     .album-title { font-size: 20px; letter-spacing: 0.08em; }
     .album-subtitle { font-size: 10px; }
+    .album-intro { font-size: 11px; margin-top: 8px; }
 
     .body { flex-direction: column; }
     .sidebar {
@@ -168,7 +170,8 @@
 
 <div class="header">
   <div class="album-title">寂静的朋友 (二)</div>
-  <div class="album-subtitle">Silent Friend (2) &nbsp;·&nbsp; Gem Lee &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Inspired by Ildikó Enyedi's film (2025)</div>
+  <div class="album-subtitle">Silent Friend (2) &nbsp;·&nbsp; Gem Lee &nbsp;·&nbsp; 2026</div>
+  <div class="album-intro">The first album followed the tree. This one follows the people.<br>Eight characters from Ildikó Enyedi's film <em>Silent Friend</em> (2025) — a ginkgo in a German university garden, three generations: 1908, 1972, 2020. Each track is one person's inner world: what they wanted, what they held back, how they moved through time in the tree's presence. Nylon-string guitar and voice, in the South American street tradition of Violeta Parra and Chavela Vargas.</div>
 </div>
 
 <div class="body">
@@ -212,42 +215,42 @@ const tracks = [
   {
     num: "01", zh: "Grete", en: "Centro del incendio", sub: "Barefoot", dur: 179.853,
     file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T1-Centro_del_incendio.mp3",
-    story: "In 1908, she became the first woman admitted to the botany programme. The university board did not congratulate her. She walked outside, took off her shoes, and danced."
+    story: "In 1908, she became the first woman admitted to the botany programme. The university board did not congratulate her. She walked outside, took off her shoes, and danced. The music moves in two keys — G minor for defiance, G Dorian for something freer. One raised note, barely a semitone, is the difference between trapped and released. The guitar stops entirely at the peak, and for one exposed phrase, her voice carries alone. Then it erupts back."
   },
   {
     num: "02", zh: "Herr Fuchs", en: "La cal de los muros", sub: "The Darkroom", dur: 178.782,
     file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T2-La_cal_de_los_muros.mp3",
-    story: "He was a photographer who understood that light had to be contained before it could become something true. His song is the only one on this album where the guitar and voice move at exactly the same pace — no tension, no tug-of-war. Safety has a sound."
+    story: "He was a photographer who understood that light had to be contained before it could become something true. He loved Grete without announcing it — he documented what she did, which is its own kind of declaration. His song is the only one on this album where the guitar and voice move at exactly the same pace, no tension, no tug-of-war. Every other character in this film pulls against something. He did not. What you don't say can be as precise as what you do."
   },
   {
-    num: "03", zh: "Thomas", en: "Peldaños de arena", sub: "Departure", dur: 177.580,
-    file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T3-Pelda%C3%B1os_de_arena.mp3",
-    story: "He led a botany expedition to the East Indies and sailed toward it like someone who had never considered that anything could go wrong. The guitar runs continuously forward. So did he."
+    num: "03", zh: "Thomas", en: "Steps in Sand", sub: "Departure", dur: 177.580,
+    file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T3-Steps_in_Sand.mp3",
+    story: "He led a botany expedition to the East Indies and sailed toward it like someone who had never considered that anything could go wrong. The film shows him only briefly — he is already leaving when we first see him. The guitar in this song runs continuously forward, no hesitation, the tempo climbing the whole way. Thomas was one of the last people to understand what the tree had been witnessing for a century. By then, he was already gone. The music does not look back."
   },
   {
-    num: "04", zh: "Hannes", en: "El Volcán Mudo", sub: "The Postcard", dur: 138.188,
-    file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T4-El_Volc%C3%A1n_Mudo.mp3",
-    story: "Hannes hated plants. Then the geranium on the windowsill began reacting to his presence — not to hers, to his. He received a postcard. The geranium already knew before he did."
+    num: "04", zh: "Hannes", en: "Silent Volcano", sub: "The Postcard", dur: 138.188,
+    file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T4-Silent_Volcano.mp3",
+    story: "Hannes hated plants. Then the geranium on the windowsill began reacting to his presence — not to hers, to his. He didn't know what to do with that. He received a postcard from Gundula; the geranium already knew before he did. The song opens with a single B minor chord struck once, left to ring into silence, then another. No arpeggios, no ease — he was a man who moved toward things sideways. The tempo erupts from 55 to 120 BPM and collapses immediately: the whole weight of what he felt, compressed into ten seconds. B minor never opens. He is not liberated, like Grete. He stays in the same key from start to finish."
   },
   {
     num: "05", zh: "Gundula", en: "El aire me nombra", sub: "Open Ground", dur: 175.125,
     file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T5-El_aire_me_nombra.mp3",
-    story: "She does not ease into anything. The song begins on beat 1 — guitar and voice together, no introduction. Every other track on this album collapses at the end. Hers does not."
+    story: "She was the botanist who first understood the geranium's signal — before Hannes understood it himself, before the science caught up. She sent the postcard. She knew it would arrive. She does not ease into anything: the song begins on beat 1, guitar and voice together, no introduction, no hesitation. Every other track on this album collapses at the end, or falls, or fades into silence. Hers ends at exactly the same level it began. She was not changed by any of this. She was always this way."
   },
   {
     num: "06", zh: "Dr. Tony Wong", en: "Dos Notas Rotas", sub: "The Empty Campus", dur: 178.129,
     file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T6-Dos_Notas_Rotas.mp3",
-    story: "He was stranded in Germany during the lockdown. He attached EEG electrodes to the tree's bark, then took mescaline to find out if his brain could match the tree's. Midway through this song, the time signature dissolves. He was not the same man who came into the room."
+    story: "He was stranded in Germany during the lockdown, the campus empty, the tree still. He attached EEG electrodes to the tree's bark, then took mescaline to find out if his brain could match the tree's signal. The song opens at the album's lowest point — two isolated notes, C# and B, each decaying into silence before the next arrives. No forward motion. Clinical, stripped. Then, midway through, the time signature dissolves. Guitar and voice abandon the pulse together and breathe the same rhythm — the only moment in the entire album where both fully surrender. The C#–B motif disappears. It does not return. He was not the same man who came into the room."
   },
   {
     num: "07", zh: "Dr. Alice Sauvage", en: "Seda y ceniza", sub: "Fragment", dur: 178.651,
     file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T7-Seda_y_ceniza.mp3",
-    story: "She was a botanist in Paris with a three-year-old and a Zoom connection and a mind that moved faster than the situation allowed. Twice during the song, the voice cuts off mid-phrase. A child walked in. The connection dropped. She snapped back without pause."
+    story: "She was a botanist in Paris with a three-year-old and a Zoom connection and a mind that moved faster than the situation allowed. She was also sending golden male ginkgo pollen to Tony in Germany, by post, sealed carefully, with instructions. That required precision, patience, and a certain fury. Twice during the song the voice cuts off mid-phrase — a child walked in, the connection dropped — and she snapped back each time without losing her place. The song is the most fractured intensity arc on the album. She finished everything she started."
   },
   {
-    num: "08", zh: "Anton", en: "Solo el silencio del jardín", sub: "Still Ground", dur: 164.023,
-    file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T8-Solo_el_silencio_del_jard%C3%ADn.mp3",
-    story: "The groundskeeper. He watched people come to look at the tree for years and did not ask for any of it. He is the only voice on this album whose song never peaks. The song ends on a single chord, played once. Then silence — the longest on the album."
+    num: "08", zh: "Anton", en: "The Garden Remains", sub: "Still Ground", dur: 164.023,
+    file: "https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/T8-The_Garden_Remains.mp3",
+    story: "The groundskeeper. He tended the tree for years and watched researchers, photographers, and scientists come to study it — none of them asking him anything. He resented it, then slowly stopped resenting it. His song is the only one on this album with no peak: the arc moves only downward, 4 to 1, no upward moment. In the final section, guitar and voice stop keeping separate time and breathe together, no pulse — the only other moment of true surrender in this album, earned differently than Tony's. The song ends on a single D minor chord, played once. Then the longest silence on the album. The tree remains."
   }
 ];
 
