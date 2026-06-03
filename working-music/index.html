@@ -3,20 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gem Lee · Music</title>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "MusicGroup",
-  "name": "Gem Lee",
-  "url": "https://geelee.netlify.app",
-  "genre": ["Ambient Cinematic", "Neoclassical", "Meditation"],
-  "description": "Independent AI-assisted music by Gem Lee.",
-  "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
-  "copyrightYear": "2026",
-  "copyrightHolder": { "@type": "Person", "name": "Gem Lee", "email": "nongming66@gmail.com" }
-}
-</script>
+<title>&#23567;&#29482;&#31995;&#21015; &middot; Working Music · Gem Lee</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -413,7 +400,6 @@
   .album-card:hover .listen .arrow::after { border-color: var(--gold-bright); }
 
 
-  /* ---------- MORE / CATEGORY TILES ---------- */
   .more-section { max-width: 1120px; margin: 0 auto; padding: 0 40px 88px; width: 100%; }
   .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--rule); margin-top: 32px; }
   .category-tile { padding: 52px 36px 44px; border-right: 1px solid var(--rule); text-decoration: none; color: inherit; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: background 0.3s ease; }
@@ -431,6 +417,9 @@
   .tile-browse .arrow::after { content: ""; position: absolute; right: 0; top: 50%; width: 6px; height: 6px; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); transform: translateY(-50%) rotate(45deg); }
   .category-tile:hover .tile-browse { gap: 18px; }
   .category-tile:hover .tile-browse .arrow { width: 44px; }
+  .back-link { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold-dim); text-decoration: none; padding: 32px 40px 0; transition: color 0.2s; }
+  .back-link:hover { color: var(--gold); }
+  .back-link::before { content: ""; display: inline-block; width: 20px; height: 1px; background: currentColor; }
 
   /* ---------- ABOUT ---------- */
 
@@ -605,6 +594,7 @@
     .category-tile { border-right: none; border-bottom: 1px solid var(--rule); padding: 36px 22px 32px; }
     .category-tile:last-child { border-bottom: none; }
     .tile-zh { font-size: 36px; }
+    .back-link { padding: 24px 22px 0; }
     .about {
       padding: 56px 22px 48px;
     }
@@ -635,154 +625,55 @@
 <body>
 <div class="stage">
 
-  <header>
-    <div class="ornament"><span>✦</span></div>
+  <a class="back-link" href="/">All Albums</a>
+
+  <header style="padding-top:48px;padding-bottom:56px;">
+    <div class="ornament"><span>✶</span></div>
     <h1 class="wordmark">G E M &nbsp;&nbsp; L E E</h1>
-    <div class="tagline">
-      <span>An Independent Catalogue</span>
-      <span class="bullet"></span>
-      <span class="cn">音乐目录</span>
-    </div>
-    <p class="header-meta"><em>A note on language:</em> where a voice appears in some recordings here — Spanish, Japanese, or syllables belonging to no language at all — it is present as sound, not as meaning. You are not missing something for not understanding the words. A voice is a timbre. What reaches you is the breath, the grain, the shape of sound moving through a human body.</p>
   </header>
 
-  <!-- FEATURED -->
   <div class="section-mark">
-    <div class="label">Featured</div>
+    <div class="label">&#23567;&#29482;&#31995;&#21015; &middot; Working Music</div>
     <div class="rule"></div>
-    <div class="count">Five Works · MMXXVI</div>
+    <div class="count">Two Works &middot; An Ongoing Series</div>
   </div>
 
   <main class="albums">
-
-    <a class="album-card" href="/trumpet/">
+    <a class="album-card" href="/wondering/">
       <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">015</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Five</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Solo Trumpet · Instrumental</span></div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">小号</h2>
-        <div class="album-en">Trumpet</div>
-        <p class="album-desc">Five pieces for solo trumpet. A trumpet is just air and metal. These five pieces are very slow. There are long silences between the phrases. Nothing resolves.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Instrumental</span><span class="dot"></span><span>Solo Trumpet</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/white-road-ahead/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">013</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">One</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Jazz · Vocal · Memorial</span></div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh" style="font-family:var(--serif-display);font-style:italic;font-size:clamp(32px,4vw,52px);">The White Road Ahead</h2>
-        <div class="album-en">For Lee Sutton</div>
-        <p class="album-desc">He rode his Harley-Davidson alone on Highway 5 in a snowstorm — Seattle to Portland. Cold, wind, snow, the road entirely his own. He said it felt like happiness. Joyful. A West Coast Cool Jazz trumpet on the white road ahead.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Jazz</span><span class="dot"></span><span>Vocal</span><span class="dot"></span><span>Memorial</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/trees/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">010</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Seven</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Instrumental · Marimba &amp; Pan Flute</span></div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">树</h2>
-        <div class="album-en">Trees</div>
-        <p class="album-desc">Seven observations from a walk through old-growth forest. A tree that has been standing for two hundred years. The water rising through the wood. The light breaking through the canopy. The presence in ancient trees that has no name. Seven complete moments — a footstep, a color, a silence, a small wry recognition at the end.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Instrumental</span><span class="dot"></span><span>Marimba</span><span class="dot"></span><span>Pan Flute</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/silent-friend-complete/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Edition</span><span class="spine-val cat" style="font-size:20px;letter-spacing:0.08em;">I + II</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
+        <div class="spine-row"><span class="spine-key">Catalogue &numero;</span><span class="spine-val cat">012</span></div>
+        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI &middot; 2026</span></div>
         <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Fifteen</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">完整版 · Complete Edition</span></div>
+        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Instrumental &middot; Jazz &middot; Work Music</span></div>
       </div>
       <div class="album-body">
-        <h2 class="album-zh">寂静的朋友 <span class="sep">·</span> <span class="alt">Complete</span></h2>
-        <div class="album-en">Silent Friend I + II · Fifteen Tracks · One Story</div>
-        <p class="album-desc">The two Silent Friend albums heard as one — the tree and the people, interleaved by era. Part I follows the ginkgo across three lifetimes. Part II gives each person their own song. Together, in chronological order: tree witnesses first, then the inner voice answers.</p>
+        <h2 class="album-zh">&#36234;&#31070;</h2>
+        <div class="album-en">Working Music II &middot; Soul on the Loose</div>
+        <p class="album-desc">The body stays at the desk. The soul goes wherever it wants. Fifteen jazz instrumentals for working hours and wandering minds &mdash; piano and archtop guitar, mostly without drums, mostly without resolution. Three movements: a settling in, a long drift, a quiet return. The music does not ask for your attention. It assumes you have left already, and it keeps playing anyway.</p>
         <div class="album-foot">
-          <div class="album-tags"><span>Double Album</span><span class="dot"></span><span>Ildikó Enyedi</span><span class="dot"></span><span>Complete Edition</span></div>
+          <div class="album-tags"><span>Jazz Instrumental</span><span class="dot"></span><span>Work Music</span><span class="dot"></span><span>Piano &middot; Guitar</span></div>
           <div class="listen">Listen <span class="arrow"></span></div>
         </div>
       </div>
     </a>
-
-    <a class="album-card" href="/still-walking/">
+    <a class="album-card" href="/traceless/">
       <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">003</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Six</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Multi-Instrument Ensemble</span></div>
+        <div class="spine-row"><span class="spine-key">Catalogue &numero;</span><span class="spine-val cat">009</span></div>
+        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI &middot; 2026</span></div>
+        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Fifteen</span></div>
+        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Instrumental &middot; Cognitive Focus</span></div>
       </div>
       <div class="album-body">
-        <h2 class="album-zh">步履不停</h2>
-        <div class="album-en">Still Walking <span class="pinyin">· Bùlǚ Bùtíng</span> · Inspired by Hirokazu Koreeda’s film (2008)</div>
-        <p class="album-desc">Six pieces for multi-instrument ensemble. A gem, a student, a teacher, 步履不停. A coffee shop in Tokyo. A final gift to oneself. People who cannot stop moving — not because they know where they’re going.</p>
+        <h2 class="album-zh">&#26080;&#30988;</h2>
+        <div class="album-en">Working Music I &middot; Traceless</div>
+        <p class="album-desc">This is music for the hours between tasks &mdash; not the minutes, the hours. A room with enough light to work. Something in the background, present without announcing itself. Fifteen pieces for felt piano and nylon-string guitar. The album moves like a day.</p>
         <div class="album-foot">
-          <div class="album-tags"><span>Ensemble</span><span class="dot"></span><span>Collaboration</span><span class="dot"></span><span>Film-Inspired</span></div>
+          <div class="album-tags"><span>Instrumental</span><span class="dot"></span><span>Focus</span><span class="dot"></span><span>Piano &middot; Guitar</span></div>
           <div class="listen">Listen <span class="arrow"></span></div>
         </div>
       </div>
     </a>
-
   </main>
-
-  <!-- MORE -->
-  <div class="section-mark" style="margin-top:16px;">
-    <div class="label">More</div>
-    <div class="rule"></div>
-    <div class="count">Browse by Series · 更多系列</div>
-  </div>
-
-  <div class="more-section">
-    <div class="category-grid">
-
-      <a class="category-tile" href="/film/">
-        <div class="tile-series">Series · 系列</div>
-        <div class="tile-zh">光影</div>
-        <div class="tile-en">Film</div>
-        <div class="tile-count">Six Works · Cinema-Inspired</div>
-        <div class="tile-browse">Browse <span class="arrow"></span></div>
-      </a>
-
-      <a class="category-tile" href="/working-music/">
-        <div class="tile-series">Series · 系列</div>
-        <div class="tile-zh">小猪系列</div>
-        <div class="tile-en">Working Music</div>
-        <div class="tile-count">Two Works · An Ongoing Series</div>
-        <div class="tile-browse">Browse <span class="arrow"></span></div>
-      </a>
-
-      <a class="category-tile" href="/feeling/">
-        <div class="tile-series">Series · 系列</div>
-        <div class="tile-zh">心境</div>
-        <div class="tile-en">Feeling</div>
-        <div class="tile-count">Six Works · Atmosphere &amp; Mood</div>
-        <div class="tile-browse">Browse <span class="arrow"></span></div>
-      </a>
-
-    </div>
-  </div>
 
   <section class="about">
     <div class="about-grid">
