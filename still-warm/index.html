@@ -39,7 +39,7 @@
     position: fixed;
     inset: -6%;
     z-index: 0;
-    background-image: url('https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/still-warm-cover.png');
+    background-image: url('./cover.png');
     background-size: cover;
     background-position: center center;
     animation: sway 10s ease-in-out infinite;
@@ -174,31 +174,31 @@ const BASE='https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/';
 const tracks = [
   { num:"01", zh:"瞬0", en:"Between Two Breaths",
     file:BASE+"Between_Two_Breaths.mp3",
-    story:"The gap between exhale and inhale. No attack, no direction. The world before anything enters it — pure suspension, waiting at its own frequency." },
+    story:"Between exhale and inhale. The lungs are empty. The next breath hasn't started yet." },
   { num:"02", zh:"孤立", en:"Notes from a Silent Room",
     file:BASE+"Notes_from_a_Silent_Room.mp3",
-    story:"A single note drops into silence. The wood resonates long after the string stops. In a room quiet enough, the smallest thing casts the longest shadow." },
-  { num:"03", zh:"反射", en:"A Late Night Parlor",
+    story:"A room where someone has been. They left without sound. The room remembers them anyway." },
+  { num:"03", zh:"温热", en:"A Late Night Parlor",
     file:BASE+"A_Late_Night_Parlor.mp3",
-    story:"Somewhere a room still holds the warmth of the day. Low timber, a fire settling into embers, 2.2 seconds of reverb tracing the walls. You are no longer alone in the dark." },
+    story:"Late. A room with low light and warm wood. No reason to be anywhere else. No reason to leave." },
   { num:"04", zh:"互阻", en:"Midnight Conversations",
     file:BASE+"Midnight_Conversations.mp3",
-    story:"Two presences, left and right, exchanging weight. Neither leads. The pauses carry as much as the words. Somewhere in the rubato, the distance between them closes." },
+    story:"The kind of talking that only happens at midnight — when there is no one left to perform for. Two voices, unhurried. What gets said when the day is finally over." },
   { num:"05", zh:"锁频", en:"After the Last Word",
     file:BASE+"After_the_Last_Word.mp3",
-    story:"The sentence ended. The high frequencies disappeared within five seconds — everything above a conversation's register, gone. What remains is only what was always underneath: low, slow, immovable." },
+    story:"Someone said the last word. Now the silence has weight. Neither person moves to fill it." },
   { num:"06", zh:"饱和", en:"Mahogany Hour",
     file:BASE+"Mahogany_Hour.mp3",
-    story:"The heaviest point. The wood holds you the way something very dense holds everything — completely, without asking. The question is not spoken here. It is only felt." },
+    story:"The deepest hour. Heavy wood, low light. The kind of dark you can stay in." },
   { num:"07", zh:"瞬V", en:"Salt in the Wood",
     file:BASE+"Salt_in_the_Wood.mp3",
-    story:"After the weight: friction. Coarse grain, rough surfaces, the texture of waking up after something. Clarity has edges. This is what being present feels like — not comfortable, but real." },
+    story:"Something sharp worked into something old. Not comfortable. Not meant to be. The grain holds it anyway." },
   { num:"08", zh:"V型", en:"After the Rain",
     file:BASE+"After_the_Rain.mp3",
-    story:"The spectrum cleared into a V. Everything muddy in the middle drained away. The walls opened — left, right, wide and cool. The air changed. Something did leave." },
+    story:"The rain has stopped. The air is clean. Everything that was heavy is lighter now. The streets are still wet." },
   { num:"09", zh:"衰减", en:"After the Last Toast",
     file:BASE+"After_the_Last_Toast.mp3",
-    story:"The felt damper lowered. The attack went soft, the metal gone from it. The warmth of the room is still real — but it is no longer rising. Only descending, slowly, evenly, with some dignity." },
+    story:"The glasses are down. The warmth is still in the room — but it has started, slowly, the way warmth always does, to leave." },
 ];
 
 let current=0;
