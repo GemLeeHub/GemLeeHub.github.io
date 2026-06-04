@@ -85,11 +85,15 @@
   .progress-fill { height: 100%; width: 0%; background: var(--gold); border-radius: 2px; transition: width 0.25s linear; }
 
   /* transport */
-  .transport { display: flex; align-items: center; justify-content: center; gap: 26px; margin-top: 22px; }
-  .t-btn { background: none; border: none; color: var(--ink); cursor: pointer; font-size: 18px; padding: 4px; transition: color 0.2s; font-family: inherit; }
+  .transport { display: flex; align-items: center; justify-content: center; gap: 30px; margin-top: 24px; }
+  .t-btn { background: none; border: none; color: var(--ink-dim); cursor: pointer; padding: 6px; transition: color 0.2s, transform 0.15s; font-family: inherit; display: flex; align-items: center; justify-content: center; }
   .t-btn:hover { color: var(--gold-bright); }
-  .t-play { width: 54px; height: 54px; border: 1px solid var(--gold-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; transition: all 0.2s; }
-  .t-play:hover { border-color: var(--gold); color: var(--gold-bright); }
+  .t-btn:active { transform: scale(0.9); }
+  .t-btn svg { width: 25px; height: 25px; display: block; fill: currentColor; }
+  .t-play { width: 56px; height: 56px; border: 1px solid var(--gold-dim); border-radius: 50%; color: #fff; transition: all 0.2s; }
+  .t-play:hover { border-color: var(--gold); color: var(--gold-bright); background: rgba(200,160,74,0.04); }
+  .t-play svg { width: 21px; height: 21px; }
+  .t-play svg.ic-play { margin-left: 3px; }
 
   /* mode row */
   .modes { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
@@ -123,9 +127,11 @@
     .screen { padding: 20px 16px 16px; min-height: 206px; }
     .np-zh { font-size: 28px; }
     .np-en { font-size: 9.5px; }
-    .transport { gap: 34px; margin-top: 24px; }
-    .t-btn { font-size: 23px; padding: 10px; }
-    .t-play { width: 62px; height: 62px; font-size: 23px; }
+    .transport { gap: 38px; margin-top: 26px; }
+    .t-btn { padding: 10px; }
+    .t-btn svg { width: 29px; height: 29px; }
+    .t-play { width: 64px; height: 64px; }
+    .t-play svg { width: 24px; height: 24px; }
     .modes { gap: 8px; margin-top: 22px; }
     .m-btn { padding: 10px 15px; font-size: 10px; }
     .pl-item { padding: 16px; }
@@ -171,9 +177,9 @@
   </div>
 
   <div class="transport">
-    <button class="t-btn" onclick="prev()" title="Previous">&#9198;</button>
-    <button class="t-btn t-play" id="btnPlay" onclick="toggle()" title="Play / Pause">&#9654;</button>
-    <button class="t-btn" onclick="next(true)" title="Next">&#9197;</button>
+    <button class="t-btn" onclick="prev()" title="Previous" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M7 6h2v12H7z"/><path d="M20 6v12l-9.5-6z"/></svg></button>
+    <button class="t-btn t-play" id="btnPlay" onclick="toggle()" title="Play / Pause" aria-label="Play"></button>
+    <button class="t-btn" onclick="next(true)" title="Next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M4 6v12l9.5-6z"/><path d="M15 6h2v12h-2z"/></svg></button>
   </div>
 
   <div class="modes">
@@ -385,9 +391,13 @@ function setMS(t){
     });
   }catch(e){}
 }
+const IC_PLAY='<svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg>';
+const IC_PAUSE='<svg class="ic-pause" viewBox="0 0 24 24"><path d="M7.5 5.5h3.2v13H7.5zM13.3 5.5h3.2v13h-3.2z"/></svg>';
 function toggle(){audio.paused?audio.play():audio.pause();updateBtn();}
 function updateBtn(){
-  document.getElementById('btnPlay').innerHTML=audio.paused?'&#9654;':'&#9646;&#9646;';
+  const b=document.getElementById('btnPlay');
+  b.innerHTML=audio.paused?IC_PLAY:IC_PAUSE;
+  b.setAttribute('aria-label',audio.paused?'Play':'Pause');
   if('mediaSession' in navigator) navigator.mediaSession.playbackState=audio.paused?'paused':'playing';
 }
 function stop(){audio.pause();audio.currentTime=0;updateBtn();}
