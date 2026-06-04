@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="随身听">
+<title>随身听 · Walkman — Gem Lee</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicPlaylist",
+  "name": "随身听 · Walkman — 随心 Easy Going",
+  "byArtist": { "@type": "MusicGroup", "name": "Gem Lee" },
+  "genre": "Calm Acoustic Instrumental",
+  "numTracks": 40,
+  "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "copyrightYear": "2026",
+  "copyrightHolder": { "@type": "Person", "name": "Gem Lee", "email": "nongming66@gmail.com" }
+}
+</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0b0e; --ink: #d8cba5; --ink-dim: #8a8068; --ink-faint: #4a4538;
+    --gold: #c8a04a; --gold-bright: #e8c478; --gold-dim: #8a6f33;
+    --rule: #1c1d22; --rule-bright: #2a2820; --panel: #101116;
+  }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Georgia', 'STSong', serif;
+    min-height: 100dvh; display: flex; flex-direction: column;
+    align-items: center; position: relative; padding: 0 16px env(safe-area-inset-bottom);
+  }
+  .bg-tone {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse at 50% 26%, rgba(200,160,74,0.05) 0%, transparent 56%),
+      linear-gradient(180deg, #0d0d11 0%, #0a0b0e 58%, #08080a 100%);
+  }
+  .back-link {
+    position: fixed; top: 18px; right: 22px; z-index: 10;
+    font-size: 9px; letter-spacing: 0.22em; color: var(--gold-dim);
+    text-decoration: none; text-transform: uppercase; transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--ink); }
+
+  .masthead { position: relative; z-index: 1; text-align: center; padding: 40px 0 22px; }
+  .masthead .zh { font-size: 22px; letter-spacing: 0.3em; color: #fff; }
+  .masthead .en { font-size: 10px; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-top: 7px; }
+
+  /* device */
+  .device {
+    position: relative; z-index: 1; width: 100%; max-width: 380px;
+    background: var(--panel); border: 1px solid var(--rule-bright);
+    border-radius: 22px; padding: 26px 26px 30px; margin-bottom: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  .device-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .device-brand { font-size: 9px; letter-spacing: 0.3em; color: var(--gold-dim); text-transform: uppercase; }
+  .device-mode { font-size: 9px; letter-spacing: 0.16em; color: var(--ink-faint); text-transform: uppercase; }
+
+  /* screen */
+  .screen {
+    background: linear-gradient(180deg, #07080b, #0b0c11);
+    border: 1px solid var(--rule); border-radius: 12px;
+    padding: 22px 20px 18px; min-height: 232px; display: flex; flex-direction: column;
+  }
+  .screen-pl { font-size: 12px; color: var(--gold-bright); letter-spacing: 0.08em; }
+  .screen-mood { font-size: 9px; color: var(--ink-faint); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px; }
+  .screen-div { height: 1px; background: var(--rule); margin: 14px 0; }
+  .np-num { font-size: 9px; letter-spacing: 0.3em; color: var(--gold); }
+  .np-zh { font-size: 30px; color: #fff; line-height: 1.15; margin-top: 8px; letter-spacing: 0.04em; }
+  .np-en { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-top: 6px; }
+  .np-note { font-size: 11px; line-height: 1.7; color: var(--ink-dim); margin-top: 12px; font-style: italic; display: none; }
+  .np-note.show { display: block; }
+  .screen-foot { margin-top: auto; }
+  .progress-wrap { display: flex; align-items: center; gap: 9px; margin-top: 16px; }
+  .time { font-size: 9px; color: var(--gold-dim); width: 30px; flex-shrink: 0; letter-spacing: 0.08em; }
+  .time.right { text-align: right; }
+  .progress-bar { flex: 1; height: 2px; background: var(--rule); cursor: pointer; border-radius: 2px; }
+  .progress-fill { height: 100%; width: 0%; background: var(--gold); border-radius: 2px; transition: width 0.25s linear; }
+
+  /* transport */
+  .transport { display: flex; align-items: center; justify-content: center; gap: 26px; margin-top: 22px; }
+  .t-btn { background: none; border: none; color: var(--ink); cursor: pointer; font-size: 18px; padding: 4px; transition: color 0.2s; font-family: inherit; }
+  .t-btn:hover { color: var(--gold-bright); }
+  .t-play { width: 54px; height: 54px; border: 1px solid var(--gold-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; transition: all 0.2s; }
+  .t-play:hover { border-color: var(--gold); color: var(--gold-bright); }
+
+  /* mode row */
+  .modes { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .m-btn { background: none; border: 1px solid var(--rule-bright); color: var(--ink-dim); cursor: pointer; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; padding: 7px 13px; border-radius: 20px; transition: all 0.2s; font-family: inherit; }
+  .m-btn:hover { color: var(--ink); border-color: var(--gold-dim); }
+  .m-btn.on { color: #0a0b0e; background: var(--gold); border-color: var(--gold); }
+
+  /* playlists */
+  .playlists { position: relative; z-index: 1; width: 100%; max-width: 380px; margin-bottom: 36px; }
+  .pl-label { font-size: 9px; letter-spacing: 0.26em; color: var(--gold-dim); text-transform: uppercase; text-align: center; margin-bottom: 12px; }
+  .pl-grid { display: flex; flex-direction: column; gap: 8px; }
+  .pl-item { display: flex; justify-content: space-between; align-items: center; padding: 13px 16px; border: 1px solid var(--rule-bright); border-radius: 10px; cursor: pointer; transition: all 0.2s; background: none; color: inherit; font-family: inherit; text-align: left; width: 100%; }
+  .pl-item:hover { border-color: var(--gold-dim); }
+  .pl-item.active { border-color: var(--gold-dim); background: linear-gradient(90deg, rgba(200,160,74,0.07), transparent); }
+  .pl-item.soon { opacity: 0.42; cursor: default; }
+  .pl-item.soon:hover { border-color: var(--rule-bright); }
+  .pl-zh { font-size: 14px; color: var(--ink); }
+  .pl-item.active .pl-zh { color: var(--gold-bright); }
+  .pl-en { font-size: 9px; color: var(--ink-faint); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 2px; }
+  .pl-meta { font-size: 9px; color: var(--ink-faint); letter-spacing: 0.1em; text-align: right; }
+
+  .footer { position: relative; z-index: 1; text-align: center; font-size: 9px; color: var(--ink-faint); letter-spacing: 0.1em; padding: 0 20px 28px; line-height: 2.1; }
+  .footer a { color: var(--ink-faint); text-decoration: none; }
+  .footer .wangu { font-family: 'STSong','SimSun',serif; font-size: 11px; letter-spacing: 0.2em; color: var(--gold-dim); display: block; margin-bottom: 3px; }
+
+  @media (max-width: 768px) {
+    body { padding: 0 14px env(safe-area-inset-bottom); }
+    .masthead { padding: calc(28px + env(safe-area-inset-top)) 0 16px; }
+    .device, .playlists { max-width: 100%; }
+    .device { padding: 22px 18px 26px; border-radius: 20px; }
+    .screen { padding: 20px 16px 16px; min-height: 206px; }
+    .np-zh { font-size: 28px; }
+    .np-en { font-size: 9.5px; }
+    .transport { gap: 34px; margin-top: 24px; }
+    .t-btn { font-size: 23px; padding: 10px; }
+    .t-play { width: 62px; height: 62px; font-size: 23px; }
+    .modes { gap: 8px; margin-top: 22px; }
+    .m-btn { padding: 10px 15px; font-size: 10px; }
+    .pl-item { padding: 16px; }
+    .pl-zh { font-size: 15px; }
+  }
+  @media (hover: none) {
+    .t-btn:active { color: var(--gold-bright); }
+    .m-btn:active { color: var(--ink); border-color: var(--gold-dim); }
+    .pl-item:active { border-color: var(--gold-dim); }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-tone"></div>
+<a class="back-link" href="../">← HUB</a>
+
+<div class="masthead">
+  <div class="zh">随身听</div>
+  <div class="en">Walkman · Gem Lee</div>
+</div>
+
+<div class="device">
+  <div class="device-top">
+    <span class="device-brand">随身听 · Walkman</span>
+    <span class="device-mode" id="modeLabel">In Order</span>
+  </div>
+  <div class="screen">
+    <div class="screen-pl" id="screenPl">随心 · Easy Going</div>
+    <div class="screen-mood" id="screenMood">Calm · Slow-Listening · Warm Acoustic</div>
+    <div class="screen-div"></div>
+    <div class="np-num" id="npNum">TRACK 01 / 40</div>
+    <div class="np-zh" id="npZh">茶未凉</div>
+    <div class="np-en" id="npEn">Before the Tea Cools</div>
+    <div class="np-note" id="npNote"></div>
+    <div class="screen-foot">
+      <div class="progress-wrap">
+        <span class="time" id="tEl">0:00</span>
+        <div class="progress-bar" id="pBar"><div class="progress-fill" id="pFill"></div></div>
+        <span class="time right" id="tTot">0:00</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="transport">
+    <button class="t-btn" onclick="prev()" title="Previous">&#9198;</button>
+    <button class="t-btn t-play" id="btnPlay" onclick="toggle()" title="Play / Pause">&#9654;</button>
+    <button class="t-btn" onclick="next(true)" title="Next">&#9197;</button>
+  </div>
+
+  <div class="modes">
+    <button class="m-btn" id="mShuffle" onclick="toggleShuffle()">&#8646; Shuffle</button>
+    <button class="m-btn" onclick="stop()">&#9632; Stop</button>
+    <button class="m-btn on" id="mLoop" onclick="toggleLoop()">&#8635; Loop</button>
+    <button class="m-btn" id="mInfo" onclick="toggleInfo()">&#9432; Info</button>
+  </div>
+</div>
+
+<div class="playlists">
+  <div class="pl-label">Playlists · 歌单</div>
+  <div class="pl-grid" id="plGrid"></div>
+</div>
+
+<div class="footer">
+  <span class="wangu">万古长空，一朝风月.</span>
+  &copy; 2026 Gem Lee &nbsp;&middot;&nbsp;
+  <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>
+  &nbsp;&middot;&nbsp; Non-commercial use free with attribution &nbsp;&middot;&nbsp;
+  Commercial: <a href="mailto:nongming66@gmail.com">nongming66@gmail.com</a>
+</div>
+
+<audio id="audio"></audio>
+<script>
+const B='https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/';
+
+const playlists = [
+  {
+    id:'easygoing', zh:'随心', en:'Easy Going',
+    mood:'Calm · Slow-Listening · Warm Acoustic',
+    tracks:[
+      { zh:"茶未凉", en:"Before the Tea Cools", file:B+"T01_%E8%8C%B6%E6%9C%AA%E5%87%89_Before_the_Tea_Cools.mp3", note:"早晨，茶还热，最耐心的一首。" },
+      { zh:"未启", en:"Not Yet", file:B+"1%20%E5%87%BA%E5%8F%91%E5%89%8D.mp3", note:"出发之前，旋律像一道拱。" },
+      { zh:"桌上那杯茶", en:"Tea on the Desk", file:B+"T3-Midnight_in_the_Study.mp3", note:"钢琴、吉他、低音，下午开始了。" },
+      { zh:"天气很好", en:"Good Weather", file:B+"T2-Conversations_in_Oak.mp3", note:"四音动机回来，有什么轻轻抬起。" },
+      { zh:"开始工作", en:"Getting to It", file:B+"T2-The_Hushed_Room.mp3", note:"低而安静的钢琴，慢慢进入。" },
+      { zh:"入", en:"Morning at the Window", file:B+"T3-Morning_at_the_Window.mp3", note:"一缕清亮的吉他线，已经在屋里了。" },
+      { zh:"起", en:"Coffee and Pale Light", file:B+"T4-Coffee_and_Pale_Light.mp3", note:"淡淡的光，一杯咖啡，开始。" },
+      { zh:"流", en:"Stillness by the Window", file:B+"T5-Stillness_by_the_Window.mp3", note:"四音乐句每隔一会回来，毫不费力地流动。" },
+      { zh:"阳光落地", en:"Sun on the Floorboards", file:B+"T03_%E9%98%B3%E5%85%89%E8%90%BD%E5%9C%B0_Sun_on_the_Floorboards.mp3", note:"正午的光穿过地板，最亮的一刻。" },
+      { zh:"瓷白与光", en:"Porcelain and Sunlight", file:B+"Porcelain_and_Sunlight.mp3", note:"两把吉他对话，无需言语。" },
+      { zh:"香杉树荫下", en:"Under the Cedar Bough", file:B+"Under_the_Cedar_Bough.mp3", note:"单吉他，深深的雪松共鸣。" },
+      { zh:"入林", en:"Stillness in the Pavilion", file:B+"T1-Stillness_in_the_Pavilion.mp3", note:"城市的声音退去，林中第一步。" },
+      { zh:"光", en:"Sunlight Through Leaves", file:B+"T3-Sunlight_Through_Leaves.mp3", note:"一束光劈开树冠。" },
+      { zh:"温热", en:"A Late Night Parlor", file:B+"A_Late_Night_Parlor.mp3", note:"低光，暖木，没有理由离开。" },
+      { zh:"周二早晨", en:"Tuesday Morning Dialogue", file:B+"T3-Tuesday_Morning_Dialogue.mp3", note:"钢琴和吉他，轻松的周二。" },
+      { zh:"十二品雨", en:"Twelve Fret Rain", file:B+"Twelve_Fret_Rain.mp3", note:"吉他进来，温暖，有质感。" },
+      { zh:"慢慢地", en:"No Hurry", file:B+"T5-Monday_After_Midnight.mp3", note:"圆舞曲，刷子鼓轻轻进入。" },
+      { zh:"诶？", en:"Oh", file:B+"T11-Corner_of_the_Library.mp3", note:"向前的脉动，你回来了。" },
+      { zh:"回来了", en:"Back in the Room", file:B+"T12-After_the_Last_Call.mp3", note:"bossa 的感觉，都在。" },
+      { zh:"随便走走", en:"Just Walking", file:B+"T5-Window_Left_Open.mp3", note:"脚步轻盈，哪儿也不去。" },
+      { zh:"清", en:"Low Light, Soft Wood", file:B+"T10-Low_Light_Soft_Wood.mp3", note:"第四级音轻轻上扬，一点点亮。" },
+      { zh:"照", en:"Low Light at the Window", file:B+"T11-Low_Light_at_the_Window.mp3", note:"雨打在玻璃上，钢琴回到窗边。" },
+      { zh:"出", en:"Cedar and Felt", file:B+"T14-Cedar_and_Felt.mp3", note:"雪松吉他，毛毡钢琴，材料的名字。" },
+      { zh:"如故", en:"As It Was", file:B+"6%20%E5%88%B0%E5%AE%B6.mp3", note:"回到 D 大调的家。" },
+      { zh:"四点的对话", en:"Conversations at Four", file:B+"T05_%E5%9B%9B%E7%82%B9%E7%9A%84%E5%AF%B9%E8%AF%9D_Conversations_at_Four.mp3", note:"一把吉他，一问一答。" },
+      { zh:"Beneath the Tree", en:"Silent Friend · Ensemble", file:B+"T06_%E5%A4%A7%E5%9C%B0_Earth.mp3", note:"一个世纪，歇在同一片土地上。" },
+      { zh:"绿色", en:"Sunlight on Rosewood", file:B+"T5-Sunlight_on_Rosewood.mp3", note:"无尽的绿，音乐重复，却从不相同。" },
+      { zh:"心旷神怡", en:"Breath of the Grove", file:B+"T6-Breath_of_the_Grove.mp3", note:"心宽，自在，森林只是存在着。" },
+      { zh:"皮椅与咖啡", en:"Leather Chairs and Coffee", file:B+"Leather_Chairs_and_Coffee.mp3", note:"走动的低音，刷子，午后的爵士。" },
+      { zh:"老街圆舞曲", en:"The Wooden Waltz", file:B+"The_Wooden_Waltz.mp3", note:"3/4 拍，吉他与手风琴，小小的自由。" },
+      { zh:"互阻", en:"Midnight Conversations", file:B+"Midnight_Conversations.mp3", note:"午夜的交谈，不慌不忙。" },
+      { zh:"V型", en:"After the Rain", file:B+"After_the_Rain.mp3", note:"雨停了，一切都轻了。" },
+      { zh:"还好还好", en:"All Fine", file:B+"T11-Late_Sunday_Light.mp3", note:"三件乐器回来。" },
+      { zh:"有一点满足", en:"A Little Satisfied", file:B+"T12-Table_by_the_Window.mp3", note:"最亮的调，刷子鼓，有点满足。" },
+      { zh:"没关系", en:"Never Mind", file:B+"T13-Late_Night_Parlor.mp3", note:"更宽的吉他弧线。" },
+      { zh:"快完成了", en:"Nearly", file:B+"T14-Stillness_in_the_Grains.mp3", note:"更暖，bossa 的左手。" },
+      { zh:"午后无事", en:"Tuesday Afternoon Ease", file:B+"Tuesday_Afternoon_Ease.mp3", note:"cool jazz 的松弛，什么都不用证明。" },
+      { zh:"最后的光", en:"Last Light On the Floor", file:B+"T06_%E6%9C%80%E5%90%8E%E7%9A%84%E5%85%89_Last_Light_On_The_Floor.mp3", note:"傍晚的光回来又离开，无声地收尾。" },
+      { zh:"放", en:"Low Light in the Room", file:B+"T2-Low_Light_in_the_Room.mp3", note:"钢琴独自，把一份重量轻轻放下。" },
+      { zh:"余", en:"Sunlight on the Floorboards", file:B+"T15-%20Sunlight_on_the_Floorboards.mp3", note:"磁带嘶声淡入完全的静默，不留痕迹。" },
+    ]
+  },
+  {
+    id:'warm', zh:'暖', en:'Warm', mood:'Warm · Intimate · Late Evening',
+    tracks:[
+      { zh:"温热", en:"A Late Night Parlor", file:B+"A_Late_Night_Parlor.mp3", note:"低光，暖木，没有理由离开。" },
+      { zh:"茶未凉", en:"Before the Tea Cools", file:B+"T01_%E8%8C%B6%E6%9C%AA%E5%87%89_Before_the_Tea_Cools.mp3", note:"早晨，茶还热，最耐心的一首。" },
+      { zh:"未启", en:"Not Yet", file:B+"1%20%E5%87%BA%E5%8F%91%E5%89%8D.mp3", note:"出发之前，旋律像一道拱。" },
+      { zh:"亚麻与咖啡", en:"Linen and Coffee", file:B+"Linen_and_Coffee.mp3", note:"灰色的天，屋里亚麻与咖啡，够暖了。" },
+      { zh:"孤立", en:"Notes from a Silent Room", file:B+"Notes_from_a_Silent_Room.mp3", note:"一个房间，记着无声离开的人。" },
+      { zh:"十二品雨", en:"Twelve Fret Rain", file:B+"Twelve_Fret_Rain.mp3", note:"吉他进来，温暖，有质感。" },
+      { zh:"松针与树叶", en:"Needle and Leaf", file:B+"Needle_and_Leaf.mp3", note:"斑驳的金，新绿，西雅图的林子。" },
+      { zh:"萍水相逢", en:"Strangers, Just Hi", file:B+"4%20%E8%90%8D%E6%B0%B4%E7%9B%B8%E9%80%A2.mp3", note:"两条稀疏的吉他线，一小节短促的回声。" },
+      { zh:"互阻", en:"Midnight Conversations", file:B+"Midnight_Conversations.mp3", note:"午夜的交谈，不慌不忙。" },
+      { zh:"三点钟的重量", en:"The Weight of Three O'Clock", file:B+"T04_%E4%B8%89%E7%82%B9%E9%92%9F%E7%9A%84%E9%87%8D%E9%87%8F_The_Weight_of_Three_OClock.mp3", note:"三点的静止，厚重的混响，引力。" },
+      { zh:"瓷白与光", en:"Porcelain and Sunlight", file:B+"Porcelain_and_Sunlight.mp3", note:"两把吉他对话，无需言语。" },
+      { zh:"周二早晨", en:"Tuesday Morning Dialogue", file:B+"T3-Tuesday_Morning_Dialogue.mp3", note:"钢琴和吉他，轻松的周二。" },
+      { zh:"先生", en:"Teacher", file:B+"T03_%E5%85%88%E7%94%9F_Teacher.mp3", note:"沉稳、从容，一种持物的方式。" },
+      { zh:"初见", en:"The Quietest Hour", file:B+"T1-The_Quietest_Hour.mp3", note:"低而暖的小号，一句，然后停下。" },
+      { zh:"瞬V", en:"Salt in the Wood", file:B+"Salt_in_the_Wood.mp3", note:"把锋利的东西嵌进古旧的木里。" },
+      { zh:"暮色", en:"Dusk", file:B+"5%20%E6%9A%AE%E8%89%B2.mp3", note:"旋律一个音区一个音区往下走。" },
+      { zh:"香杉树荫下", en:"Under the Cedar Bough", file:B+"Under_the_Cedar_Bough.mp3", note:"单吉他，深深的雪松共鸣。" },
+      { zh:"踏实", en:"The Weight of the Wood", file:B+"The_Weight_Of_The_Wood.mp3", note:"一下子落定，低音大提琴与打击，厚而暖。" },
+      { zh:"四点的对话", en:"Conversations at Four", file:B+"T05_%E5%9B%9B%E7%82%B9%E7%9A%84%E5%AF%B9%E8%AF%9D_Conversations_at_Four.mp3", note:"一把吉他，一问一答。" },
+      { zh:"东京咖啡馆", en:"Coffee Shop in Tokyo", file:B+"T05_%E4%B8%9C%E4%BA%AC%E5%92%96%E5%95%A1%E9%A6%86_Coffee_Shop_in_Tokyo.mp3", note:"那个异类——离形成之地很远的自己。" },
+      { zh:"饱和", en:"Mahogany Hour", file:B+"Mahogany_Hour.mp3", note:"最深的一刻，沉木，低光，可以久待的暗。" },
+      { zh:"老街圆舞曲", en:"The Wooden Waltz", file:B+"The_Wooden_Waltz.mp3", note:"3/4 拍，吉他与手风琴，小小的自由。" },
+      { zh:"周二", en:"Inertia of a Tuesday", file:B+"Inertia_of_a_Tuesday.mp3", note:"正午拉着窗帘，光里的尘。" },
+      { zh:"回", en:"The House Left Behind", file:B+"T4-The_House_Left_Behind.mp3", note:"E 小调，钢琴温暖，小号绕回，不抵达。" },
+      { zh:"锁频", en:"After the Last Word", file:B+"After_the_Last_Word.mp3", note:"最后一句话之后，沉默有了重量。" },
+      { zh:"最后的光", en:"Last Light On the Floor", file:B+"T06_%E6%9C%80%E5%90%8E%E7%9A%84%E5%85%89_Last_Light_On_The_Floor.mp3", note:"傍晚的光回来又离开，无声地收尾。" },
+      { zh:"赠己", en:"Lee", file:B+"T07_%E8%B5%A0%E5%B7%B1_Lee.mp3", note:"终曲，以制作者命名，最连续、没有缝隙。" },
+      { zh:"衰减", en:"After the Last Toast", file:B+"After_the_Last_Toast.mp3", note:"杯子放下，暖意慢慢离开房间。" },
+    ]
+  },
+  {
+    id:'cool', zh:'清冽', en:'Cool', mood:'Cool · Clear · Spacious',
+    tracks:[
+      { zh:"落", en:"The Unlatched Window", file:B+"T1-The_Unlatched_Window.mp3", note:"窗子没扣上，一个音，然后长长的停顿。" },
+      { zh:"入", en:"Morning at the Window", file:B+"T3-Morning_at_the_Window.mp3", note:"一缕清亮的吉他线，已经在屋里了。" },
+      { zh:"午后无事", en:"Tuesday Afternoon Ease", file:B+"Tuesday_Afternoon_Ease.mp3", note:"cool jazz 的松弛，什么都不用证明。" },
+      { zh:"流", en:"Stillness by the Window", file:B+"T5-Stillness_by_the_Window.mp3", note:"四音乐句每隔一会回来。" },
+      { zh:"入林", en:"Stillness in the Pavilion", file:B+"T1-Stillness_in_the_Pavilion.mp3", note:"城市的声音退去，林中第一步。" },
+      { zh:"影子长了", en:"Tuesday at Three", file:B+"Tuesday_at_Three.mp3", note:"光移了，又一个周二。" },
+      { zh:"无", en:"Copper Light on Cedar", file:B+"T7-Copper_Light_on_Cedar.mp3", note:"几乎什么都没有，单音相隔三十秒。" },
+      { zh:"凛", en:"Before the Snow Settles", file:B+"T3-Before_the_Snow_Settles.mp3", note:"教堂混响，冷，下行乐句沉入静默。" },
+      { zh:"多坐一站", en:"The Quiet Passenger", file:B+"The_Quiet_Passenger.mp3", note:"电车空了，过站的感觉。" },
+      { zh:"在", en:"Damp Cedar Air", file:B+"T9-Damp_Cedar_Air.mp3", note:"吉他出现一两次，磁带嘶声托着。" },
+      { zh:"光", en:"Sunlight Through Leaves", file:B+"T3-Sunlight_Through_Leaves.mp3", note:"一束光劈开树冠。" },
+      { zh:"入夜", en:"The Quiet Hour", file:B+"TRACK-001_VC_Sax_The_Quiet_Hour.mp3", note:"晚八点，萨克斯旋律慢慢解决。" },
+      { zh:"清", en:"Low Light, Soft Wood", file:B+"T10-Low_Light_Soft_Wood.mp3", note:"第四级音轻轻上扬。" },
+      { zh:"将明未明", en:"Before the Morning", file:B+"T10-Before_the_Morning.mp3", note:"弦乐，不解决的和声，最悬置的一刻。" },
+      { zh:"霓虹", en:"Mechanical Grace", file:B+"TRACK-001_VC_Trumpet_Mechanical_Grace.mp3", note:"夜里的玻璃高楼，小号，平静。" },
+      { zh:"不可见的维度", en:"Stone and Breath", file:B+"T4-Stone_and_Breath.mp3", note:"站在两百岁的树前，一次位移。" },
+      { zh:"照", en:"Low Light at the Window", file:B+"T11-Low_Light_at_the_Window.mp3", note:"雨打在玻璃上，钢琴回到窗边。" },
+      { zh:"时间不走了", en:"The Slowest Hour", file:B+"The_Slowest_Hour.mp3", note:"单个钢琴音落入深井。" },
+      { zh:"不急", en:"A Slow Exchange", file:B+"A_Slow_Exchange.mp3", note:"两件乐器在慢速里一来一往。" },
+      { zh:"绿色", en:"Sunlight on Rosewood", file:B+"T5-Sunlight_on_Rosewood.mp3", note:"无尽的绿，音乐重复，却从不相同。" },
+      { zh:"持", en:"Before the Fog Lifts", file:B+"T12-Before_the_Fog_Lifts.mp3", note:"停在转变之前的那一刻。" },
+      { zh:"天亮之前", en:"The Room Before Dawn", file:B+"The_Room_Before_Dawn.mp3", note:"黑暗的房间，凌晨四点在呼吸。" },
+      { zh:"浮", en:"Between Two Heartbeats", file:B+"T2-Between_Two_Heartbeats.mp3", note:"3/4，比华尔兹更慢，弦乐填满间隙。" },
+      { zh:"散了", en:"Conversations After Midnight", file:B+"Conversations_After_Midnight.mp3", note:"每个音放好，任其鸣响，淡入静默。" },
+      { zh:"水面", en:"Surface of the Water", file:B+"Surface_Of_The_Water.mp3", note:"吉他过和声踏板，傍晚的湖面。" },
+      { zh:"长空", en:"Three O'Clock Stillness", file:B+"T5-Three_O_Clock_Stillness.mp3", note:"两小节响，两小节静默，最后一音衰减殆尽。" },
+    ]
+  },
+  {
+    id:'exciting', zh:'振奋', en:'Exciting', mood:'Bright · Pulse · Uplifting',
+    tracks:[
+      { zh:"阳光落地", en:"Sun on the Floorboards", file:B+"T03_%E9%98%B3%E5%85%89%E8%90%BD%E5%9C%B0_Sun_on_the_Floorboards.mp3", note:"正午的光穿过地板，最亮的一刻。" },
+      { zh:"天气很好", en:"Good Weather", file:B+"T2-Conversations_in_Oak.mp3", note:"四音动机回来，有什么轻轻抬起。" },
+      { zh:"诶？", en:"Oh", file:B+"T11-Corner_of_the_Library.mp3", note:"向前的脉动，你回来了。" },
+      { zh:"心里在跳", en:"Dancing Inside", file:B+"T6-Before_the_Streets_Wake_Up.mp3", note:"刷子鼓第一次进来。" },
+      { zh:"回来了", en:"Back in the Room", file:B+"T12-After_the_Last_Call.mp3", note:"bossa 的感觉，都在。" },
+      { zh:"树的形成", en:"Where the Timber Breathes", file:B+"T2-Where_the_Timber_Breathes.mp3", note:"树作为过程，两条线汇合。" },
+      { zh:"有一点满足", en:"A Little Satisfied", file:B+"T12-Table_by_the_Window.mp3", note:"最亮的调，刷子鼓，有点满足。" },
+      { zh:"慢慢地", en:"No Hurry", file:B+"T5-Monday_After_Midnight.mp3", note:"圆舞曲，刷子鼓轻轻进入。" },
+      { zh:"皮椅与咖啡", en:"Leather Chairs and Coffee", file:B+"Leather_Chairs_and_Coffee.mp3", note:"走动的低音，刷子，午后的爵士。" },
+      { zh:"随便走走", en:"Just Walking", file:B+"T5-Window_Left_Open.mp3", note:"脚步轻盈，哪儿也不去。" },
+      { zh:"没关系", en:"Never Mind", file:B+"T13-Late_Night_Parlor.mp3", note:"更宽的吉他弧线。" },
+      { zh:"陌生的街道", en:"Unfamiliar Streets", file:B+"3%20%E9%99%8C%E7%94%9F%E7%9A%84%E8%A1%97%E9%81%93.mp3", note:"独奏吉他，大量自由速度，最活跃的一首。" },
+      { zh:"开心", en:"Happy", file:B+"T13-The_Stream_Above_the_Orchard.mp3", note:"四件乐器一齐，最开阔。" },
+      { zh:"快完成了", en:"Nearly", file:B+"T14-Stillness_in_the_Grains.mp3", note:"更暖，bossa 的左手。" },
+      { zh:"心旷神怡", en:"Breath of the Grove", file:B+"T6-Breath_of_the_Grove.mp3", note:"心宽，自在。" },
+      { zh:"那个角落", en:"Midnight at the Corner Booth", file:B+"Midnight_at_the_Corner_Booth.mp3", note:"更重，带蓝调，夜更深了。" },
+      { zh:"放下吧", en:"Put It Down", file:B+"T14-Window_Facing_West.mp3", note:"钢琴与刷子鼓，把什么放下。" },
+      { zh:"还好还好", en:"All Fine", file:B+"T11-Late_Sunday_Light.mp3", note:"三件乐器回来。" },
+      { zh:"今天不错", en:"Good Day", file:B+"T15-Five_Notes_at_Dusk.mp3", note:"F 大调，bossa 脉动，收在出发的地方。" },
+    ]
+  },
+];
+
+let plIndex=0, current=0, shuffle=false, loopAll=true, info=false;
+const audio=document.getElementById('audio');
+const pad=n=>String(n).padStart(2,'0');
+const fmt=s=>isNaN(s)?'0:00':Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+const PL=()=>playlists[plIndex];
+
+function buildPlaylists(){
+  const g=document.getElementById('plGrid'); g.innerHTML='';
+  playlists.forEach((p,i)=>{
+    const el=document.createElement('button');
+    el.className='pl-item'+(i===plIndex?' active':'')+(p.soon?' soon':'');
+    el.innerHTML=`<div><div class="pl-zh">${p.zh} · ${p.en}</div><div class="pl-en">${p.soon?'即将推出':'In Order / Shuffle'}</div></div><div class="pl-meta">${p.soon?'soon':p.tracks.length+' tracks'}</div>`;
+    if(!p.soon) el.onclick=()=>selectPlaylist(i);
+    g.appendChild(el);
+  });
+}
+function selectPlaylist(i){
+  if(playlists[i].soon) return;
+  plIndex=i; current=0;
+  document.getElementById('screenPl').textContent=PL().zh+' · '+PL().en;
+  document.getElementById('screenMood').textContent=PL().mood;
+  buildPlaylists();
+  load(0,false);
+}
+
+function load(idx,play){
+  current=idx;
+  const t=PL().tracks[current];
+  document.getElementById('npNum').textContent='TRACK '+pad(current+1)+' / '+PL().tracks.length;
+  document.getElementById('npZh').textContent=t.zh;
+  document.getElementById('npEn').textContent=t.en;
+  document.getElementById('npNote').textContent=t.note||'';
+  audio.src=t.file;
+  if(play)audio.play();
+  setMS(t);
+  updateBtn();
+}
+function setMS(t){
+  if(!('mediaSession' in navigator))return;
+  try{
+    navigator.mediaSession.metadata=new MediaMetadata({
+      title: t.zh + (t.en ? '  ·  '+t.en : ''),
+      artist: 'Gem Lee',
+      album: '随身听 · Walkman — '+PL().zh+' '+PL().en
+    });
+  }catch(e){}
+}
+function toggle(){audio.paused?audio.play():audio.pause();updateBtn();}
+function updateBtn(){
+  document.getElementById('btnPlay').innerHTML=audio.paused?'&#9654;':'&#9646;&#9646;';
+  if('mediaSession' in navigator) navigator.mediaSession.playbackState=audio.paused?'paused':'playing';
+}
+function stop(){audio.pause();audio.currentTime=0;updateBtn();}
+function prev(){if(audio.currentTime>3){audio.currentTime=0;return;}load((current-1+PL().tracks.length)%PL().tracks.length,!audio.paused);}
+function next(manual){
+  const n=PL().tracks.length;
+  if(shuffle){ let r=current; if(n>1){while(r===current)r=Math.floor(Math.random()*n);} load(r,true); return; }
+  if(current<n-1) load(current+1,true);
+  else if(loopAll) load(0,true);        // playlist end + loop on → restart and play
+  else if(manual) load(0,true);         // manual Next at end → wrap and play
+  else { audio.pause(); updateBtn(); }  // auto-end + loop off → stop
+}
+function toggleShuffle(){shuffle=!shuffle;document.getElementById('mShuffle').classList.toggle('on',shuffle);document.getElementById('modeLabel').textContent=shuffle?'Shuffle':'In Order';}
+function toggleLoop(){loopAll=!loopAll;document.getElementById('mLoop').classList.toggle('on',loopAll);}
+function toggleInfo(){info=!info;document.getElementById('mInfo').classList.toggle('on',info);document.getElementById('npNote').classList.toggle('show',info);}
+
+audio.addEventListener('timeupdate',()=>{
+  if(!audio.duration)return;
+  document.getElementById('pFill').style.width=(audio.currentTime/audio.duration*100)+'%';
+  document.getElementById('tEl').textContent=fmt(audio.currentTime);
+  document.getElementById('tTot').textContent=fmt(audio.duration);
+});
+audio.addEventListener('ended',()=>next(false));
+audio.addEventListener('play',updateBtn);
+audio.addEventListener('pause',updateBtn);
+document.getElementById('pBar').addEventListener('click',e=>{
+  if(!audio.duration)return;
+  const r=e.currentTarget.getBoundingClientRect();
+  audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;
+});
+
+if('mediaSession' in navigator){
+  navigator.mediaSession.setActionHandler('play',()=>{audio.play();updateBtn();});
+  navigator.mediaSession.setActionHandler('pause',()=>{audio.pause();updateBtn();});
+  navigator.mediaSession.setActionHandler('previoustrack',()=>prev());
+  navigator.mediaSession.setActionHandler('nexttrack',()=>next(true));
+}
+
+buildPlaylists();
+load(0,false);
+</script>
+</body>
+</html>
