@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>余振 — Elastic Decay · Gem Lee</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicAlbum",
+  "name": "余振 — Elastic Decay",
+  "byArtist": { "@type": "MusicGroup", "name": "Gem Lee" },
+  "genre": "Instrumental / Mixed Palette",
+  "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "copyrightYear": "2026",
+  "copyrightHolder": { "@type": "Person", "name": "Gem Lee", "email": "nongming66@gmail.com" },
+  "description": "Ten pieces drawn from other projects — each complete in itself, each a remnant. Together they trace a single day: a room before dawn, a morning of wood and rain, a jazz club in the afternoon, a waltz on an old street, and a bar before closing. Audio synthesized via AI (Gemini Lyria). Concept, direction and prompts by Gem Lee."
+}
+</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /*
+  ─────────────────────────────────────────────
+  COLOR THEME — PROJECT-020 瞬息收容所 · 余振
+  Transparent UI over wallpaper
+  Accent : #c8943a  (amber gold — tuning fork vibration / residual heat)
+  BG     : #07080a  (near-black charcoal)
+  ─────────────────────────────────────────────
+  */
+
+  body {
+    background: #07080a;
+    color: #e4dcd0;
+    font-family: 'Georgia', 'STSong', serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bg-image {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image: url('./cover.png');
+    background-size: cover;
+    background-position: center center;
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: rgba(0, 0, 0, 0.52);
+    pointer-events: none;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────── */
+  .header { padding: 22px 40px 18px; flex-shrink: 0; position: relative; z-index: 1; }
+  .album-title { font-size: 26px; font-weight: normal; letter-spacing: 0.12em; color: #ffffff; text-shadow: 0 1px 12px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.7); }
+  .album-subtitle { font-size: 12px; color: #c8943a; margin-top: 5px; letter-spacing: 0.1em; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
+
+  /* ── BODY ───────────────────────────────────────────── */
+  .body { display: flex; flex: 1; overflow: hidden; position: relative; z-index: 1; }
+
+  .sidebar { width: 230px; overflow-y: auto; flex-shrink: 0; padding: 12px 0; }
+  .track-item { padding: 10px 20px; cursor: pointer; transition: opacity 0.2s; }
+  .track-item:hover { opacity: 0.75; }
+  .track-num { font-size: 9px; letter-spacing: 0.2em; color: #c8943a; margin-bottom: 3px; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .track-zh { font-size: 14px; color: #ffffff; margin-bottom: 2px; text-shadow: 0 1px 8px rgba(0,0,0,0.95); }
+  .track-en { font-size: 10px; color: #6e5e42; letter-spacing: 0.08em; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .track-item.active .track-zh { color: #f0d898; }
+  .track-item.active .track-en { color: #c8943a; }
+
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 40px 50px 28px; }
+  .now-playing { flex: 1; overflow-y: auto; }
+  .np-number { font-size: 10px; letter-spacing: 0.35em; color: #c8943a; margin-bottom: 14px; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
+  .np-zh { font-size: 48px; font-weight: normal; color: #ffffff; letter-spacing: 0.08em; line-height: 1.2; margin-bottom: 10px; text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 0 60px rgba(0,0,0,0.5); }
+  .np-en { font-size: 14px; letter-spacing: 0.22em; color: #c8943a; text-transform: uppercase; margin-bottom: 28px; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
+  .np-story { font-size: 14px; line-height: 1.9; color: #b8a888; max-width: 540px; font-style: italic; transition: opacity 0.4s ease; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
+
+  /* ── CONTROLS ───────────────────────────────────────── */
+  .controls { flex-shrink: 0; padding-top: 22px; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .time { font-size: 10px; letter-spacing: 0.12em; color: #c8943a; width: 36px; flex-shrink: 0; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .time.right { text-align: right; }
+  .progress-bar { flex: 1; height: 1px; background: rgba(200,148,58,0.25); cursor: pointer; position: relative; }
+  .progress-fill { height: 100%; background: #c8943a; width: 0%; transition: width 0.25s linear; }
+  .buttons { display: flex; align-items: center; gap: 16px; }
+  .btn { background: none; border: none; color: #6e5e42; cursor: pointer; font-size: 10px; letter-spacing: 0.25em; padding: 4px 0; font-family: inherit; transition: color 0.2s; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .btn:hover { color: #ffffff; }
+  .btn-play { font-size: 16px; color: #ffffff; border: 1px solid rgba(200,148,58,0.5); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0; }
+  .btn-play:hover { border-color: #c8943a; color: #c8943a; }
+  .status-dot { width: 5px; height: 5px; border-radius: 50%; background: #c8943a; opacity: 0; transition: opacity 0.3s; margin-left: auto; }
+  .status-dot.playing { opacity: 1; }
+
+  /* ── FOOTER ─────────────────────────────────────────── */
+  .footer { text-align: center; font-size: 9px; color: #5a4e38; letter-spacing: 0.1em; padding: 7px 20px 10px; flex-shrink: 0; line-height: 2; position: relative; z-index: 1; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+  .footer a { color: #5a4e38; text-decoration: none; }
+  .mantra { font-size: 11px; color: #c8943a; letter-spacing: 0.32em; font-style: italic; margin-top: 3px; text-shadow: 0 1px 10px rgba(0,0,0,0.9); }
+
+  /* ── MOBILE ─────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    body { height: auto; min-height: 100dvh; overflow: auto; }
+    .bg-image { background-attachment: scroll; }
+    .header { padding: 16px 20px 12px; }
+    .album-title { font-size: 20px; }
+    .album-subtitle { font-size: 10px; }
+    .body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; display: flex; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: 6px 0; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
+    .track-item { flex-shrink: 0; padding: 8px 16px; }
+    .track-item.active { border-bottom: 2px solid #c8943a; }
+    .track-en { display: none; }
+    .main { padding: 24px 20px 16px; }
+    .np-zh { font-size: 32px; }
+    .np-en { font-size: 10px; letter-spacing: 0.18em; margin-bottom: 18px; }
+    .np-story { font-size: 13px; }
+    .controls { padding-top: 16px; }
+    .btn-play { width: 44px; height: 44px; }
+  }
+
+  /* ── BACK LINK ──────────────────────────────────────── */
+  .back-link { position: fixed; top: 18px; right: 22px; z-index: 10; font-size: 9px; letter-spacing: 0.22em; text-decoration: none; text-transform: uppercase; text-shadow: 0 1px 8px rgba(0,0,0,0.9); transition: color 0.2s; }
+  .back-link:hover { color: #ffffff; }
+  @media (max-width: 768px) { .back-link { top: 14px; right: 16px; font-size: 10px; } }
+</style>
+</head>
+<body>
+<a class="back-link" href="/" style="color:#c8943a">&#9666; ALL ALBUMS</a>
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
+<div class="header">
+  <div class="album-title">余振 &nbsp;·&nbsp; Elastic Decay</div>
+  <div class="album-subtitle">Gem Lee &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Instrumental · Mixed Palette</div>
+</div>
+<div class="body">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main">
+    <div class="now-playing">
+      <div class="np-number" id="npNum">TRACK 01</div>
+      <div class="np-zh"    id="npZh">天亮之前</div>
+      <div class="np-en"    id="npEn">The Room Before Dawn</div>
+      <div class="np-story" id="npStory"></div>
+    </div>
+    <div class="controls">
+      <div class="progress-wrap">
+        <span class="time"         id="timeElapsed">0:00</span>
+        <div  class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="time right"   id="timeTotal">0:00</span>
+        <div  class="status-dot"   id="statusDot"></div>
+      </div>
+      <div class="buttons">
+        <button class="btn"          onclick="prevTrack()">&#9664;&#9664; PREV</button>
+        <button class="btn btn-play" id="btnPlay" onclick="togglePlay()">&#9654;</button>
+        <button class="btn"          onclick="nextTrack()">NEXT &#9654;&#9654;</button>
+      </div>
+    </div>
+  </div>
+</div>
+<audio id="audio"></audio>
+<script>
+const BASE = 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/shelter/';
+const tracks = [
+  { num:"01", zh:"天亮之前",    en:"The Room Before Dawn",
+    file: BASE + "The_Room_Before_Dawn.mp3",
+    story: "The room is dark but you are not asleep. Something in the air is holding still — not silence exactly, more like the sound of a building breathing at four in the morning. Nothing is asked of you here. The room simply keeps you company while you wait for something you cannot name to pass." },
+
+  { num:"02", zh:"时间不走了",  en:"The Slowest Hour",
+    file: BASE + "The_Slowest_Hour.mp3",
+    story: "A single piano note falls in the dark like a drop of water into a very deep well. Then nothing. Then another. You do not count them — there is no point. Time in this hour is not going anywhere. It is simply being experienced, one note at a time, until there are no more notes and the dark continues without them." },
+
+  { num:"03", zh:"将明未明",    en:"Before the Morning",
+    file: BASE + "T10-Before_the_Morning.mp3",
+    story: "The strings arrive without announcement, as if they were always there and you only just noticed. Something is coming — you can feel it in the way the harmony refuses to resolve. The most suspended moment of the night. The city is neither dark nor light. You are not afraid of it. You are inside it." },
+
+  { num:"04", zh:"十二品雨",    en:"Twelve Fret Rain",
+    file: BASE + "Twelve_Fret_Rain.mp3",
+    story: "The guitar enters without warning, and everything is different. Warm. Physical. Someone's fingers on wood in the next room. The morning smells like this — not perfumed, not dramatic. The temperature has changed. You did not ask it to, but it did anyway, and now the night is over." },
+
+  { num:"05", zh:"周二早晨",    en:"Tuesday Morning Dialogue",
+    file: BASE + "T3-Tuesday_Morning_Dialogue.mp3",
+    story: "Piano in one ear, guitar in the other. A conversation you are not part of but are welcome to overhear. Nothing important is being discussed. The coffee is good. The light through the window is doing what morning light does. This is what a Tuesday feels like when nothing has gone wrong yet." },
+
+  { num:"06", zh:"皮椅与咖啡",  en:"Leather Chairs and Coffee",
+    file: BASE + "Leather_Chairs_and_Coffee.mp3",
+    story: "A jazz club in the afternoon, before the crowd arrives. The double bass walks without hurry; the brushes on the drum maintain a gentle argument with the room. A good place to sit for a while without needing to explain yourself. The leather chair has held many people. It holds you now." },
+
+  { num:"07", zh:"踏实",        en:"The Weight of the Wood",
+    file: BASE + "The_Weight_Of_The_Wood.mp3",
+    story: "Something settles here — not slowly, all at once. The cello goes low and the percussion goes lower and the room contracts around you pleasantly. This is what it feels like to have ground under your feet after a long time in the air. Heavy, warm, solid. You are not going anywhere. That is the point." },
+
+  { num:"08", zh:"老街圆舞曲",  en:"The Wooden Waltz",
+    file: BASE + "The_Wooden_Waltz.mp3",
+    story: "Three beats to the bar, and your body knows what to do. The guitar and accordion make the kind of music that does not require permission. An old street, a late afternoon, a small freedom. The heaviness of the last hour has not disappeared — it has simply become something that moves." },
+
+  { num:"09", zh:"水面",        en:"Surface of the Water",
+    file: BASE + "Surface_Of_The_Water.mp3",
+    story: "Without warning, the walls open. The guitar shimmers through a chorus pedal and the sound spreads in all directions at once — not a room anymore, not a street, but a lake at evening, the light doing complicated things on the surface. Everything that was rough and heavy and wooden has become water. You did not see the moment it happened." },
+
+  { num:"10", zh:"打烊之前",    en:"A Waltz Before Closing",
+    file: BASE + "A_Waltz_Before_Closing.mp3",
+    story: "Last call. The saxophone is making its case for the night not ending, but the night is ending. The instruments leave one by one until only the saxophone remains, and then it too decides it has said enough. The room fills with the particular quality of silence that follows music. The door closes. You had been somewhere." }
+];
+let current=0; const audio=document.getElementById('audio');
+function fmt(s){if(isNaN(s))return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
+function buildSidebar(){const sb=document.getElementById('sidebar');tracks.forEach((t,i)=>{const el=document.createElement('div');el.className='track-item'+(i===0?' active':'');el.id='ti'+i;el.innerHTML=`<div class="track-num">TRACK ${t.num}</div><div class="track-zh">${t.zh}</div><div class="track-en">${t.en}</div>`;el.onclick=()=>loadTrack(i,true);sb.appendChild(el);});}
+function loadTrack(idx,play){document.getElementById('ti'+current).classList.remove('active');current=idx;document.getElementById('ti'+current).classList.add('active');const t=tracks[current];document.getElementById('npNum').textContent='TRACK '+t.num;document.getElementById('npZh').textContent=t.zh;document.getElementById('npEn').textContent=t.en;const s=document.getElementById('npStory');s.style.opacity=0;setTimeout(()=>{s.textContent=t.story;s.style.opacity=1;},200);audio.src=t.file;if(play)audio.play();updateBtn();}
+function togglePlay(){audio.paused?audio.play():audio.pause();updateBtn();}
+function updateBtn(){document.getElementById('btnPlay').innerHTML=audio.paused?'&#9654;':'&#9646;&#9646;';document.getElementById('statusDot').className='status-dot'+(audio.paused?'':' playing');}
+function prevTrack(){if(audio.currentTime>3){audio.currentTime=0;return;}loadTrack((current-1+tracks.length)%tracks.length,!audio.paused);}
+function nextTrack(){loadTrack((current+1)%tracks.length,!audio.paused);}
+audio.addEventListener('timeupdate',()=>{if(!audio.duration)return;document.getElementById('progressFill').style.width=(audio.currentTime/audio.duration*100)+'%';document.getElementById('timeElapsed').textContent=fmt(audio.currentTime);document.getElementById('timeTotal').textContent=fmt(audio.duration);});
+audio.addEventListener('ended',()=>{if(current<tracks.length-1)loadTrack(current+1,true);else updateBtn();});
+audio.addEventListener('play',updateBtn);audio.addEventListener('pause',updateBtn);
+document.getElementById('progressBar').addEventListener('click',e=>{if(!audio.duration)return;const r=e.currentTarget.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;});
+buildSidebar();loadTrack(0,false);
+</script>
+<div class="footer">
+  &copy; 2026 Gem Lee &nbsp;&middot;&nbsp; <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a> &nbsp;&middot;&nbsp; Non-commercial use free with attribution &nbsp;&middot;&nbsp; Commercial use: <a href="mailto:nongming66@gmail.com">nongming66@gmail.com</a> &nbsp;&middot;&nbsp; Fees donated to Dharma Drum Mountain Seattle (法鼓山西雅图分会)
+  <div class="mantra">万古长空，一朝风月</div>
+</div>
+</body>
+</html>
