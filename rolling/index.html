@@ -153,6 +153,7 @@
         <button class="btn" onclick="prevTrack()">&#9664;&#9664; PREV</button>
         <button class="btn btn-play" id="btnPlay" onclick="togglePlay()">&#9654;</button>
         <button class="btn" onclick="nextTrack()">NEXT &#9654;&#9654;</button>
+        <button class="btn" id="btnLoop" onclick="toggleLoop()" style="margin-left:12px; opacity:0.4;">&#8635; LOOP</button>
       </div>
     </div>
   </div>
@@ -218,6 +219,7 @@ const tracks = [
 ];
 
 let current=0;
+let loopAll=false;
 const audio=document.getElementById('audio');
 
 function fmt(s){if(isNaN(s))return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
@@ -264,7 +266,8 @@ audio.addEventListener('timeupdate',()=>{
   document.getElementById('timeElapsed').textContent=fmt(audio.currentTime);
   document.getElementById('timeTotal').textContent=fmt(audio.duration);
 });
-audio.addEventListener('ended',()=>{if(current<tracks.length-1)loadTrack(current+1,true);else updateBtn();});
+audio.addEventListener('ended',()=>{if(current<tracks.length-1)loadTrack(current+1,true);else if(loopAll)loadTrack(0,true);else updateBtn();});
+function toggleLoop(){loopAll=!loopAll;document.getElementById('btnLoop').style.opacity=loopAll?'1':'0.4';document.getElementById('btnLoop').style.color=loopAll?'#ffffff':'#d4a840';}
 audio.addEventListener('play',updateBtn);
 audio.addEventListener('pause',updateBtn);
 document.getElementById('progressBar').addEventListener('click',e=>{
