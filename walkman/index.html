@@ -104,7 +104,7 @@
   /* playlists */
   .playlists { position: relative; z-index: 1; width: 100%; max-width: 380px; margin-bottom: 36px; }
   .pl-label { font-size: 9px; letter-spacing: 0.26em; color: var(--gold-dim); text-transform: uppercase; text-align: center; margin-bottom: 12px; }
-  .pl-grid { display: flex; flex-direction: column; gap: 8px; }
+  .pl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .pl-item { display: flex; justify-content: space-between; align-items: center; padding: 13px 16px; border: 1px solid var(--rule-bright); border-radius: 10px; cursor: pointer; transition: all 0.2s; background: none; color: inherit; font-family: inherit; text-align: left; width: 100%; }
   .pl-item:hover { border-color: var(--gold-dim); }
   .pl-item.active { border-color: var(--gold-dim); background: linear-gradient(90deg, rgba(200,160,74,0.07), transparent); }
@@ -163,9 +163,9 @@
     <div class="screen-pl" id="screenPl">随心 · Easy Going</div>
     <div class="screen-mood" id="screenMood">Calm · Slow-Listening · Warm Acoustic</div>
     <div class="screen-div"></div>
-    <div class="np-num" id="npNum">TRACK 01 / 40</div>
-    <div class="np-zh" id="npZh">茶未凉</div>
-    <div class="np-en" id="npEn">Before the Tea Cools</div>
+    <div class="np-num" id="npNum">TRACK 01 / 10</div>
+    <div class="np-zh" id="npZh">赠己</div>
+    <div class="np-en" id="npEn">Lee</div>
     <div class="np-note" id="npNote"></div>
     <div class="screen-foot">
       <div class="progress-wrap">
@@ -212,160 +212,52 @@ const playlists = [
     id:'easygoing', zh:'随心', en:'Easy Going',
     mood:'Calm · Slow-Listening · Warm Acoustic',
     tracks:[
+      { zh:"赠己", en:"Lee", file:B+"T07_%E8%B5%A0%E5%B7%B1_Lee.mp3", note:"Named for its maker; continuous, no gaps — a warm open." },
+      { zh:"未启", en:"Not Yet", file:B+"1%20%E5%87%BA%E5%8F%91%E5%89%8D.mp3", note:"Before setting out; the melody arcs." },
+      { zh:"瓷白与光", en:"Porcelain and Sunlight", file:B+"Porcelain_and_Sunlight.mp3", note:"Two guitars in conversation. No words needed." },
+      { zh:"天气很好", en:"Good Weather", file:B+"T2-Conversations_in_Oak.mp3", note:"A four-note figure returns; something lifts." },
+      { zh:"没什么事", en:"Nothing Much", file:B+"T7-Sunlight_in_the_Room.mp3", note:"Piano alone, left hand rolling up slowly; nothing happening, enough." },
+      { zh:"开心", en:"Happy", file:B+"T13-The_Stream_Above_the_Orchard.mp3", note:"All four voices at once — the most open moment." },
+      { zh:"入林", en:"Stillness in the Pavilion", file:B+"T1-Stillness_in_the_Pavilion.mp3", note:"City sound recedes; first steps into the woods." },
+      { zh:"心旷神怡", en:"Breath of the Grove", file:B+"T6-Breath_of_the_Grove.mp3", note:"Spacious, at ease — the forest simply being." },
       { zh:"步履不停", en:"Still Walking", file:B+"T04_%E9%82%A3%E6%A3%B5%E6%A0%91_Tree.mp3", note:"Still walking, without stopping — forward motion through ordinary days." },
-      { zh:"桌上那杯茶", en:"Tea on the Desk", file:B+"T3-Midnight_in_the_Study.mp3", note:"Piano, guitar, bass — the afternoon has begun." },
-      { zh:"茶未凉", en:"Before the Tea Cools", file:B+"T01_%E8%8C%B6%E6%9C%AA%E5%87%89_Before_the_Tea_Cools.mp3", note:"Morning, the tea still hot — the most patient piece." },
-      { zh:"未启", en:"Not Yet", file:B+"1%20%E5%87%BA%E5%8F%91%E5%89%8D.mp3", note:"Before setting out; the melody arcs." },
-      { zh:"天气很好", en:"Good Weather", file:B+"T2-Conversations_in_Oak.mp3", note:"A four-note figure returns; something lifts." },
-      { zh:"开始工作", en:"Getting to It", file:B+"T2-The_Hushed_Room.mp3", note:"Low, quiet piano — easing in." },
-      { zh:"入", en:"Morning at the Window", file:B+"T3-Morning_at_the_Window.mp3", note:"A clear thread of guitar, already in the room." },
-      { zh:"起", en:"Coffee and Pale Light", file:B+"T4-Coffee_and_Pale_Light.mp3", note:"Pale light, a cup of coffee, a beginning." },
-      { zh:"流", en:"Stillness by the Window", file:B+"T5-Stillness_by_the_Window.mp3", note:"A four-note phrase returns now and then; effortless flow." },
-      { zh:"阳光落地", en:"Sun on the Floorboards", file:B+"T03_%E9%98%B3%E5%85%89%E8%90%BD%E5%9C%B0_Sun_on_the_Floorboards.mp3", note:"Noon light across the floor — the brightest moment." },
-      { zh:"瓷白与光", en:"Porcelain and Sunlight", file:B+"Porcelain_and_Sunlight.mp3", note:"Two guitars in conversation. No words needed." },
-      { zh:"香杉树荫下", en:"Under the Cedar Bough", file:B+"Under_the_Cedar_Bough.mp3", note:"A single guitar, deep cedar resonance." },
-      { zh:"入林", en:"Stillness in the Pavilion", file:B+"T1-Stillness_in_the_Pavilion.mp3", note:"City sound recedes; first steps into the woods." },
-      { zh:"光", en:"Sunlight Through Leaves", file:B+"T3-Sunlight_Through_Leaves.mp3", note:"A beam breaks through the canopy." },
-      { zh:"温热", en:"A Late Night Parlor", file:B+"A_Late_Night_Parlor.mp3", note:"Low light, warm wood — no reason to leave." },
-      { zh:"周二早晨", en:"Tuesday Morning Dialogue", file:B+"T3-Tuesday_Morning_Dialogue.mp3", note:"Piano and guitar; an easy Tuesday." },
-      { zh:"十二品雨", en:"Twelve Fret Rain", file:B+"Twelve_Fret_Rain.mp3", note:"The guitar enters — warm, physical." },
-      { zh:"慢慢地", en:"No Hurry", file:B+"T5-Monday_After_Midnight.mp3", note:"A waltz; brush drums slip in." },
-      { zh:"诶？", en:"Oh", file:B+"T11-Corner_of_the_Library.mp3", note:"A forward pulse — you're back." },
-      { zh:"回来了", en:"Back in the Room", file:B+"T12-After_the_Last_Call.mp3", note:"A bossa feel; everything present." },
-      { zh:"随便走走", en:"Just Walking", file:B+"T5-Window_Left_Open.mp3", note:"Light on its feet, going nowhere." },
-      { zh:"清", en:"Low Light, Soft Wood", file:B+"T10-Low_Light_Soft_Wood.mp3", note:"The fourth tilts up — a small brightness." },
-      { zh:"照", en:"Low Light at the Window", file:B+"T11-Low_Light_at_the_Window.mp3", note:"Rain on glass; piano returns to the window." },
-      { zh:"出", en:"Cedar and Felt", file:B+"T14-Cedar_and_Felt.mp3", note:"Cedar guitar, felt piano — naming the materials." },
-      { zh:"如故", en:"As It Was", file:B+"6%20%E5%88%B0%E5%AE%B6.mp3", note:"Home again, back in D major." },
-      { zh:"四点的对话", en:"Conversations at Four", file:B+"T05_%E5%9B%9B%E7%82%B9%E7%9A%84%E5%AF%B9%E8%AF%9D_Conversations_at_Four.mp3", note:"One guitar, call and answer." },
-      { zh:"Beneath the Tree", en:"Silent Friend · Ensemble", file:B+"T06_%E5%A4%A7%E5%9C%B0_Earth.mp3", note:"A century, resting on the same ground." },
-      { zh:"绿色", en:"Sunlight on Rosewood", file:B+"T5-Sunlight_on_Rosewood.mp3", note:"Endless green; it repeats yet never the same." },
-      { zh:"心旷神怡", en:"Breath of the Grove", file:B+"T6-Breath_of_the_Grove.mp3", note:"Spacious, at ease — the forest simply being." },
-      { zh:"皮椅与咖啡", en:"Leather Chairs and Coffee", file:B+"Leather_Chairs_and_Coffee.mp3", note:"Walking bass, brushes — afternoon jazz." },
-      { zh:"老街圆舞曲", en:"The Wooden Waltz", file:B+"The_Wooden_Waltz.mp3", note:"3/4, guitar and accordion — a small freedom." },
-      { zh:"互阻", en:"Midnight Conversations", file:B+"Midnight_Conversations.mp3", note:"Midnight talk, unhurried." },
-      { zh:"V型", en:"After the Rain", file:B+"After_the_Rain.mp3", note:"The rain has stopped; everything lighter." },
-      { zh:"还好还好", en:"All Fine", file:B+"T11-Late_Sunday_Light.mp3", note:"Three instruments, back together." },
-      { zh:"有一点满足", en:"A Little Satisfied", file:B+"T12-Table_by_the_Window.mp3", note:"The brightest key, brushes — a little satisfied." },
-      { zh:"没关系", en:"Never Mind", file:B+"T13-Late_Night_Parlor.mp3", note:"A wider arc of guitar." },
-      { zh:"快完成了", en:"Nearly", file:B+"T14-Stillness_in_the_Grains.mp3", note:"Warmer; a bossa left hand." },
-      { zh:"午后无事", en:"Tuesday Afternoon Ease", file:B+"Tuesday_Afternoon_Ease.mp3", note:"Cool-jazz ease; nothing to prove." },
-      { zh:"最后的光", en:"Last Light On the Floor", file:B+"T06_%E6%9C%80%E5%90%8E%E7%9A%84%E5%85%89_Last_Light_On_The_Floor.mp3", note:"Evening light returns and goes; it closes without ceremony." },
-      { zh:"放", en:"Low Light in the Room", file:B+"T2-Low_Light_in_the_Room.mp3", note:"Piano alone, setting a weight gently down." },
-      { zh:"余", en:"Sunlight on the Floorboards", file:B+"T15-%20Sunlight_on_the_Floorboards.mp3", note:"Tape hiss fades to full silence — leaving no trace." },
+      { zh:"放下吧", en:"Put It Down", file:B+"T14-Window_Facing_West.mp3", note:"Piano and brush drums; something set down gently." },
     ]
   },
   {
-    id:'warm', zh:'暖', en:'Warm', mood:'Warm · Intimate · Late Evening',
+    id:'calm', zh:'静', en:'Calm',
+    mood:'Cool · Sparse · Quiet Hours',
     tracks:[
-      { zh:"温热", en:"A Late Night Parlor", file:B+"A_Late_Night_Parlor.mp3", note:"Low light, warm wood — no reason to leave." },
       { zh:"茶未凉", en:"Before the Tea Cools", file:B+"T01_%E8%8C%B6%E6%9C%AA%E5%87%89_Before_the_Tea_Cools.mp3", note:"Morning, the tea still hot — the most patient piece." },
-      { zh:"未启", en:"Not Yet", file:B+"1%20%E5%87%BA%E5%8F%91%E5%89%8D.mp3", note:"Before setting out; the melody arcs." },
-      { zh:"亚麻与咖啡", en:"Linen and Coffee", file:B+"Linen_and_Coffee.mp3", note:"Gray sky outside; linen and coffee within — warm enough." },
-      { zh:"孤立", en:"Notes from a Silent Room", file:B+"Notes_from_a_Silent_Room.mp3", note:"A room remembering someone who left without a sound." },
-      { zh:"十二品雨", en:"Twelve Fret Rain", file:B+"Twelve_Fret_Rain.mp3", note:"The guitar enters — warm, physical." },
-      { zh:"松针与树叶", en:"Needle and Leaf", file:B+"Needle_and_Leaf.mp3", note:"Dappled gold, new green — a Seattle forest." },
-      { zh:"萍水相逢", en:"Strangers, Just Hi", file:B+"4%20%E8%90%8D%E6%B0%B4%E7%9B%B8%E9%80%A2.mp3", note:"Two sparse guitar lines; a brief one-bar echo." },
-      { zh:"互阻", en:"Midnight Conversations", file:B+"Midnight_Conversations.mp3", note:"Midnight talk, unhurried." },
-      { zh:"三点钟的重量", en:"The Weight of Three O'Clock", file:B+"T04_%E4%B8%89%E7%82%B9%E9%92%9F%E7%9A%84%E9%87%8D%E9%87%8F_The_Weight_of_Three_OClock.mp3", note:"Three o'clock stillness; heavy reverb, gravity." },
-      { zh:"瓷白与光", en:"Porcelain and Sunlight", file:B+"Porcelain_and_Sunlight.mp3", note:"Two guitars in conversation. No words needed." },
-      { zh:"周二早晨", en:"Tuesday Morning Dialogue", file:B+"T3-Tuesday_Morning_Dialogue.mp3", note:"Piano and guitar; an easy Tuesday." },
-      { zh:"先生", en:"Teacher", file:B+"T03_%E5%85%88%E7%94%9F_Teacher.mp3", note:"Measured, composed — a way of holding things." },
-      { zh:"初见", en:"The Quietest Hour", file:B+"T1-The_Quietest_Hour.mp3", note:"A low, warm trumpet — a phrase, then it stops." },
-      { zh:"瞬V", en:"Salt in the Wood", file:B+"Salt_in_the_Wood.mp3", note:"Something sharp worked into old wood." },
-      { zh:"暮色", en:"Dusk", file:B+"5%20%E6%9A%AE%E8%89%B2.mp3", note:"The melody descends register by register." },
-      { zh:"香杉树荫下", en:"Under the Cedar Bough", file:B+"Under_the_Cedar_Bough.mp3", note:"A single guitar, deep cedar resonance." },
-      { zh:"踏实", en:"The Weight of the Wood", file:B+"The_Weight_Of_The_Wood.mp3", note:"It settles at once — low cello and percussion, thick and warm." },
-      { zh:"四点的对话", en:"Conversations at Four", file:B+"T05_%E5%9B%9B%E7%82%B9%E7%9A%84%E5%AF%B9%E8%AF%9D_Conversations_at_Four.mp3", note:"One guitar, call and answer." },
-      { zh:"东京咖啡馆", en:"Coffee Shop in Tokyo", file:B+"T05_%E4%B8%9C%E4%BA%AC%E5%92%96%E5%95%A1%E9%A6%86_Coffee_Shop_in_Tokyo.mp3", note:"The outlier — the self far from where it formed." },
-      { zh:"饱和", en:"Mahogany Hour", file:B+"Mahogany_Hour.mp3", note:"The deepest hour — dark wood, low light, a dark you can stay in." },
-      { zh:"老街圆舞曲", en:"The Wooden Waltz", file:B+"The_Wooden_Waltz.mp3", note:"3/4, guitar and accordion — a small freedom." },
-      { zh:"周二", en:"Inertia of a Tuesday", file:B+"Inertia_of_a_Tuesday.mp3", note:"Curtains drawn at noon; dust in the leaked light." },
-      { zh:"回", en:"The House Left Behind", file:B+"T4-The_House_Left_Behind.mp3", note:"E minor; warm piano, the trumpet circles back, never arriving." },
-      { zh:"锁频", en:"After the Last Word", file:B+"After_the_Last_Word.mp3", note:"After the last word, the silence has weight." },
-      { zh:"最后的光", en:"Last Light On the Floor", file:B+"T06_%E6%9C%80%E5%90%8E%E7%9A%84%E5%85%89_Last_Light_On_The_Floor.mp3", note:"Evening light returns and goes; it closes without ceremony." },
-      { zh:"赠己", en:"Lee", file:B+"T07_%E8%B5%A0%E5%B7%B1_Lee.mp3", note:"The finale, named for its maker — continuous, no gaps." },
-      { zh:"衰减", en:"After the Last Toast", file:B+"After_the_Last_Toast.mp3", note:"Glasses down; the warmth slowly leaves the room." },
-    ]
-  },
-  {
-    id:'cool', zh:'清冽', en:'Cool', mood:'Cool · Clear · Spacious',
-    tracks:[
-      { zh:"落", en:"The Unlatched Window", file:B+"T1-The_Unlatched_Window.mp3", note:"The window unlatched; a note, then a long pause." },
-      { zh:"入", en:"Morning at the Window", file:B+"T3-Morning_at_the_Window.mp3", note:"A clear thread of guitar, already in the room." },
-      { zh:"午后无事", en:"Tuesday Afternoon Ease", file:B+"Tuesday_Afternoon_Ease.mp3", note:"Cool-jazz ease; nothing to prove." },
-      { zh:"流", en:"Stillness by the Window", file:B+"T5-Stillness_by_the_Window.mp3", note:"A four-note phrase returns now and then; effortless flow." },
-      { zh:"入林", en:"Stillness in the Pavilion", file:B+"T1-Stillness_in_the_Pavilion.mp3", note:"City sound recedes; first steps into the woods." },
-      { zh:"影子长了", en:"Tuesday at Three", file:B+"Tuesday_at_Three.mp3", note:"The light shifts; another Tuesday." },
-      { zh:"无", en:"Copper Light on Cedar", file:B+"T7-Copper_Light_on_Cedar.mp3", note:"Almost nothing — single notes thirty seconds apart." },
-      { zh:"凛", en:"Before the Snow Settles", file:B+"T3-Before_the_Snow_Settles.mp3", note:"Cathedral reverb, cold; descending phrases sink into silence." },
-      { zh:"多坐一站", en:"The Quiet Passenger", file:B+"The_Quiet_Passenger.mp3", note:"The tram empties; the feeling of riding one stop too far." },
-      { zh:"在", en:"Damp Cedar Air", file:B+"T9-Damp_Cedar_Air.mp3", note:"The guitar appears once or twice; tape hiss holds it." },
-      { zh:"光", en:"Sunlight Through Leaves", file:B+"T3-Sunlight_Through_Leaves.mp3", note:"A beam breaks through the canopy." },
+      { zh:"不可见的维度", en:"Stone and Breath", file:B+"T4-Stone_and_Breath.mp3", note:"Before a two-hundred-year-old tree; a quiet shift." },
       { zh:"入夜", en:"The Quiet Hour", file:B+"TRACK-001_VC_Sax_The_Quiet_Hour.mp3", note:"Eight at night; the sax resolves slowly." },
-      { zh:"清", en:"Low Light, Soft Wood", file:B+"T10-Low_Light_Soft_Wood.mp3", note:"The fourth tilts up — a small brightness." },
-      { zh:"将明未明", en:"Before the Morning", file:B+"T10-Before_the_Morning.mp3", note:"Strings, unresolving harmony — the most suspended moment." },
-      { zh:"霓虹", en:"Mechanical Grace", file:B+"TRACK-001_VC_Trumpet_Mechanical_Grace.mp3", note:"Glass towers at night; trumpet, calm." },
-      { zh:"不可见的维度", en:"Stone and Breath", file:B+"T4-Stone_and_Breath.mp3", note:"Before a two-hundred-year-old tree; a shift." },
-      { zh:"照", en:"Low Light at the Window", file:B+"T11-Low_Light_at_the_Window.mp3", note:"Rain on glass; piano returns to the window." },
-      { zh:"时间不走了", en:"The Slowest Hour", file:B+"The_Slowest_Hour.mp3", note:"Single piano notes falling into a deep well." },
       { zh:"不急", en:"A Slow Exchange", file:B+"A_Slow_Exchange.mp3", note:"Two instruments trading at a slow tempo." },
-      { zh:"绿色", en:"Sunlight on Rosewood", file:B+"T5-Sunlight_on_Rosewood.mp3", note:"Endless green; it repeats yet never the same." },
-      { zh:"持", en:"Before the Fog Lifts", file:B+"T12-Before_the_Fog_Lifts.mp3", note:"Holding the moment just before a shift." },
-      { zh:"天亮之前", en:"The Room Before Dawn", file:B+"The_Room_Before_Dawn.mp3", note:"A dark room, breathing at four a.m." },
+      { zh:"初见", en:"The Quietest Hour", file:B+"T1-The_Quietest_Hour.mp3", note:"A low, warm trumpet — a phrase, then it stops." },
       { zh:"浮", en:"Between Two Heartbeats", file:B+"T2-Between_Two_Heartbeats.mp3", note:"3/4, slower than a waltz; strings fill the gaps." },
-      { zh:"散了", en:"Conversations After Midnight", file:B+"Conversations_After_Midnight.mp3", note:"Each note placed and left to ring; it fades to silence." },
-      { zh:"水面", en:"Surface of the Water", file:B+"Surface_Of_The_Water.mp3", note:"Guitar through a chorus pedal; a lake at evening." },
+      { zh:"凛", en:"Before the Snow Settles", file:B+"T3-Before_the_Snow_Settles.mp3", note:"Cathedral reverb, cold; phrases sink into silence." },
+      { zh:"回", en:"The House Left Behind", file:B+"T4-The_House_Left_Behind.mp3", note:"Warm piano; the trumpet circles back, never arriving." },
       { zh:"长空", en:"Three O'Clock Stillness", file:B+"T5-Three_O_Clock_Stillness.mp3", note:"Two bars of sound, two of near-silence; the last note decays out." },
+      { zh:"散了", en:"Conversations After Midnight", file:B+"Conversations_After_Midnight.mp3", note:"Each note placed and left to ring; it fades to silence." },
     ]
   },
   {
-    id:'exciting', zh:'轻快', en:'Lighthearted', mood:'Bright · Light · Gently Upbeat',
+    id:'dailylife', zh:'日常', en:'Daily Life',
+    mood:'Warm · Daytime · Companion',
     tracks:[
-      { zh:"阳光落地", en:"Sun on the Floorboards", file:B+"T03_%E9%98%B3%E5%85%89%E8%90%BD%E5%9C%B0_Sun_on_the_Floorboards.mp3", note:"Noon light across the floor — the brightest moment." },
-      { zh:"天气很好", en:"Good Weather", file:B+"T2-Conversations_in_Oak.mp3", note:"A four-note figure returns; something lifts." },
-      { zh:"诶？", en:"Oh", file:B+"T11-Corner_of_the_Library.mp3", note:"A forward pulse — you're back." },
-      { zh:"心里在跳", en:"Dancing Inside", file:B+"T6-Before_the_Streets_Wake_Up.mp3", note:"Brush drums enter for the first time." },
-      { zh:"回来了", en:"Back in the Room", file:B+"T12-After_the_Last_Call.mp3", note:"A bossa feel; everything present." },
-      { zh:"树的形成", en:"Where the Timber Breathes", file:B+"T2-Where_the_Timber_Breathes.mp3", note:"A tree as process; two lines converge." },
-      { zh:"有一点满足", en:"A Little Satisfied", file:B+"T12-Table_by_the_Window.mp3", note:"The brightest key, brushes — a little satisfied." },
-      { zh:"慢慢地", en:"No Hurry", file:B+"T5-Monday_After_Midnight.mp3", note:"A waltz; brush drums slip in." },
-      { zh:"皮椅与咖啡", en:"Leather Chairs and Coffee", file:B+"Leather_Chairs_and_Coffee.mp3", note:"Walking bass, brushes — afternoon jazz." },
-      { zh:"随便走走", en:"Just Walking", file:B+"T5-Window_Left_Open.mp3", note:"Light on its feet, going nowhere." },
-      { zh:"没关系", en:"Never Mind", file:B+"T13-Late_Night_Parlor.mp3", note:"A wider arc of guitar." },
-      { zh:"陌生的街道", en:"Unfamiliar Streets", file:B+"3%20%E9%99%8C%E7%94%9F%E7%9A%84%E8%A1%97%E9%81%93.mp3", note:"Solo guitar, heavy rubato — the most restless piece." },
-      { zh:"开心", en:"Happy", file:B+"T13-The_Stream_Above_the_Orchard.mp3", note:"All four instruments at once — the most open." },
-      { zh:"快完成了", en:"Nearly", file:B+"T14-Stillness_in_the_Grains.mp3", note:"Warmer; a bossa left hand." },
-      { zh:"心旷神怡", en:"Breath of the Grove", file:B+"T6-Breath_of_the_Grove.mp3", note:"Spacious, at ease — the forest simply being." },
-      { zh:"那个角落", en:"Midnight at the Corner Booth", file:B+"Midnight_at_the_Corner_Booth.mp3", note:"Heavier, bluesy; the night deepening." },
-      { zh:"放下吧", en:"Put It Down", file:B+"T14-Window_Facing_West.mp3", note:"Piano and brush drums; something set down." },
-      { zh:"还好还好", en:"All Fine", file:B+"T11-Late_Sunday_Light.mp3", note:"Three instruments, back together." },
+      { zh:"寻", en:"Gem", file:B+"T01_%E7%8F%8D_Gem.mp3", note:"Searching — the day's first quiet steps." },
+      { zh:"学生", en:"Student", file:B+"T02_%E5%AD%A6%E7%94%9F_Student.mp3", note:"The student's hour; learning, unhurried." },
+      { zh:"先生", en:"Teacher", file:B+"T03_%E5%85%88%E7%94%9F_Teacher.mp3", note:"Measured, composed — a way of holding things." },
+      { zh:"香杉树荫下", en:"Under the Cedar Bough", file:B+"Under_the_Cedar_Bough.mp3", note:"A single guitar, deep cedar resonance." },
+      { zh:"萍水相逢", en:"Strangers, Just Hi", file:B+"4%20%E8%90%8D%E6%B0%B4%E7%9B%B8%E9%80%A2.mp3", note:"Two sparse guitar lines; a brief echo." },
+      { zh:"温热", en:"A Late Night Parlor", file:B+"A_Late_Night_Parlor.mp3", note:"Low light, warm wood — no reason to leave." },
+      { zh:"东京咖啡馆", en:"Coffee Shop in Tokyo", file:B+"T05_%E4%B8%9C%E4%BA%AC%E5%92%96%E5%95%A1%E9%A6%86_Coffee_Shop_in_Tokyo.mp3", note:"The outlier — the self far from where it formed." },
+      { zh:"水面", en:"Surface of the Water", file:B+"Surface_Of_The_Water.mp3", note:"Guitar through a chorus pedal; a lake at evening." },
       { zh:"今天不错", en:"Good Day", file:B+"T15-Five_Notes_at_Dusk.mp3", note:"F major, a bossa pulse — closing where it began." },
+      { zh:"快完成了", en:"Nearly", file:B+"T14-Stillness_in_the_Grains.mp3", note:"Warmer; a bossa left hand, the work nearly done." },
     ]
   },
   {
-    id:'wm1', zh:'无痕', en:'Traceless', mood:'Working Music I · Felt piano & cedar guitar',
-    tracks:[
-      { zh:"落", en:"The Unlatched Window", file:B+"T1-The_Unlatched_Window.mp3", note:"Single careful note then a long pause; opening the room." },
-      { zh:"放", en:"Low Light in the Room", file:B+"T2-Low_Light_in_the_Room.mp3", note:"Lower light, piano mostly alone, a weight set down deliberately." },
-      { zh:"入", en:"Morning at the Window", file:B+"T3-Morning_at_the_Window.mp3", note:"A single high, clear thread of guitar; unhurried, already inside." },
-      { zh:"起", en:"Coffee and Pale Light", file:B+"T4-Coffee_and_Pale_Light.mp3", note:"Work begins; pale winter light, asking nothing." },
-      { zh:"流", en:"Stillness by the Window", file:B+"T5-Stillness_by_the_Window.mp3", note:"A four-note phrase returns every twenty seconds, calm and effortless." },
-      { zh:"深", en:"Cedar and Rain", file:B+"T6-Cedar_and_Rain.mp3", note:"Guitar alone through wet cedar; the smell of rained-on wood." },
-      { zh:"无", en:"Copper Light on Cedar", file:B+"T7-Copper_Light_on_Cedar.mp3", note:"Single notes thirty seconds apart, marking the edges of silence." },
-      { zh:"忘", en:"The Room's Long Shadow", file:B+"T8-The_Room_s_Long_Shadow.mp3", note:"The heaviest track; a midday shadow you let pass through." },
-      { zh:"在", en:"Damp Cedar Air", file:B+"T9-Damp_Cedar_Air.mp3", note:"Guitar appears once or twice; tape hiss holds the present." },
-      { zh:"清", en:"Low Light, Soft Wood", file:B+"T10-Low_Light_Soft_Wood.mp3", note:"The fourth note tilts up, a small brightness, soft wood." },
-      { zh:"照", en:"Low Light at the Window", file:B+"T11-Low_Light_at_the_Window.mp3", note:"Rain on glass; piano returns clearly to the window." },
-      { zh:"持", en:"Before the Fog Lifts", file:B+"T12-Before_the_Fog_Lifts.mp3", note:"A long stretch holding the moment just before something shifts." },
-      { zh:"远", en:"A Room Facing West", file:B+"T13-A_Room_Facing_West.mp3", note:"West-facing room, longer warmer shadows; the cool-down has begun." },
-      { zh:"出", en:"Cedar and Felt", file:B+"T14-Cedar_and_Felt.mp3", note:"The materials named: cedar guitar resonance, felt-muted piano hammers." },
-      { zh:"余", en:"Sunlight on the Floorboards", file:B+"T15-%20Sunlight_on_the_Floorboards.mp3", note:"Late sun on floorboards; tape hiss fades to complete silence." },
-      { zh:"茶", en:"Tea on the Desk", file:B+"T3-Midnight_in_the_Study.mp3", note:"Piano, guitar, bass; three unhurried voices, the cup still there." },
-    ]
-  },
-  {
-    id:'wm2', zh:'走神', en:'Soul on the Loose', mood:'Working Music II · Jazz, drifting',
+    id:'wm1', zh:'走神', en:'Soul on the Loose', mood:'Working Music 1 · Jazz, drifting',
     tracks:[
       { zh:"下午三点", en:"Three in the Afternoon", file:B+"T1-late%20afternoon_in_the_Wooden_Room.mp3", note:"High guitar, a three-note phrase returning; the long afternoon begins." },
       { zh:"开始工作", en:"Getting to It", file:B+"T2-The_Hushed_Room.mp3", note:"Low quiet piano, a two-note ascent, then room silence." },
@@ -385,7 +277,7 @@ const playlists = [
     ]
   },
   {
-    id:'wm3', zh:'滚动', en:'Rolling', mood:'Working Music III · Rolling trio',
+    id:'wm2', zh:'滚动', en:'Rolling', mood:'Working Music 2 · Rolling trio',
     tracks:[
       { zh:"桌上那杯茶", en:"Tea on the Desk", file:B+"T3-Midnight_in_the_Study.mp3", note:"Piano, guitar, bass from the first phrase; the afternoon begins." },
       { zh:"天气很好", en:"Good Weather", file:B+"T2-Conversations_in_Oak.mp3", note:"A four-note phrase keeps returning; something quietly lifts." },
@@ -402,6 +294,27 @@ const playlists = [
       { zh:"开心", en:"Happy", file:B+"T13-The_Stream_Above_the_Orchard.mp3", note:"All four voices, brushes rolling forward; the most open moment." },
       { zh:"放下吧", en:"Put It Down", file:B+"T14-Window_Facing_West.mp3", note:"Piano and brush drums; something set down gently, the afternoon holds." },
       { zh:"今天不错", en:"Today Was Good", file:B+"T15-Two_Chairs_by_the_Window.mp3", note:"Piano, guitar, bass; slows to where it started, today was good." },
+    ]
+  },
+  {
+    id:'wm3', zh:'无痕', en:'Traceless', mood:'Working Music 3 · Felt piano & cedar guitar',
+    tracks:[
+      { zh:"落", en:"The Unlatched Window", file:B+"T1-The_Unlatched_Window.mp3", note:"Single careful note then a long pause; opening the room." },
+      { zh:"放", en:"Low Light in the Room", file:B+"T2-Low_Light_in_the_Room.mp3", note:"Lower light, piano mostly alone, a weight set down deliberately." },
+      { zh:"入", en:"Morning at the Window", file:B+"T3-Morning_at_the_Window.mp3", note:"A single high, clear thread of guitar; unhurried, already inside." },
+      { zh:"起", en:"Coffee and Pale Light", file:B+"T4-Coffee_and_Pale_Light.mp3", note:"Work begins; pale winter light, asking nothing." },
+      { zh:"流", en:"Stillness by the Window", file:B+"T5-Stillness_by_the_Window.mp3", note:"A four-note phrase returns every twenty seconds, calm and effortless." },
+      { zh:"深", en:"Cedar and Rain", file:B+"T6-Cedar_and_Rain.mp3", note:"Guitar alone through wet cedar; the smell of rained-on wood." },
+      { zh:"无", en:"Copper Light on Cedar", file:B+"T7-Copper_Light_on_Cedar.mp3", note:"Single notes thirty seconds apart, marking the edges of silence." },
+      { zh:"忘", en:"The Room's Long Shadow", file:B+"T8-The_Room_s_Long_Shadow.mp3", note:"The heaviest track; a midday shadow you let pass through." },
+      { zh:"在", en:"Damp Cedar Air", file:B+"T9-Damp_Cedar_Air.mp3", note:"Guitar appears once or twice; tape hiss holds the present." },
+      { zh:"清", en:"Low Light, Soft Wood", file:B+"T10-Low_Light_Soft_Wood.mp3", note:"The fourth note tilts up, a small brightness, soft wood." },
+      { zh:"照", en:"Low Light at the Window", file:B+"T11-Low_Light_at_the_Window.mp3", note:"Rain on glass; piano returns clearly to the window." },
+      { zh:"持", en:"Before the Fog Lifts", file:B+"T12-Before_the_Fog_Lifts.mp3", note:"A long stretch holding the moment just before something shifts." },
+      { zh:"远", en:"A Room Facing West", file:B+"T13-A_Room_Facing_West.mp3", note:"West-facing room, longer warmer shadows; the cool-down has begun." },
+      { zh:"出", en:"Cedar and Felt", file:B+"T14-Cedar_and_Felt.mp3", note:"The materials named: cedar guitar resonance, felt-muted piano hammers." },
+      { zh:"余", en:"Sunlight on the Floorboards", file:B+"T15-%20Sunlight_on_the_Floorboards.mp3", note:"Late sun on floorboards; tape hiss fades to complete silence." },
+      { zh:"茶", en:"Tea on the Desk", file:B+"T3-Midnight_in_the_Study.mp3", note:"Piano, guitar, bass; three unhurried voices, the cup still there." },
     ]
   },
 ];
