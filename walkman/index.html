@@ -184,7 +184,6 @@
 
   <div class="modes">
     <button class="m-btn" id="mShuffle" onclick="toggleShuffle()">&#8646; Shuffle</button>
-    <button class="m-btn" onclick="stop()">&#9632; Stop</button>
     <button class="m-btn on" id="mLoop" onclick="toggleLoop()">&#8635; Loop</button>
     <button class="m-btn" id="mInfo" onclick="toggleInfo()">&#9432; Info</button>
   </div>
@@ -330,7 +329,7 @@ function buildPlaylists(){
   playlists.forEach((p,i)=>{
     const el=document.createElement('button');
     el.className='pl-item'+(i===plIndex?' active':'')+(p.soon?' soon':'');
-    el.innerHTML=`<div><div class="pl-zh">${p.zh} · ${p.en}</div><div class="pl-en">${p.soon?'即将推出':'In Order / Shuffle'}</div></div><div class="pl-meta">${p.soon?'soon':p.tracks.length+' tracks'}</div>`;
+    el.innerHTML=`<div><div class="pl-zh">${p.zh} · ${p.en}</div><div class="pl-en">${p.soon?'即将推出':''}</div></div><div class="pl-meta">${p.soon?'soon':p.tracks.length+' tracks'}</div>`;
     if(!p.soon) el.onclick=()=>selectPlaylist(i);
     g.appendChild(el);
   });
