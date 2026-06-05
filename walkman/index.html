@@ -157,7 +157,6 @@
 <div class="device">
   <div class="device-top">
     <span class="device-brand">随身听 · Walkman</span>
-    <span class="device-mode" id="modeLabel">In Order</span>
   </div>
   <div class="screen">
     <div class="screen-pl" id="screenPl">随心 · Easy Going</div>
@@ -384,7 +383,7 @@ function next(manual){
   else if(manual) load(0,true);         // manual Next at end → wrap and play
   else { audio.pause(); updateBtn(); }  // auto-end + loop off → stop
 }
-function toggleShuffle(){shuffle=!shuffle;document.getElementById('mShuffle').classList.toggle('on',shuffle);document.getElementById('modeLabel').textContent=shuffle?'Shuffle':'In Order';}
+function toggleShuffle(){shuffle=!shuffle;document.getElementById('mShuffle').classList.toggle('on',shuffle);}
 function toggleLoop(){loopAll=!loopAll;document.getElementById('mLoop').classList.toggle('on',loopAll);}
 function toggleInfo(){info=!info;document.getElementById('mInfo').classList.toggle('on',info);document.getElementById('npNote').classList.toggle('show',info);}
 
