@@ -396,6 +396,18 @@ const playlists = [
       { zh:"那个角落", en:"Midnight at the Corner Booth", file:B+"Midnight_at_the_Corner_Booth.mp3", note:"The booth at the back; the night slows into itself, deepening." },
     ]
   },
+  {
+    id:'cafe', zh:'咖啡馆', en:'Café', sub:'糖水 · Syrup', mood:'Café · sweet, easy, late-night jazz — syrup, and proud of it',
+    tracks:[
+      { zh:"空杯", en:"The Empty Glass", file:B+"20260608_090001_The_Empty_Glass.mp3", note:"Warm alto sax in a low-lit room; the glass already empty, no hurry to leave." },
+      { zh:"末班车前", en:"Before the Last Train", file:B+"20260608_090002_Before_the_Last_Train.mp3", note:"Smooth sax, soft lights — the easy hour before the last train home." },
+      { zh:"窗上的雨", en:"Rain on the Glass", file:B+"20260608_090003_Rain_on_the_Glass.mp3", note:"Sax drifting against soft rain on the window; a slow, wet evening." },
+      { zh:"散场之后", en:"After the Last Set", file:B+"20260608_090004_After_the_Last_Set.mp3", note:"The trio plays on after the set has ended; soft trumpet, nobody in a hurry." },
+      { zh:"半明半暗", en:"Brass in the Half Light", file:B+"20260608_090005_Brass_in_the_Half_Light.mp3", note:"A searching trumpet in half-light; warmer, a little restless." },
+      { zh:"静默之前", en:"Before the Silence", file:B+"20260608_090006_Before_the_Silence.mp3", note:"A cool, distant horn over a single held drone; the room just before it goes quiet." },
+      { zh:"背对的椅子", en:"Two Chairs, Facing Away", file:B+"20260608_090007_Two_Chairs_Facing_Away.mp3", note:"A lone dark trumpet over a held drone; two chairs turned away from each other." },
+    ]
+  },
 ];
 
 let plIndex=0, current=0, shuffle=false, loopAll=true, info=false;
@@ -409,7 +421,7 @@ function buildPlaylists(){
   playlists.forEach((p,i)=>{
     const el=document.createElement('button');
     el.className='pl-item'+(i===plIndex?' active':'')+(p.soon?' soon':'');
-    el.innerHTML=`<div><div class="pl-zh">${p.zh} · ${p.en}</div><div class="pl-en">${p.soon?'即将推出':''}</div></div><div class="pl-meta">${p.soon?'soon':p.tracks.length+' tracks'}</div>`;
+    el.innerHTML=`<div><div class="pl-zh">${p.zh} · ${p.en}</div><div class="pl-en">${p.soon?'即将推出':(p.sub||'')}</div></div><div class="pl-meta">${p.soon?'soon':p.tracks.length+' tracks'}</div>`;
     if(!p.soon) el.onclick=()=>selectPlaylist(i);
     g.appendChild(el);
   });
