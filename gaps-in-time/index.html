@@ -14,7 +14,7 @@
   "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
   "copyrightYear": "2026",
   "copyrightHolder": { "@type": "Person", "name": "Gem Lee", "email": "nongming66@gmail.com" },
-  "description": "Six pieces from three in the afternoon to half past midnight. Inspired by 'Emmanuel' and Chris Botti. Concept, direction and prompts by Gem Lee. Audio synthesized via AI (Gemini Lyria)."
+  "description": "Five pieces from three in the afternoon to half past midnight. Concept, direction and prompts by Gem Lee. Audio synthesized via AI (Gemini Lyria)."
 }
 </script>
 <style>
@@ -134,15 +134,15 @@
 <div class="bg-overlay"></div>
 <div class="header">
   <div class="album-title">时间的缝隙 &nbsp;·&nbsp; The Gaps in Time</div>
-  <div class="album-subtitle">Gem Lee &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Cool Jazz &nbsp;·&nbsp; Inspired by &ldquo;Emmanuel&rdquo; and Chris Botti</div>
+  <div class="album-subtitle">Gem Lee &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Cool Jazz</div>
 </div>
 <div class="body">
   <div class="sidebar" id="sidebar"></div>
   <div class="main">
     <div class="now-playing">
       <div class="np-number" id="npNum">TRACK 01</div>
-      <div class="np-zh"    id="npZh">午后无事</div>
-      <div class="np-en"    id="npEn">Tuesday Afternoon Ease</div>
+      <div class="np-zh"    id="npZh">影子长了</div>
+      <div class="np-en"    id="npEn">Tuesday at Three</div>
       <div class="np-story" id="npStory"></div>
     </div>
     <div class="controls">
@@ -164,22 +164,19 @@
 <script>
 const BASE = 'https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/';
 const tracks = [
-  { num:"01", zh:"午后无事", en:"Tuesday Afternoon Ease",
-    file:BASE+"Tuesday_Afternoon_Ease.mp3",
-    story:"The afternoon hasn't asked anything of you yet. The texture is loose, the tempo easy. The first track on any jazz album worth listening to sounds like this: nothing being proven, nothing being demonstrated. Just time, open." },
-  { num:"02", zh:"影子长了", en:"Tuesday at Three",
+  { num:"01", zh:"影子长了", en:"Tuesday at Three",
     file:BASE+"Tuesday_at_Three.mp3",
     story:"Three o'clock. You did not notice when the shadow crossed the table, but now it's on the wall. Something about the light has changed — not dramatically, just shifted. Another Tuesday like all the others — and somehow not." },
-  { num:"03", zh:"多坐一站", en:"The Quiet Passenger",
+  { num:"02", zh:"多坐一站", en:"The Quiet Passenger",
     file:BASE+"The_Quiet_Passenger.mp3",
     story:"The tram empties stop by stop. At some point you are the only one left. The city passes outside — neon signs not yet lit, the sky between afternoon and evening. The piece moves with the quality of transit: not arriving anywhere, not leaving anywhere. Just passing through, attentive." },
-  { num:"04", zh:"入夜", en:"The Quiet Hour",
+  { num:"03", zh:"入夜", en:"The Quiet Hour",
     file:BASE+"TRACK-001_VC_Sax_The_Quiet_Hour.mp3",
     story:"Eight o'clock. The city has changed shift — whoever is out at this hour is here by choice. The melody does not resolve quickly. It stays in the air a little longer than expected. This hour belongs to no one in particular." },
-  { num:"05", zh:"霓虹", en:"Mechanical Grace",
+  { num:"04", zh:"霓虹", en:"Mechanical Grace",
     file:BASE+"TRACK-001_VC_Trumpet_Mechanical_Grace.mp3",
     story:"Glass towers at night: every floor lit differently, no one visible. The melody is calm the way a very good tailor is calm — no wasted movement. The city knows it looks good at this hour." },
-  { num:"06", zh:"那个角落", en:"Midnight at the Corner Booth",
+  { num:"05", zh:"那个角落", en:"Midnight at the Corner Booth",
     file:BASE+"Midnight_at_the_Corner_Booth.mp3",
     story:"The booth at the back of the bar. The mood is heavier here, bluesy at the root. Someone has ordered a second whiskey and is in no hurry. This is where the night slows down into itself — not ending, just deepening. The best hour." }
 ];
