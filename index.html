@@ -1,972 +1,349 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gem Lee · Music</title>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "MusicGroup",
-  "name": "Gem Lee",
-  "url": "https://geelee.netlify.app",
-  "genre": ["Ambient Cinematic", "Neoclassical", "Meditation"],
-  "description": "Independent AI-assisted music by Gem Lee.",
-  "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
-  "copyrightYear": "2026",
-  "copyrightHolder": { "@type": "Person", "name": "Gem Lee", "email": "nongming66@gmail.com" }
-}
-</script>
+<title>AthleSense Inc.</title>
+<meta name="description" content="AthleSense Inc. — performance apparel and fashion design, developed at the line between East and West.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+:root{
+  --bg:#EDEAE4;
+  --bg-deep:#E3DFD5;
+  --ink:#1E2016;
+  --ink-soft:#4B4E42;
+  --moss:#4F6049;
+  --bronze:#A9814E;
+  --line:#C9C3B4;
+  --music-bg:#0E0D0C;
+  --music-ink:#D8CBA5;
+  --music-gold:#C9A05A;
+  --serif:'Fraunces','Iowan Old Style','Georgia',serif;
+  --sans:'Space Grotesk',ui-sans-serif,'Helvetica Neue',sans-serif;
+}
 
-  :root {
-    --bg: #0a0b0e;
-    --bg-warm: #0d0d11;
-    --ink: #d8cba5;
-    --ink-dim: #8a8068;
-    --ink-faint: #4a4538;
-    --ink-trace: #28251e;
-    --gold: #c8a04a;
-    --gold-bright: #e8c478;
-    --gold-dim: #8a6f33;
-    --rule: #1c1d22;
-    --rule-bright: #2a2820;
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+}
 
-    --serif-display: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-    --serif-body: 'EB Garamond', Georgia, serif;
-    --serif-cn: 'Noto Serif SC', 'Songti SC', 'STSong', 'Georgia', serif;
-    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+a{color:inherit;}
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--moss);
+  outline-offset:3px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+
+/* ---------- NAV ---------- */
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:26px 6vw;
+  position:relative;
+  z-index:5;
+}
+.wordmark{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:19px;
+  letter-spacing:0.01em;
+  text-decoration:none;
+}
+.navlinks{
+  display:flex;
+  gap:34px;
+  font-size:14px;
+}
+.navlinks a{
+  text-decoration:none;
+  color:var(--ink-soft);
+  border-bottom:1px solid transparent;
+  padding-bottom:3px;
+  transition:color 0.15s, border-color 0.15s;
+}
+.navlinks a:hover{ color:var(--ink); border-color:var(--moss); }
+.navlinks a.current{ color:var(--ink); border-color:var(--bronze); }
+
+/* ---------- HERO (home) ---------- */
+.hero{
+  padding:9vh 6vw 10vh;
+  max-width:900px;
+}
+.hero-line{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(40px,7vw,78px);
+  line-height:1.05;
+  letter-spacing:-0.01em;
+}
+.hero-sub{
+  margin-top:26px;
+  font-size:clamp(16px,2vw,19px);
+  line-height:1.6;
+  color:var(--ink-soft);
+  max-width:560px;
+}
+.hero-reveal{
+  opacity:0;
+  transform:translateY(10px);
+  animation:reveal 0.9s cubic-bezier(.2,.8,.2,1) 0.1s forwards;
+}
+@keyframes reveal{ to{ opacity:1; transform:translateY(0); } }
+
+/* ---------- PRACTICES (home) ---------- */
+.practices{
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:1fr 1px 1fr;
+}
+.seam{
+  background:
+    repeating-linear-gradient(to bottom, var(--line) 0 6px, transparent 6px 14px);
+}
+.practice{
+  padding:8vh 6vw;
+}
+.practice-eyebrow{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:15px;
+  color:var(--bronze);
+  margin-bottom:18px;
+}
+.practice h2{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(26px,3.4vw,34px);
+  margin-bottom:20px;
+  max-width:380px;
+}
+.practice p{
+  font-size:16px;
+  line-height:1.75;
+  color:var(--ink-soft);
+  max-width:420px;
+}
+.practice .learn-more{
+  display:block;
+  margin-top:18px;
+  font-size:14px;
+  text-decoration:none;
+  color:var(--ink);
+  border-bottom:1px solid var(--bronze);
+  width:max-content;
+  padding-bottom:2px;
+}
+.practice .learn-more:hover{ color:var(--moss); border-color:var(--moss); }
+
+/* ---------- MUSIC STRIP (home) ---------- */
+.music-strip{
+  background:var(--music-bg);
+  color:var(--music-ink);
+  padding:9vh 6vw;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+}
+.music-strip h2{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(24px,3vw,32px);
+  max-width:520px;
+  line-height:1.3;
+}
+.music-strip h2 em{
+  font-style:italic;
+  color:var(--music-gold);
+}
+.music-link{
+  display:inline-block;
+  font-size:14px;
+  text-decoration:none;
+  color:var(--music-gold);
+  border:1px solid var(--music-gold);
+  padding:12px 26px;
+  border-radius:3px;
+  transition:background 0.2s, color 0.2s;
+  white-space:nowrap;
+}
+.music-link:hover{
+  background:var(--music-gold);
+  color:var(--music-bg);
+}
+
+/* ---------- SUB-PAGE HERO (apparel / fashion) ---------- */
+.page-hero{
+  padding:9vh 6vw 7vh;
+  border-top:1px solid var(--line);
+  max-width:760px;
+}
+.page-eyebrow{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:15px;
+  color:var(--bronze);
+  margin-bottom:16px;
+}
+.page-hero h1{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(36px,5.5vw,60px);
+  line-height:1.08;
+  margin-bottom:22px;
+}
+.page-body{
+  padding:0 6vw 8vh;
+  max-width:620px;
+}
+.page-body p{
+  font-size:17px;
+  line-height:1.85;
+  color:var(--ink-soft);
+  margin-bottom:24px;
+}
+.page-body p:last-child{ margin-bottom:0; }
+
+/* ---------- CONTACT ---------- */
+.contact{
+  padding:9vh 6vw 8vh;
+  border-top:1px solid var(--line);
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:40px;
+}
+.contact h2{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(24px,3vw,30px);
+  max-width:320px;
+}
+.contact-detail{
+  font-size:15px;
+  line-height:1.9;
+  color:var(--ink-soft);
+}
+.contact-detail a{ color:var(--ink); text-decoration-color:var(--line); }
+
+/* ---------- CTA BOX (sub-pages) ---------- */
+.cta-box{
+  margin:0 6vw 10vh;
+  padding:5vh 6vw;
+  background:var(--bg-deep);
+  border:1px solid var(--line);
+  border-radius:4px;
+  max-width:620px;
+}
+.cta-box p{
+  font-size:16px;
+  line-height:1.7;
+  color:var(--ink-soft);
+  margin-bottom:16px;
+}
+.cta-box a.cta-email{
+  display:inline-block;
+  font-size:15px;
+  text-decoration:none;
+  color:var(--ink);
+  border-bottom:1px solid var(--bronze);
+  padding-bottom:2px;
+}
+.cta-box a.cta-email:hover{ color:var(--moss); border-color:var(--moss); }
+
+/* ---------- FOOTER ---------- */
+.foot{
+  padding:26px 6vw 34px;
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--ink-soft);
+  letter-spacing:0.02em;
+}
+.foot .mantra{
+  font-family:var(--serif);
+  font-style:italic;
+  color:var(--bronze);
+}
+
+@media (max-width: 760px){
+  .practices{ grid-template-columns:1fr; }
+  .seam{
+    height:1px; width:auto;
+    background:repeating-linear-gradient(to right, var(--line) 0 6px, transparent 6px 14px);
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html, body { background: var(--bg); }
-
-  body {
-    color: var(--ink);
-    font-family: var(--serif-body);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: "liga", "kern";
-  }
-
-  /* Subtle film grain via SVG noise. Pure typography, no images. */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 2;
-    opacity: 0.06;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.78  0 0 0 0 0.63  0 0 0 0 0.29  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
-
-  /* Vignette: cinematic falloff at the edges */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    background:
-      radial-gradient(ellipse at 50% 30%, transparent 0%, transparent 50%, rgba(0,0,0,0.5) 100%),
-      linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 12%, transparent 88%, rgba(0,0,0,0.4) 100%);
-  }
-
-  .stage {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  /* ---------- HEADER ---------- */
-
-  header {
-    text-align: center;
-    padding: 60px 24px 44px;
-    position: relative;
-  }
-
-  .ornament {
-    display: inline-block;
-    color: var(--gold);
-    font-size: 14px;
-    letter-spacing: 0.3em;
-    margin-bottom: 38px;
-    opacity: 0.7;
-  }
-
-  .ornament span { margin: 0 .4em; }
-
-  .wordmark {
-    font-family: var(--serif-display);
-    font-weight: 300;
-    font-size: clamp(22px, 3.2vw, 40px);
-    letter-spacing: 0.18em;
-    line-height: 1;
-    color: var(--ink);
-    margin: 0 0 14px;
-    padding-left: 0.18em; /* optical: balance letterspacing */
-  }
-
-  .wordmark em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--gold);
-  }
-
-  .tagline {
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.42em;
-    color: var(--ink-dim);
-    text-transform: uppercase;
-    margin-bottom: 34px;
-  }
-
-  .tagline .bullet {
-    width: 3px;
-    height: 3px;
-    background: var(--gold);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .tagline .cn {
-    font-family: var(--serif-cn);
-    font-weight: 400;
-    letter-spacing: 0.3em;
-    color: var(--ink-dim);
-    text-transform: none;
-    font-size: 11px;
-  }
-
-  .header-meta {
-    font-family: var(--serif-body);
-    font-style: italic;
-    font-size: 15px;
-    color: var(--ink-dim);
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.75;
-    text-wrap: pretty;
-  }
-
-  /* ---------- SECTION HEADER (CATALOGUE) ---------- */
-
-  .section-mark {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: flex;
-    align-items: baseline;
-    gap: 28px;
-    width: 100%;
-  }
-
-  .section-mark .label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    text-transform: uppercase;
-    flex-shrink: 0;
-  }
-
-  .section-mark .rule {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--rule-bright), var(--rule), transparent);
-  }
-
-  .section-mark .count {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    flex-shrink: 0;
-  }
-
-  /* ---------- ALBUMS ---------- */
-
-  .albums {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 40px 48px;
-    width: 100%;
-    flex: 1;
-  }
-
-  .album-card {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 56px;
-    padding: 72px 0 64px;
-    border-bottom: 1px solid var(--rule);
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    transition: padding 0.35s ease;
-  }
-
-  .album-card:last-of-type {
-    border-bottom: none;
-  }
-
-  /* Hairline accent that slides in on hover - the only commercial flourish */
-  .album-card::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 1px;
-    background: var(--gold);
-    transition: width 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-
-  .album-card:hover::before { width: 100%; }
-
-  .album-spine {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    padding-top: 8px;
-  }
-
-  .spine-row {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .spine-key {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-  }
-
-  .spine-val {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    color: var(--ink-dim);
-  }
-
-  .spine-val.cat {
-    font-size: 28px;
-    font-weight: 300;
-    color: var(--gold);
-    letter-spacing: 0.06em;
-    font-family: var(--serif-display);
-    line-height: 1;
-    margin-top: -2px;
-  }
-
-  .album-body {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  .album-zh {
-    font-family: var(--serif-cn);
-    font-weight: 400;
-    font-size: clamp(46px, 5.4vw, 72px);
-    line-height: 1.05;
-    letter-spacing: 0.08em;
-    color: var(--ink);
-    margin-bottom: 8px;
-    transition: color 0.4s ease, letter-spacing 0.4s ease;
-  }
-
-  .album-zh .sep {
-    color: var(--gold);
-    margin: 0 0.18em;
-    font-size: 0.58em;
-    vertical-align: 0.25em;
-  }
-
-  .album-zh .alt {
-    font-family: var(--serif-display);
-    font-style: italic;
-    font-weight: 300;
-    font-size: 0.6em;
-    color: var(--ink-dim);
-    letter-spacing: 0.04em;
-  }
-
-  .album-en {
-    font-family: var(--serif-display);
-    font-weight: 300;
-    font-style: italic;
-    font-size: 22px;
-    color: var(--gold);
-    letter-spacing: 0.06em;
-    margin-bottom: 24px;
-  }
-
-  .album-en .pinyin {
-    font-style: normal;
-    font-weight: 400;
-    color: var(--gold-dim);
-  }
-
-  .album-desc {
-    font-family: var(--serif-body);
-    font-size: 17px;
-    line-height: 1.7;
-    color: var(--ink-dim);
-    max-width: 56ch;
-    text-wrap: pretty;
-    margin-bottom: 36px;
-  }
-
-  .album-foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    margin-top: auto;
-  }
-
-  .album-tags {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-  }
-
-  .album-tags .dot {
-    width: 2px;
-    height: 2px;
-    background: var(--ink-faint);
-    border-radius: 50%;
-  }
-
-  .listen {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    font-family: var(--serif-display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 16px;
-    color: var(--gold);
-    letter-spacing: 0.04em;
-    transition: gap 0.35s ease, color 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .listen .arrow {
-    display: inline-block;
-    width: 32px;
-    height: 1px;
-    background: var(--gold);
-    position: relative;
-    transition: width 0.35s ease;
-  }
-
-  .listen .arrow::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 50%;
-    width: 7px;
-    height: 7px;
-    border-top: 1px solid var(--gold);
-    border-right: 1px solid var(--gold);
-    transform: translateY(-50%) rotate(45deg);
-    transform-origin: center;
-  }
-
-  .album-card:hover .album-zh {
-    color: var(--gold-bright);
-    letter-spacing: 0.1em;
-  }
-
-  .album-card:hover .listen { gap: 18px; color: var(--gold-bright); }
-  .album-card:hover .listen .arrow { width: 48px; background: var(--gold-bright); }
-  .album-card:hover .listen .arrow::after { border-color: var(--gold-bright); }
-
-
-  /* ---------- MORE / CATEGORY TILES ---------- */
-  .more-section { max-width: 1120px; margin: 0 auto; padding: 0 40px 88px; width: 100%; }
-  .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--rule); margin-top: 32px; }
-  /* ---------- WALKMAN ENTRY BAR ---------- */
-  .walkman-entry { display:flex; align-items:center; justify-content:space-between; gap:20px; max-width:1120px; margin:30px auto 4px; padding:22px 40px; border:1px solid var(--rule-bright); background:linear-gradient(90deg, rgba(200,160,74,0.055), transparent); text-decoration:none; color:inherit; transition:all .3s ease; }
-  .walkman-entry:hover { border-color:var(--gold-dim); background:linear-gradient(90deg, rgba(200,160,74,0.10), transparent); }
-  .walkman-entry .we-left { display:flex; align-items:center; gap:18px; }
-  .walkman-entry .we-play { width:42px; height:42px; border:1px solid var(--gold-dim); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:13px; flex-shrink:0; transition:all .3s ease; }
-  .walkman-entry:hover .we-play { color:var(--gold-bright); border-color:var(--gold); }
-  .walkman-entry .we-zh { font-size:20px; color:#fff; letter-spacing:0.12em; }
-  .walkman-entry .we-en { font-size:10px; color:var(--gold); letter-spacing:0.24em; text-transform:uppercase; margin-top:4px; }
-  .walkman-entry .we-sub { font-size:11px; color:var(--ink-dim); letter-spacing:0.04em; text-align:right; line-height:1.7; }
-  @media (max-width:768px){ .walkman-entry{ padding:16px 22px; margin:22px auto 4px; } .walkman-entry .we-sub{ display:none; } .walkman-entry .we-zh{ font-size:17px; } }
-  .category-tile { padding: 52px 36px 44px; border-right: 1px solid var(--rule); text-decoration: none; color: inherit; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: background 0.3s ease; }
-  .category-tile:last-child { border-right: none; }
-  .category-tile::before { content: ""; position: absolute; left: 0; top: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
-  .category-tile:hover::before { width: 100%; }
-  .category-tile:hover { background: rgba(200,160,74,0.03); }
-  .tile-series { font-family: var(--mono); font-size: 9px; letter-spacing: 0.36em; color: var(--gold-dim); text-transform: uppercase; margin-bottom: 22px; }
-  .tile-zh { font-family: var(--serif-cn); font-size: clamp(34px, 3.2vw, 48px); color: var(--ink); line-height: 1.1; letter-spacing: 0.06em; margin-bottom: 8px; transition: color 0.3s ease; }
-  .category-tile:hover .tile-zh { color: var(--gold-bright); }
-  .tile-en { font-family: var(--serif-display); font-style: italic; font-weight: 300; font-size: 16px; color: var(--gold); letter-spacing: 0.06em; margin-bottom: 18px; }
-  .tile-count { font-family: var(--mono); font-size: 10px; letter-spacing: 0.28em; color: var(--ink-faint); text-transform: uppercase; margin-bottom: 40px; }
-  .tile-browse { margin-top: auto; display: inline-flex; align-items: center; gap: 12px; font-family: var(--serif-display); font-style: italic; font-size: 15px; color: var(--gold); transition: gap 0.3s ease; }
-  .tile-browse .arrow { display: inline-block; width: 28px; height: 1px; background: var(--gold); position: relative; transition: width 0.3s ease; }
-  .tile-browse .arrow::after { content: ""; position: absolute; right: 0; top: 50%; width: 6px; height: 6px; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); transform: translateY(-50%) rotate(45deg); }
-  .category-tile:hover .tile-browse { gap: 18px; }
-  .category-tile:hover .tile-browse .arrow { width: 44px; }
-
-  /* ---------- ABOUT ---------- */
-
-  .about {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 80px 40px 64px;
-    width: 100%;
-    border-top: 1px solid var(--rule);
-    position: relative;
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 56px;
-  }
-
-  .about-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.36em;
-    color: var(--gold);
-    text-transform: uppercase;
-    padding-top: 10px;
-  }
-
-  .about-label .cn {
-    display: block;
-    font-family: var(--serif-cn);
-    font-size: 10px;
-    color: var(--ink-faint);
-    letter-spacing: 0.24em;
-    margin-top: 8px;
-    text-transform: none;
-  }
-
-  .about-body {
-    max-width: 64ch;
-  }
-
-  .about-lede {
-    font-family: var(--serif-display);
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(22px, 2.2vw, 28px);
-    line-height: 1.45;
-    color: var(--ink);
-    margin-bottom: 28px;
-    text-wrap: pretty;
-  }
-
-  .about-lede em {
-    color: var(--gold);
-    font-style: italic;
-  }
-
-  .about-text {
-    font-family: var(--serif-body);
-    font-size: 16px;
-    line-height: 1.85;
-    color: var(--ink-dim);
-    margin-bottom: 18px;
-    text-wrap: pretty;
-  }
-
-  .about-text a {
-    color: var(--gold);
-    text-decoration: none;
-    border-bottom: 1px solid var(--gold-dim);
-    transition: color 0.2s, border-color 0.2s;
-    padding-bottom: 1px;
-  }
-
-  .about-text a:hover {
-    color: var(--gold-bright);
-    border-bottom-color: var(--gold-bright);
-  }
-
-  .about-aside {
-    margin-top: 28px;
-    padding-top: 22px;
-    border-top: 1px solid var(--rule);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    line-height: 2;
-  }
-
-  .about-aside .sep {
-    color: var(--ink-trace);
-    margin: 0 10px;
-  }
-
-  /* ---------- FOOTER ---------- */
-
-  footer {
-    border-top: 1px solid var(--rule);
-    padding: 28px 40px 34px;
-    max-width: 1120px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-  }
-
-  footer .ornament-small {
-    color: var(--gold-dim);
-    letter-spacing: 0.3em;
-  }
-
-  /* ---------- RESPONSIVE ---------- */
-
-  @media (max-width: 760px) {
-    header {
-      padding: 40px 22px 28px;
-    }
-    .ornament { margin-bottom: 28px; }
-    .tagline {
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 26px;
-    }
-    .tagline .bullet { display: none; }
-
-    .section-mark { padding: 0 22px; gap: 16px; }
-
-    .albums { padding: 0 22px 32px; }
-
-    .album-card {
-      grid-template-columns: 1fr;
-      gap: 26px;
-      padding: 48px 0 44px;
-    }
-
-    .album-spine {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 18px 28px;
-      padding-top: 0;
-    }
-
-    .spine-row { gap: 2px; }
-    .spine-val.cat { font-size: 22px; }
-    .spine-key { font-size: 8px; }
-    .spine-val { font-size: 11px; }
-
-    .album-zh {
-      font-size: clamp(38px, 11vw, 56px);
-      letter-spacing: 0.06em;
-    }
-    .album-en { font-size: 17px; margin-bottom: 18px; }
-    .album-desc { font-size: 15px; margin-bottom: 26px; }
-
-    .album-foot {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 18px;
-    }
-
-    .more-section { padding: 0 22px 64px; }
-    .category-grid { grid-template-columns: 1fr; }
-    .category-tile { border-right: none; border-bottom: 1px solid var(--rule); padding: 36px 22px 32px; }
-    .category-tile:last-child { border-bottom: none; }
-    .tile-zh { font-size: 36px; }
-    .about {
-      padding: 56px 22px 48px;
-    }
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-    .about-lede { font-size: 20px; }
-    .about-text { font-size: 15px; }
-
-    footer {
-      padding: 22px 22px 28px;
-      flex-direction: column;
-      gap: 10px;
-      text-align: center;
-      font-size: 9px;
-    }
-  }
-
-  @media (max-width: 420px) {
-    .wordmark { letter-spacing: 0.12em; }
-    .album-card { padding: 40px 0 36px; }
-  }
-
-
+  .practice{ padding:6vh 7vw; }
+  .navlinks{ gap:20px; font-size:13px; }
+  .music-strip{ padding:7vh 7vw; }
+  .contact{ padding:7vh 7vw; }
+  .page-hero{ padding:7vh 7vw 5vh; }
+  .page-body{ padding:0 7vw 6vh; }
+  .cta-box{ margin:0 7vw 8vh; padding:4vh 7vw; }
+  .foot{ flex-direction:column; gap:8px; padding:20px 7vw 28px; }
+}
 </style>
 </head>
 <body>
-<div class="stage">
 
-  <header>
-    <div class="ornament"><span>✦</span></div>
-    <h1 class="wordmark">G E M &nbsp;&nbsp; L E E</h1>
-    <div class="tagline">
-      <span>An Independent Catalogue</span>
-      <span class="bullet"></span>
-      <span class="cn">音乐目录</span>
-    </div>
-    <div class="header-meta" style="max-width:600px;">
-      <p>Music is a physical event. Sound waves moving through space — and, on entering the body, becoming perception, then feeling, then something the body knows before the mind names it. This lab works at that boundary.</p>
-      <p style="margin-top:1.5em;">Every piece here grows from conditions, not craft: an intention held, an emotional world prepared, a quality of care placed and held open. What arises from that soil is not specified. It comes. Released into the world, it carries many possibilities. Among all that it might reach — one confirmation. That the world is beautiful. That everything encountered is new. That what is present is already whole.</p>
-      <p style="margin-top:0.9em;font-size:13px;letter-spacing:0.03em;color:var(--gold-dim);">— after Chan Master Sheng Yen, Dharma Drum Mountain Buddhist Association</p>
-      <p style="margin-top:1.5em;">The rest — what opens in you when the sound arrives — is yours.</p>
-    </div>
-  </header>
-
-  <!-- WALKMAN -->
-  <a class="walkman-entry" href="/walkman/">
-    <div class="we-left">
-      <div class="we-play">&#9654;</div>
-      <div>
-        <div class="we-zh">随身听 &nbsp;·&nbsp; Walkman</div>
-        <div class="we-en">Press play, leave it on</div>
-      </div>
-    </div>
-    <div class="we-sub">随心 · Easy Going<br>40 tracks · all-day companion</div>
-  </a>
-
-  <!-- FEATURED -->
-  <div class="section-mark">
-    <div class="label">Featured</div>
-    <div class="rule"></div>
-    <div class="count">Ten Works · MMXXVI</div>
+<div class="nav">
+  <a class="wordmark" href="./">AthleSense</a>
+  <div class="navlinks">
+    <a href="#practices">Practices</a>
+    <a href="music/">Music</a>
+    <a href="#contact">Contact</a>
   </div>
-
-  <main class="albums">
-
-    <a class="album-card" href="/still-walking-3/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">033</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Fourteen</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Two Acoustic Guitars · Duo</span></div>
-        <div class="spine-row" style="margin-top:6px;padding-top:12px;border-top:1px solid var(--rule);">
-          <span class="spine-key" style="color:var(--gold-dim);">✦</span>
-          <span class="spine-val" style="font-size:10px;font-family:var(--serif-cn);color:var(--gold-dim);letter-spacing:0.1em;">万古长空，一朝风月</span>
-        </div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">步履不停三</h2>
-        <div class="album-en">Still Walking III <span class="pinyin">· Bùlǚ Bùtíng Sān</span></div>
-        <p class="album-desc">Fourteen pieces for two guitars — one voice for what happens inside, one for what happens outside. Most of us never fully tell the two apart. The distance between them is that distance itself: tangled at first, slowly coming into focus, and later drawing close again — not back into confusion, but into something that fits together.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Guitar Duo</span><span class="dot"></span><span>Instrumental</span><span class="dot"></span><span>Narrative Arc</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/the-platform/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">032</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Ten</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Acoustic Guitar · Mixed Ensemble</span></div>
-        <div class="spine-row" style="margin-top:6px;padding-top:12px;border-top:1px solid var(--rule);">
-          <span class="spine-key" style="color:var(--gold-dim);">✦</span>
-          <span class="spine-val" style="font-size:10px;font-family:var(--serif-cn);color:var(--gold-dim);letter-spacing:0.1em;">万古长空，一朝风月</span>
-        </div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">见证一：站台</h2>
-        <div class="album-en">Witness One: The Platform · Inspired by Jia Zhangke's <em>Platform</em> (1998)</div>
-        <p class="album-desc">Witness is not memorial, not judgment — it is sitting beside an ordinary life as it appears, quietly watching it show itself. Ten pieces for the decade inside Jia Zhangke's <em>Platform</em>: a train that never comes, a radio's first note from the outside world, an old city wall that outlives everyone who leaned against it. History rarely arrives as event. More often it is a rerouted line, a wall left standing, one person gone, another who stays.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Acoustic Guitar</span><span class="dot"></span><span>Bittersweet</span><span class="dot"></span><span>Film-Inspired</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/time-space-relocation/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">027</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">One</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Tape Phase / Minimal</span></div>
-        <div class="spine-row" style="margin-top:6px;padding-top:12px;border-top:1px solid var(--rule);">
-          <span class="spine-key" style="color:var(--gold-dim);">✦</span>
-          <span class="spine-val" style="font-size:10px;font-family:var(--serif-cn);color:var(--gold-dim);letter-spacing:0.1em;">万古长空，一朝风月</span>
-        </div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">时空迁移</h2>
-        <div class="album-en">Time-Space Relocation · In the spirit of Steve Reich's <em>It's Gonna Rain</em> (1965) and <em>Drumming</em> (1971)</div>
-        <p class="album-desc">One marimba loop, played twice simultaneously. One copy held back by exactly 1.7% of its tempo. For ten minutes, the two voices drift apart, reach maximum displacement, then slowly converge again. One complete phase cycle. Steve Reich phasing — one source, two tempos, one arc.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Marimba</span><span class="dot"></span><span>Tape Phase</span><span class="dot"></span><span>Minimal</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/beautiful-realm/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">026</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Seven</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Piano Nocturne</span></div>
-        <div class="spine-row" style="margin-top:6px;padding-top:12px;border-top:1px solid var(--rule);">
-          <span class="spine-key" style="color:var(--gold-dim);">✦</span>
-          <span class="spine-val" style="font-size:10px;font-family:var(--serif-cn);color:var(--gold-dim);letter-spacing:0.1em;">众里寻他千百度，蓦然回首</span>
-        </div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">美丽的境界</h2>
-        <div class="album-en">Gravity · In the spirit of John Barry's <em>Somewhere in Time</em> (1980) and the <em>Jane Eyre</em> theme (1970)</div>
-        <p class="album-desc">A fire at midnight. A lake so still it carries the moon undisturbed. A window, long after everyone has gone to sleep. Seven nocturnes for piano. The melody, each time, reaches upward — arrives at a note that doesn't quite belong — waits — then descends, one step at a time. Seven rooms. One sound.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Piano</span><span class="dot"></span><span>Nocturne</span><span class="dot"></span><span>Film-Inspired</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/still-walking/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">003</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Six</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Multi-Instrument Ensemble</span></div>
-        <div class="spine-row" style="margin-top:6px;padding-top:12px;border-top:1px solid var(--rule);">
-          <span class="spine-key" style="color:var(--gold-dim);">✦</span>
-          <span class="spine-val" style="font-size:10px;font-family:var(--serif-cn);color:var(--gold-dim);letter-spacing:0.1em;">步履不停往前走</span>
-        </div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">步履不停</h2>
-        <div class="album-en">Still Walking <span class="pinyin">· Bùlǚ Bùtíng</span> · Inspired by Hirokazu Koreeda's film (2008)</div>
-        <p class="album-desc">Six pieces for multi-instrument ensemble. An ordinary day, already becoming memory even as it happens — 物の哀れ, the beauty of impermanence. To feel it is not to grieve. It is to be awake. Life is not a destination. The harvest is not the point. The path moves forward — and the walking itself is the whole answer. Still walking.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Ensemble</span><span class="dot"></span><span>Collaboration</span><span class="dot"></span><span>Film-Inspired</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/white-road-ahead/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">013</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">One</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Jazz · Vocal · Memorial</span></div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh" style="font-family:var(--serif-display);font-style:italic;font-size:clamp(32px,4vw,52px);">The White Road Ahead</h2>
-        <div class="album-en">For Lee Sutton</div>
-        <p class="album-desc">He rode his Harley-Davidson alone on Highway 5 in a snowstorm — Seattle to Portland. Cold, wind, snow, the road entirely his own. He said it felt like happiness. Joyful. A West Coast Cool Jazz trumpet on the white road ahead.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Jazz</span><span class="dot"></span><span>Vocal</span><span class="dot"></span><span>Memorial</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/trees/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">010</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Seven</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Instrumental · Marimba &amp; Pan Flute</span></div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">树</h2>
-        <div class="album-en">Trees</div>
-        <p class="album-desc">Seven observations from a walk through old-growth forest. A tree that has been standing for two hundred years. The water rising through the wood. The light breaking through the canopy. The presence in ancient trees that has no name. Seven complete moments — a footstep, a color, a silence, a small wry recognition at the end.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Instrumental</span><span class="dot"></span><span>Marimba</span><span class="dot"></span><span>Pan Flute</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/silent-friend/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">006</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Seven</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Nylon Guitar · Vocal &amp; Instrumental</span></div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">寂静的朋友 (I)</h2>
-        <div class="album-en">Silent Friend (I) · Inspired by Ildikó Enyedi's film (2025)</div>
-        <p class="album-desc">Seven pieces for nylon-string guitar, voice, and strings. A ginkgo tree in a German university garden, witnessed across three lifetimes: 1908, 1972, 2020. The music does not retell those stories. It inhabits the same silence.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Spanish Vocals</span><span class="dot"></span><span>Nylon Guitar</span><span class="dot"></span><span>Film-Inspired</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/rolling/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">016</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Eleven</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Jazz · Piano Trio · Working Music</span></div>
-        <div class="spine-row" style="margin-top:6px;padding-top:12px;border-top:1px solid var(--rule);">
-          <span class="spine-key" style="color:var(--gold-dim);">✦</span>
-          <span class="spine-val" style="font-size:10px;font-family:var(--serif-cn);color:var(--gold-dim);letter-spacing:0.1em;">滚动是一种自由</span>
-        </div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">滚动</h2>
-        <div class="album-en">Rolling <span class="pinyin">· Working Music Three</span></div>
-        <p class="album-desc">Something starts rolling and doesn't stop. Not urgency — more like a river that knows where it's going without being in a hurry. Piano and archtop guitar, mostly without drums. A rolling left-hand feel, continuous and forward. Eleven pieces for working hours and quiet afternoons.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Jazz</span><span class="dot"></span><span>Piano Trio</span><span class="dot"></span><span>Working Music</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-    <a class="album-card" href="/facing-the-crowd/">
-      <div class="album-spine">
-        <div class="spine-row"><span class="spine-key">Catalogue №</span><span class="spine-val cat">018</span></div>
-        <div class="spine-row"><span class="spine-key">Year</span><span class="spine-val">MMXXVI · 2026</span></div>
-        <div class="spine-row"><span class="spine-key">Pieces</span><span class="spine-val">Eight</span></div>
-        <div class="spine-row"><span class="spine-key">Form</span><span class="spine-val">Cool Jazz · Trumpet &amp; Sax</span></div>
-        <div class="spine-row" style="margin-top:6px;padding-top:12px;border-top:1px solid var(--rule);">
-          <span class="spine-key" style="color:var(--gold-dim);">✦</span>
-          <span class="spine-val" style="font-size:10px;font-family:var(--serif-cn);color:var(--gold-dim);letter-spacing:0.1em;">潇洒，是一种装作没事</span>
-        </div>
-      </div>
-      <div class="album-body">
-        <h2 class="album-zh">面对人群</h2>
-        <div class="album-en">Facing the Crowd <span class="pinyin">· West Coast Cool Jazz</span> · Inspired by Wang Xiaoshuai &amp; Zhang Chu</div>
-        <p class="album-desc">Eight pieces about the face you keep while walking through a crowd. Two voices alternate: a dark trumpet (the inner — lonely, unwilling to be seen) and a suave alto sax (the surface — composed, pretending nothing's wrong). The mask goes down, and back up. By the fifth piece it comes all the way off; then, slowly, you stand and walk on. In homage to Chet Baker and Paul Desmond.</p>
-        <div class="album-foot">
-          <div class="album-tags"><span>Cool Jazz</span><span class="dot"></span><span>Trumpet</span><span class="dot"></span><span>Saxophone</span></div>
-          <div class="listen">Listen <span class="arrow"></span></div>
-        </div>
-      </div>
-    </a>
-
-  </main>
-
-  <!-- MORE -->
-  <div class="section-mark" style="margin-top:16px;">
-    <div class="label">More</div>
-    <div class="rule"></div>
-    <div class="count">Browse by Series · 更多系列</div>
-  </div>
-
-  <div class="more-section">
-    <div class="category-grid">
-
-      <a class="category-tile" href="/west-coast-cool-jazz/">
-        <div class="tile-series">Series · 系列</div>
-        <div class="tile-zh">西海岸冷爵士</div>
-        <div class="tile-en">West Coast Cool Jazz</div>
-        <div class="tile-count">Two Works · Baker &amp; Desmond</div>
-        <div class="tile-browse">Browse <span class="arrow"></span></div>
-      </a>
-
-      <a class="category-tile" href="/film/">
-        <div class="tile-series">Series · 系列</div>
-        <div class="tile-zh">光影</div>
-        <div class="tile-en">Film</div>
-        <div class="tile-count">Seven Works · Cinema-Inspired</div>
-        <div class="tile-browse">Browse <span class="arrow"></span></div>
-      </a>
-
-      <a class="category-tile" href="/working-music/">
-        <div class="tile-series">Series · 系列</div>
-        <div class="tile-zh">小猪系列</div>
-        <div class="tile-en">Working Music</div>
-        <div class="tile-count">Three Works · An Ongoing Series</div>
-        <div class="tile-browse">Browse <span class="arrow"></span></div>
-      </a>
-
-      <a class="category-tile" href="/feeling/">
-        <div class="tile-series">Series · 系列</div>
-        <div class="tile-zh">心境</div>
-        <div class="tile-en">Feeling</div>
-        <div class="tile-count">Seven Works · Atmosphere &amp; Mood</div>
-        <div class="tile-browse">Browse <span class="arrow"></span></div>
-      </a>
-
-    </div>
-  </div>
-
-  <section class="about">
-    <div class="about-grid">
-      <div class="about-label">
-        About This Music
-        <span class="cn">关于这些音乐</span>
-      </div>
-      <div class="about-body">
-        <p class="about-lede">These albums are made for sharing. <em>Listen freely. Pass them on.</em> If the music finds its way into your life, that is enough.</p>
-
-        <p class="about-text">If you use these recordings in a film, documentary, or serious commercial project — please write to me at <a href="mailto:nongming66@gmail.com">nongming66@gmail.com</a>. We will agree on an appropriate amount, which you then donate directly to <a href="https://www.ddmbaseattle.org/en-donations" target="_blank" rel="noopener">Dharma Drum Mountain Seattle Center (法鼓山西雅图分会)</a>. If you cannot reach me, you are welcome to contact the Seattle Center directly.</p>
-
-        <p class="about-text">A credit to &ldquo;Gem Lee&rdquo; is appreciated but not required.</p>
-
-        <div class="about-aside">
-          Concept, lyrics &amp; arrangement by Gem Lee
-          <span class="sep">/</span>
-          Audio synthesized via AI
-          <span class="sep">/</span>
-          nongming66@gmail.com
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <span>&copy; MMXXVI Gem Lee</span>
-    <span class="ornament-small">✦</span>
-    <span>All Rights Reserved</span>
-  </footer>
-
 </div>
+
+<section class="hero">
+  <div class="hero-line hero-reveal">Built at the line<br>between East and West.</div>
+  <p class="hero-sub hero-reveal" style="animation-delay:0.25s;">AthleSense Inc. works across two design practices — performance apparel and fashion design — both carrying a design method: translating an intention into fabric, fit, color, and construction, for a body and a life that move between two cultures.</p>
+</section>
+
+<section class="practices" id="practices">
+  <div class="practice">
+    <div class="practice-eyebrow">One</div>
+    <h2>Performance Apparel</h2>
+    <p>Fit, fabric behavior, and a written quality-control protocol — developed from close study of the performance-wear category, with a hooded outerwear layer as the current focus.</p>
+    <a class="learn-more" href="apparel/">Learn more</a>
+  </div>
+  <div class="seam"></div>
+  <div class="practice">
+    <div class="practice-eyebrow">Two</div>
+    <h2>Fashion Design</h2>
+    <p>A design method built at the line between two cultures &mdash; color, proportion, and construction worked out through structured research, not borrowed from one tradition and adapted for the other.</p>
+    <a class="learn-more" href="fashion/">Learn more</a>
+  </div>
+</section>
+
+<section class="music-strip">
+  <h2>A parallel body of work: <em>instrumental music</em>, composed and released under the name Gem Lee.</h2>
+  <a class="music-link" href="music/">Listen to the music</a>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Get in touch</h2>
+  <div class="contact-detail">
+    AthleSense Inc.<br>
+    Washington, USA<br>
+    <a href="mailto:letianlaw@gmail.com">letianlaw@gmail.com</a>
+  </div>
+</section>
+
+<div class="foot">
+  <div>&copy; 2026 AthleSense Inc.</div>
+  <div class="mantra">万古长空，一朝风月</div>
+</div>
+
 </body>
 </html>
