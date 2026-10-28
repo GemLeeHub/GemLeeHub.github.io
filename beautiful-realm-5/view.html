@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>浮世絵 ·《東海道五十三次》</title>
+<style>
+  :root {
+    --ink:        #0B0A09;
+    --paper:      #D6CEC0;
+    --paper-dim:  #9C9183;
+    --paper-faint:#6B6257;
+    --paper-lit:  #F0E8DA;
+    --serif-ja:   "Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif JP", "Source Han Serif JP", serif;
+    --serif-latin:"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    background: var(--ink);
+    color: var(--paper-dim);
+    font-family: var(--serif-latin);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .bar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 18px 26px 12px;
+  }
+  .bar .back {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--paper-faint); text-decoration: none; flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .bar .back:hover { color: var(--paper-lit); }
+  .bar .ttl {
+    font-family: var(--serif-ja);
+    font-size: 14px; letter-spacing: 0.08em; color: var(--paper);
+  }
+  .bar .sub {
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--paper-faint);
+  }
+
+  .stage {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 26px;
+  }
+  .stage img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    cursor: zoom-in;
+    image-rendering: auto;
+  }
+  .stage.zoom { align-items: flex-start; justify-content: flex-start; }
+  .stage.zoom img { max-width: none; max-height: none; cursor: zoom-out; }
+
+  .credit {
+    flex-shrink: 0;
+    padding: 12px 26px 16px;
+    font-size: 9px;
+    line-height: 1.9;
+    letter-spacing: 0.06em;
+    color: var(--paper-faint);
+  }
+  .credit a { color: var(--paper-faint); }
+  .credit .hint { color: #4A443C; }
+
+  @media (max-width: 768px) {
+    .bar { flex-wrap: wrap; gap: 8px 14px; padding: 14px 18px 10px; }
+    .stage { padding: 0 14px; }
+    .credit { padding: 10px 18px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="back" href="./index.html">&#9666; 戻る</a>
+  <span class="ttl" id="ttl"></span>
+  <span class="sub" id="sub"></span>
+</div>
+
+<div class="stage" id="stage"><img id="img" alt=""></div>
+
+<div class="credit">
+  <div id="credit"></div>
+  <div class="hint">歌川広重《東海道五十三次》保永堂版 &nbsp;·&nbsp; クリックで拡大 / Click to zoom &nbsp;·&nbsp; &#8592;&#8594; で前後</div>
+</div>
+
+<script>
+// 画像は差し替え可能：高解像度版が入ったら src と credit だけ書き換える。
+const ART = {
+  "01": { ja:"沼津《黄昏図》",   en:"Numazu",      src:"./art/01.jpg", credit:"Minneapolis Institute of Art, Gift of Louis W. Hill, Jr., P.77.39.7.1m — Public Domain" },
+  "02": { ja:"鞠子《名物茶店》", en:"Mariko",      src:"./art/02.jpg", credit:"Minneapolis Institute of Art, Gift of Louis W. Hill, Jr., P.77.39.7.1u — Public Domain" },
+  "03": { ja:"吉田《豊川橋》",   en:"Yoshida",     src:"./art/03.jpg", credit:"Minneapolis Institute of Art, Gift of Louis W. Hill, Jr., P.77.39.7.2h — Public Domain" },
+  "04": { ja:"庄野《白雨》",     en:"Shono",       src:"./art/04.jpg", credit:"Minneapolis Institute of Art, Gift of Louis W. Hill, Jr., P.77.39.7.2s — Public Domain" },
+  "05": { ja:"蒲原《夜之雪》",   en:"Kanbara",     src:"./art/05.jpg", credit:"Minneapolis Institute of Art, Gift of Louis W. Hill, Jr., P.77.39.7.1p — Public Domain" },
+  "06": { ja:"由井《薩埵嶺》",   en:"Yui",         src:"./art/06.jpg", credit:"Minneapolis Institute of Art, Gift of Louis W. Hill, Jr., P.77.39.7.1q — Public Domain" },
+  "07": { ja:"箱根《湖水図》",   en:"Hakone",      src:"./art/07.jpg", credit:"Minneapolis Institute of Art, Gift of Louis W. Hill, Jr., P.77.39.7.1k — Public Domain" },
+  "08": { ja:"阪之下《筆捨嶺》", en:"Sakanoshita", src:"./art/08.jpg", credit:"Minneapolis Institute of Art, Gift of Louis W. Hill, Jr., P.77.39.7.2v — Public Domain" },
+  "09": { ja:"土山《春之雨》",   en:"Tsuchiyama",  src:"./art/09.jpg", credit:"Minneapolis Institute of Art, Gift of Louis W. Hill, Jr., P.77.39.7.2w — Public Domain" }
+};
+
+const n = (new URLSearchParams(location.search).get('n') || '01').padStart(2,'0');
+const a = ART[n] || ART["01"];
+document.title = a.ja + " · 東海道五十三次";
+document.getElementById('ttl').textContent = a.ja;
+document.getElementById('sub').textContent = a.en;
+const img = document.getElementById('img');
+img.src = a.src;
+img.alt = a.ja;
+document.getElementById('credit').textContent = a.credit;
+
+const stage = document.getElementById('stage');
+img.addEventListener('click', () => stage.classList.toggle('zoom'));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { stage.classList.remove('zoom'); }
+  const k = {ArrowRight:1, ArrowLeft:-1}[e.key];
+  if (k) {
+    const next = String(((parseInt(n,10) - 1 + k + 9) % 9) + 1).padStart(2,'0');
+    location.search = '?n=' + next;
+  }
+});
+</script>
+</body>
+</html>

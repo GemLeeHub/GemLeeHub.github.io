@@ -145,6 +145,18 @@
   .np-number { font-size: 10px; letter-spacing: 0.35em; color: var(--paper-faint); margin-bottom: 14px; height: 13px; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
   .np-zh { font-family: var(--serif-sc); font-size: 44px; font-weight: normal; letter-spacing: 0.06em; color: var(--paper-lit); margin-bottom: 10px; line-height: 1.15; text-shadow: 0 2px 16px rgba(0,0,0,0.95); }
   .np-en { font-size: 12px; letter-spacing: 0.26em; color: var(--paper-dim); text-transform: uppercase; margin-bottom: 30px; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
+  .view-link {
+    font-family: var(--serif-ja);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: none;
+    color: var(--paper-faint);
+    text-decoration: none;
+    margin-left: 20px;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .view-link:hover { color: var(--paper-lit); }
 
   .np-story { font-size: 14px; line-height: 2.15; color: var(--paper); max-width: 540px; transition: opacity 0.4s ease; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
   .np-story p { margin-bottom: 16px; }
@@ -229,7 +241,7 @@
     <div class="now-playing">
       <div class="np-number" id="npNum">TRACK 01</div>
       <div class="np-zh" id="npZh">沼津《黄昏图》- 缘起</div>
-      <div class="np-en" id="npEn">Dusk at Numazu</div>
+      <div class="np-en" id="npEn">Dusk at Numazu<a class="view-link" id="viewLink" href="./view.html?n=01" target="_blank" rel="noopener">絵を見る &#9657;</a></div>
       <div class="np-story" id="npStory"></div>
     </div>
     <div class="controls" id="controls">
@@ -265,31 +277,31 @@
 const BASE='https://raw.githubusercontent.com/GemLeeHub/gemlee-music/main/';
 // bg: 每首自己的那幅画。dim: 按该幅实测亮度定的暗罩浓度，令九幅压暗后的明度一致。
 const tracks = [
-  { num:"01", zh:"沼津《黄昏图》- 缘起", en:"Dusk at Numazu", bg:"./bg/01.jpg", dim:0.780,
+  { num:"01", zh:"沼津《黄昏图》- 缘起", en:"Dusk at Numazu", bg:"./bg/01.jpg", dim:0.808,
     file:BASE+encodeURIComponent("01_沼津_缘起.mp3"),
     story:"<p lang=\"ja\">ふとした機会にこの一枚を見て、浮世絵が好きになった。月夜の道を数人が急いでいる。一人は大きな、誇張された面を背負っている。月は木の向こうにあり、川が曲がりながら流れていく。彼らは誰なのか。どこへ行くのか。なぜあれを背負っているのか。大道芸人か、民間の芸人か、神道の祭司か僧侶か、それとも母と娘、師と弟子か。絵は一つの場にすぎず、そこに小さな物語が置かれている——物語の気配は、そのなかにある。すべては、ここから始まった。</p><p lang=\"en\" class=\"en\">Two acoustic guitars in one room, nylon and steel, clearly different from each other. The steel-string carries the road; the nylon is the people on it, in short phrases. It stops mid-phrase and fades while still moving, rather than closing on a final chord.</p>" },
-  { num:"02", zh:"鞠子《名物茶店》- 趣", en:"The famous teahouse", bg:"./bg/02.jpg", dim:0.846,
+  { num:"02", zh:"鞠子《名物茶店》- 趣", en:"The famous teahouse", bg:"./bg/02.jpg", dim:0.824,
     file:BASE+encodeURIComponent("02_鞠子_趣.mp3"),
     story:"<p lang=\"ja\">以前は、この一枚をすぐにめくってしまっていた。月もない、曲がる川もない。あるのは斜面と一軒の家だけだ。けれど、なかにいる数人をよく見ると、その場を離れたくなくなる。どんな日々を送っているのだろう。腰掛けを持ち込んで、そばで話を聞いていられたら、さぞ心地よいだろうと思う。一枚の絵が本当に完成するのは、見る人がそのなかに入って完成させるときだ。何十年、何百年と、完成されつづけ、演じ直されつづけてきた——この絵は生きている。</p><p lang=\"en\" class=\"en\">A pan flute opens alone — breath before pitch — and sets the air of the place. A rosewood marimba comes in beneath it and stays beneath it. Even, unaccented, nobody in a hurry: a small business in a corner of the world where nothing much is at stake.</p>" },
-  { num:"03", zh:"吉田《豊川橋》- 飞", en:"The Toyokawa bridge", bg:"./bg/03.jpg", dim:0.843,
+  { num:"03", zh:"吉田《豊川橋》- 飞", en:"The Toyokawa bridge", bg:"./bg/03.jpg", dim:0.838,
     file:BASE+encodeURIComponent("03_吉田_飞.mp3"),
     story:"<p lang=\"ja\">水にはいくつもの色がある。手前は深い藍、中ほどは白み、遠くでまた藍に戻る。ひとすじの光がそこに落ちているようだ。遠くに長い橋があり、遠い山も見える。手前では普請の最中で、足場の上に人が立っている——その視点が変わっている。空を悠々と舞う鷹が見下ろしているような眺めだ。天は高く、地は広い。世界は、こんなにも大きかった。</p><p lang=\"en\" class=\"en\">Harp and pan flute, light and slow, with wide spacing and long decays. The viewpoint is from above rather than alongside. The tension in the print is not resolved, only looked at from further off.</p>" },
-  { num:"04", zh:"庄野《白雨》- 动", en:"White rain", bg:"./bg/04.jpg", dim:0.847,
+  { num:"04", zh:"庄野《白雨》- 动", en:"White rain", bg:"./bg/04.jpg", dim:0.810,
     file:BASE+encodeURIComponent("04_庄野_动.mp3"),
     story:"<p lang=\"ja\">この一枚が好きなのは、あまりにも本当だからだ。旅のとちゅうの一瞬が、不意に掴み取られている。背後には、天は蒼々、野は茫々と広がる。雨は斜めに走り、竹は風に押し曲げられ、人は皆、背を丸めて前へ押していく。一人は笠を風にめくり返されている——少しおかしく、同時に胸が締めつけられる。人生の難しさがそこにあり、人のうちにある途方もない力も、そこにある。</p><p lang=\"en\" class=\"en\">Two guitars with bare hands on the soundboards. Dry taps on the wood carry the rain; the lines bend forward and keep pushing. Force rather than speed — the hardness of a moment, and the strength that turns up inside people when it arrives.</p>" },
-  { num:"05", zh:"蒲原《夜之雪》- 声音", en:"Night snow", bg:"./bg/05.jpg", dim:0.850,
+  { num:"05", zh:"蒲原《夜之雪》- 声音", en:"Night snow", bg:"./bg/05.jpg", dim:0.829,
     file:BASE+encodeURIComponent("05_蒲原_声音.mp3"),
     story:"<p lang=\"ja\">静かすぎる。向こう側の音まで聞こえてきそうなほどだ。三人が背を丸め、うつむいて歩いている。これほどの雪のなかを、どこへ行くのだろう。雪の夜は寒いはずなのに、絵の前に立つと、感じるのは寒さではなく、静けさだ——そしてそのなかに、ほんの少しの温かさがある。</p><p lang=\"en\" class=\"en\">Two pan flutes, one in the middle register and one low underneath it, vibrato only on the long notes. The low flute is what keeps it from going cold. Quiet rather than cold, with a little warmth inside the quiet.</p>" },
-  { num:"06", zh:"由井《萨埵岭》- 我爱普鲁士蓝", en:"The Satta pass", bg:"./bg/06.jpg", dim:0.845,
+  { num:"06", zh:"由井《萨埵岭》- 我爱普鲁士蓝", en:"The Satta pass", bg:"./bg/06.jpg", dim:0.824,
     file:BASE+encodeURIComponent("06_由井_我爱普鲁士蓝.mp3"),
     story:"<p lang=\"ja\">プルシアンブルーは、もともと日本の顔料ではない。一七〇六年ごろ、ベルリンで偶然つくられた。当時はまだドイツという国はなく、プロイセンがあるだけだった。それが東へ渡ってくる。初めは高価で、絵にしか使えなかった。一八二〇年代の終わりには清でもつくられるようになり、やがてこの青は大量に版画のなかへ入り、日本中に広がり、のちにその絵とともに日本の外へ出ていった。曲は穏やかに始まる。歩いているうちに、ふいに心が弾んでくる。どこを見てもプルシアンブルーだ。二百年が過ぎても、この青は人を染める——そして最後に、私を見つけた。</p><p lang=\"en\" class=\"en\">Solo piano, and the shortest piece here. It begins level and walking, then lifts without warning into something cheerful and stays there. Prussian blue reached Japan from Berlin by way of the Qing; two hundred years later it is still catching people.</p>" },
-  { num:"07", zh:"箱根《湖水图》- 山", en:"The lake", bg:"./bg/07.jpg", dim:0.839,
+  { num:"07", zh:"箱根《湖水图》- 山", en:"The lake", bg:"./bg/07.jpg", dim:0.817,
     file:BASE+encodeURIComponent("07_箱根_山.mp3"),
     story:"<p lang=\"ja\">この一枚は、版画を一枚持っている。京都の小さな本屋で買ったものだ。店は金閣寺と龍安寺のあいだにあり、その日は長いこと、そこに居続けた。選んだのは、色があまりにも美しかったからだ。湖は青く、山の体もその多くが青く、あいだにさまざまな色が差し込まれている。山は秀でて、険しく立ち上がっている。それなのに、一枚の絵が与えてくるものは、やわらかく、美しい。</p><p lang=\"en\" class=\"en\">Solo harp, mountain and water in the same pair of hands: rising figures for the ridge, falling ones for the lake, many colours in between. Steep without being severe. The one print on this album of which Lee owns a copy.</p>" },
-  { num:"08", zh:"阪之下《筆捨嶺》- 雅", en:"Mount Fudesute", bg:"./bg/08.jpg", dim:0.858,
+  { num:"08", zh:"阪之下《筆捨嶺》- 雅", en:"Mount Fudesute", bg:"./bg/08.jpg", dim:0.844,
     file:BASE+encodeURIComponent("08_阪之下_雅.mp3"),
     story:"<p lang=\"ja\">この一枚は、あまり表に出てこない。それでも、ときどき頭に浮かんでくる。中国の文人は「仁者は山を楽しむ」と言う——山の下に人がいて、山に向かい、互いのあいだに詩と画の情が生まれる。昔の文人の心のなかには、たぶん皆こういう場所があった。親しい友を誘い、あるいは一人でそこに座るだけで、心は自分のつくった境地へ届く。文人でなくても、ときにはこう思う。一人で静かにあそこにいられたら、どんなにいいだろう。けれどこの絵は、とても地に足がついている。なかには、あらゆる人がいる。物売りも、担ぎ手も、遠くを眺めている者も、難儀しながら前へ進み、そんなものを見ている暇のない者もいる。誰もが、そのなかに自分の居場所を見つけられる。</p><p lang=\"en\" class=\"en\">Pan flute leading, piano behind it and never the other way round. Climbing, a turn in the path, then the view. The hillside holds everybody — the pedlar, the porter, the two men looking out, and the ones with no time to look at anything.</p>" },
-  { num:"09", zh:"土山《春之雨》- 水", en:"Spring rain", bg:"./bg/09.jpg", dim:0.817,
+  { num:"09", zh:"土山《春之雨》- 水", en:"Spring rain", bg:"./bg/09.jpg", dim:0.793,
     file:BASE+encodeURIComponent("09_土山_水.mp3"),
     story:"<p lang=\"ja\">はじめは、この一枚が好きではなかった。画面いっぱいの雨の線が、古い映画のスクリーンに降りつづける傷のように見えた。よさが分かったのは、あとになってからだ。この絵は「水」の一字で言い表せる。雨も水、岸から噴き出してくる流れも水。青と白の飛沫は、画面でいちばん明るいところだ。画面は重く、人は皆、雨に押されて背を丸めながら前へ歩いていく。けれど見つづけていると、絵がずっと下へ降り、下へ沈んでいくように思えてくる——そして底まで沈みきると、かえって足もとが定まる。手放す、ということだ。一歩は一歩、どの一歩も、地にしっかりついている。幾千幾万の雨粒が落ちてくる。それをどうするのか。どうもしない。諸法は法位に住す。</p><p lang=\"en\" class=\"en\">Two guitars: steel strings for the sheet of rain, nylon for the footsteps underneath it. The music keeps descending, and at the bottom it steadies. It does not try to please. Thousands of raindrops fall; nothing is done about them.</p>" },
 ];
@@ -304,6 +316,7 @@ const NOTES = "<p lang=\"ja\">浮世とは、紅塵であり、人の世のこ�
 + "<p lang=\"en\" class=\"en\">That is the beautiful realm.</p>";
 
 let current=0, loopAll=false, inNotes=false, bgTop=false;
+const viewLink=document.getElementById('viewLink');  // 常驻引用：npEn 换文字时它会被摘下，靠这个挂回去
 const audio=document.getElementById('audio');
 const bgA=document.getElementById('bgA'), bgB=document.getElementById('bgB');
 const bgOverlay=document.getElementById('bgOverlay');
@@ -335,7 +348,7 @@ function showNotes(){
   document.getElementById('ti'+current).classList.remove('active');
   document.getElementById('npNum').textContent='';
   document.getElementById('npZh').textContent='美丽的境界';
-  document.getElementById('npEn').textContent='序 · 結び';
+  document.getElementById('npEn').textContent='序 · 結び';  // viewLink 随 textContent 一并摘下
   const s=document.getElementById('npStory');
   s.style.opacity=0;
   setTimeout(()=>{s.innerHTML=NOTES;s.style.opacity=1;},200);
@@ -352,6 +365,8 @@ function loadTrack(idx,play){
   document.getElementById('npNum').textContent='TRACK '+t.num;
   document.getElementById('npZh').textContent=t.zh;
   document.getElementById('npEn').textContent=t.en;
+  viewLink.href='./view.html?n='+t.num;
+  document.getElementById('npEn').appendChild(viewLink);  // 重新挂回去
   const s=document.getElementById('npStory');
   s.style.opacity=0;
   setTimeout(()=>{s.innerHTML=t.story;s.style.opacity=1;},200);
