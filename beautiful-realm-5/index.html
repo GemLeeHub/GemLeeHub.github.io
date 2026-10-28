@@ -145,18 +145,50 @@
   .np-number { font-size: 10px; letter-spacing: 0.35em; color: var(--paper-faint); margin-bottom: 14px; height: 13px; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
   .np-zh { font-family: var(--serif-sc); font-size: 44px; font-weight: normal; letter-spacing: 0.06em; color: var(--paper-lit); margin-bottom: 10px; line-height: 1.15; text-shadow: 0 2px 16px rgba(0,0,0,0.95); }
   .np-en { font-size: 12px; letter-spacing: 0.26em; color: var(--paper-dim); text-transform: uppercase; margin-bottom: 30px; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
-  .view-link {
-    font-family: var(--serif-ja);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: none;
-    color: var(--paper-faint);
+  /* 大标题本身就是入口 */
+  .np-zh a {
+    color: inherit;
     text-decoration: none;
-    margin-left: 20px;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .np-zh a:hover { color: #fff; border-bottom-color: var(--paper-dim); }
+
+  /* 看得见的按钮 */
+  .view-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    font-family: var(--serif-latin);
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--paper-lit);
+    text-decoration: none;
+    padding: 11px 20px 11px 19px;
+    border: 1px solid rgba(156,145,131,0.55);
+    background: rgba(214,206,192,0.07);
     white-space: nowrap;
+    transition: all 0.2s;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+  }
+  .view-link .ja {
+    font-family: var(--serif-ja);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: none;
+    color: var(--paper-dim);
     transition: color 0.2s;
   }
-  .view-link:hover { color: var(--paper-lit); }
+  .view-link:hover {
+    color: var(--paper-lit);
+    border-color: var(--paper-dim);
+    background: rgba(214,206,192,0.12);
+  }
+  .view-link:hover .ja { color: var(--paper); }
+  .view-row { margin: -12px 0 30px; }
+  .view-row.hidden { display: none; }
 
   .np-story { font-size: 14px; line-height: 2.15; color: var(--paper); max-width: 540px; transition: opacity 0.4s ease; text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
   .np-story p { margin-bottom: 16px; }
@@ -218,6 +250,8 @@
     .main { padding: 24px 20px 16px; }
     .np-zh { font-size: 28px; }
     .np-en { font-size: 10px; margin-bottom: 20px; }
+    .view-link { font-size: 12px; padding: 10px 16px; letter-spacing: 0.18em; }
+    .view-row { margin: -8px 0 24px; }
     .np-story { font-size: 13px; max-width: 100%; }
     .footer { font-size: 8px; }
   }
@@ -240,8 +274,9 @@
   <div class="main">
     <div class="now-playing">
       <div class="np-number" id="npNum">TRACK 01</div>
-      <div class="np-zh" id="npZh">沼津《黄昏图》- 缘起</div>
-      <div class="np-en" id="npEn">Dusk at Numazu<a class="view-link" id="viewLink" href="./view.html?n=01" target="_blank" rel="noopener">絵を見る &#9657;</a></div>
+      <div class="np-zh"><a id="npZh" href="./view.html?n=01" target="_blank" rel="noopener">沼津《黄昏图》- 缘起</a></div>
+      <div class="np-en" id="npEn">Dusk at Numazu</div>
+      <div class="view-row" id="viewRow"><a class="view-link" id="viewLink" href="./view.html?n=01" target="_blank" rel="noopener">View the print &#8599;<span class="ja">絵を見る</span></a></div>
       <div class="np-story" id="npStory"></div>
     </div>
     <div class="controls" id="controls">
@@ -316,7 +351,8 @@ const NOTES = "<p lang=\"ja\">浮世とは、紅塵であり、人の世のこ�
 + "<p lang=\"en\" class=\"en\">That is the beautiful realm.</p>";
 
 let current=0, loopAll=false, inNotes=false, bgTop=false;
-const viewLink=document.getElementById('viewLink');  // 常驻引用：npEn 换文字时它会被摘下，靠这个挂回去
+const viewLink=document.getElementById('viewLink');
+const npZh=document.getElementById('npZh');
 const audio=document.getElementById('audio');
 const bgA=document.getElementById('bgA'), bgB=document.getElementById('bgB');
 const bgOverlay=document.getElementById('bgOverlay');
@@ -348,7 +384,8 @@ function showNotes(){
   document.getElementById('ti'+current).classList.remove('active');
   document.getElementById('npNum').textContent='';
   document.getElementById('npZh').textContent='美丽的境界';
-  document.getElementById('npEn').textContent='序 · 結び';  // viewLink 随 textContent 一并摘下
+  document.getElementById('npEn').textContent='序 · 結び';
+  document.getElementById('viewRow').classList.add('hidden');
   const s=document.getElementById('npStory');
   s.style.opacity=0;
   setTimeout(()=>{s.innerHTML=NOTES;s.style.opacity=1;},200);
@@ -365,8 +402,9 @@ function loadTrack(idx,play){
   document.getElementById('npNum').textContent='TRACK '+t.num;
   document.getElementById('npZh').textContent=t.zh;
   document.getElementById('npEn').textContent=t.en;
-  viewLink.href='./view.html?n='+t.num;
-  document.getElementById('npEn').appendChild(viewLink);  // 重新挂回去
+  const url='./view.html?n='+t.num;
+  viewLink.href=url; npZh.href=url;
+  document.getElementById('viewRow').classList.remove('hidden');
   const s=document.getElementById('npStory');
   s.style.opacity=0;
   setTimeout(()=>{s.innerHTML=t.story;s.style.opacity=1;},200);
